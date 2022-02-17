@@ -1,8 +1,8 @@
 # AutoResto
 
-## Pengelolaan Restoran
+## Restaurant Management System
 
-### Anggota Kelompok :
+### Team Member :
 
 - 1118018 - Antonius William Kolis
 - 1119004 - Calvin Jeremy
@@ -12,7 +12,7 @@
 
 ## Tools, Library, and Framework
 
-### Bahasa Pemrograman
+### Programming Language
 
 - [Go Language](https://golang.org/)
   <br>
@@ -24,7 +24,7 @@
   <br>
   MySQL, the most popular Open Source SQL database management system, is developed, distributed, and supported by Oracle Corporation.
 
-### Dukungan Framework
+### Framework
 
 - [Vue.JS](https://vuejs.org/)
   <br>
