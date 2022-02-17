@@ -29,6 +29,6 @@
 - [Vue.JS](https://vuejs.org/)
   <br>
   Vue.JS is a progressive, incrementally-adoptable JavaScript framework for building UI on the web
-- [GORM](https://gorm.io/index.html)
+- [Gorilla Mux](https://gorm.io/index.html)
   <br>
-  The fantastic ORM library for Golang aims to be developer friendly. Full-Featured ORM.
+  The implements a request router and dispatcher for matching incoming requests to their respective handler.
