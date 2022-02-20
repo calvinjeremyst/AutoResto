@@ -1,55 +1,51 @@
-CREATE TABLE user(
+CREATE TABLE `role`(
+    id int NOT NULL PRIMARY KEY,
+    userType varchar(20)
+);
+
+CREATE TABLE `user`(
+    id int PRIMARY KEY NOT NULL,
     email varchar(50),
-    idUser int PRIMARY KEY NOT NULL,
-    name_ varchar(50) NOT NULL,
+    password varchar(50),
+    name varchar(50) NOT NULL,
     phoneNumber varchar(10) NOT NULL,
     position varchar(10) NOT NULL,
+    idRole int,
+    FOREIGN KEY (idRole) REFERENCES role(id)
 );
 
-CREATE TABLE food(
-    idFood varchar PRIMARY KEY NOT NULL,
-    foodname varchar(20) NOT NULL,
-    price float NOT NULL,
-    idMaterialFK varchar,
-    idRecipeFK varchar,
-    PRIMARY KEY(idFood),
-    FOREIGN KEY(idMaterialFK) REFERENCES material(idMaterial),
-    FOREIGN KEY(idRecipeFK) REFERENCES recipe(idRecipeFK)
-);
-
-CREATE TABLE recipe(
-    idRecipe varchar(5) NOT NULL PRIMARY KEY,
-    descript varchar(255)
-
-);
-
-CREATE TABLE material(
-    idMaterial varchar(5) NOT NULL PRIMARY KEY,
-    names varchar(20) NOT NULL,
+CREATE TABLE `material`(
+    id int NOT NULL PRIMARY KEY,
+    name varchar(20) NOT NULL,
     weight int NOT NULL
 );
 
-CREATE TABLE recipeDetail(
-    quantity int,
-    idDetilRecipe varchar NOT NULL,
-    idMaterialFK varchar,
-    idRecipeFK varchar,
-    PRIMARY KEY(idDetilRecipe),
-    FOREIGN KEY (idMaterialFK) REFERENCES material(idMaterial),    
-    FOREIGN KEY (idRecipeFK) REFERENCES recipe(idRecipe)
-
+CREATE TABLE `recipe`(
+    id int NOT NULL PRIMARY KEY,
+    description varchar(255)
 );
 
-CREATE TABLE inventory(
+CREATE TABLE `food`(
+    id int PRIMARY KEY NOT NULL,
+    name varchar(20) NOT NULL,
+    price float(8) NOT NULL,
+    idMaterialFK int,
+    idRecipeFK int,
+    FOREIGN KEY(idMaterialFK) REFERENCES material(id),
+    FOREIGN KEY(idRecipeFK) REFERENCES recipe(id)
+);
+
+CREATE TABLE `recipedetail`(
+    id int NOT NULL PRIMARY KEY,
+    quantity int,
+    idMaterialFK int,
+    idRecipeFK int,
+    FOREIGN KEY (idMaterialFK) REFERENCES material(id),    
+    FOREIGN KEY (idRecipeFK) REFERENCES recipe(id)
+);
+
+CREATE TABLE `inventory`(
+     id int NOT NULL PRIMARY KEY,
      capacity int NOT NULL,
      loc varchar(20)
-
-)
-
-CREATE TABLE userRole(
-    userType int PRIMARY KEY NOT NULL,
-    idUserFK int,
-    PRIMARY KEY(userType),
-    FOREIGN KEY (idUserFK) REFERENCES user(idUser)
-
 );
