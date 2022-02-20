@@ -1,6 +1,7 @@
 package entity
 
 type Inventory struct {
+	id       int
 	capacity int
 	location string
 }
@@ -8,6 +9,14 @@ type Inventory struct {
 type InventoryResponse struct {
 	Message string      `form:"message" json:"message"`
 	Data    []Inventory `form:"data" json:"data"`
+}
+
+func (i *Inventory) GetId() int {
+	return i.id
+}
+
+func (i *Inventory) SetId(id int) {
+	i.id = id
 }
 
 func (i *Inventory) GetCapacity() int {

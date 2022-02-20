@@ -5,13 +5,13 @@ import (
 )
 
 type User struct {
-	email       string `form:"email" json:"email"`
-	password    []byte `form:"password" json:"password"`
-	name        string `form:"name" json:"name"`
-	phoneNumber string `form:"phoneNumber" json:"phoneNumber"`
-	position    string `form:"position" json:"position"`
-	id          int    `form:"id" json:"id"`
-	roles       UserRole
+	email       string   `form:"email" json:"email"`
+	password    []byte   `form:"password" json:"password"`
+	name        string   `form:"name" json:"name"`
+	phoneNumber string   `form:"phonenumber" json:"phonenumber"`
+	position    string   `form:"position" json:"position"`
+	id          int      `form:"id" json:"id"`
+	roles       UserRole `form:"role" json:"role"`
 }
 
 type UserResponse struct {

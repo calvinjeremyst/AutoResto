@@ -5,8 +5,8 @@ import (
 )
 
 type RecipeDetail struct {
-	material m.Material
-	quantity int `form:"quality" json:"quality"`
+	material m.Material `form:"material" json:"material"`
+	quantity int        `form:"quality" json:"quality"`
 }
 
 type RecipeDetailResponse struct {
