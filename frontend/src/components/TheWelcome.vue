@@ -71,6 +71,7 @@ import SupportIcon from './icons/IconSupport.vue'
     twitter account for latest news in the Vue world.
   </WelcomeItem>
 
+
   <WelcomeItem>
     <template #icon>
       <SupportIcon />

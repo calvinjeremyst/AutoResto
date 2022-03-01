@@ -5,10 +5,10 @@ import TheWelcome from './components/TheWelcome.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img alt="AutoResto logo" class="logo" src="./assets/AutoResto.png" width="100" height="100" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg="AutoResto | Halaman Sambutan" />
     </div>
   </header>
 </template>
@@ -34,9 +34,9 @@ header {
 }
 
 a,
-.green {
+.color {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: rgba(184, 144, 68, 0.822);
   transition: 0.4s;
 }
 
