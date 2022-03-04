@@ -1,4 +1,4 @@
-package recipe
+package entity
 
 type Recipe struct {
 	id          int    `form:"id" json:"id"`
