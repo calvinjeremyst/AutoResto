@@ -1,12 +1,12 @@
 package recipe
 
 import (
-	"github.com/AutoResto/backend/module/material"
+	entity "github.com/AutoResto/backend/module/material"
 )
 
 type RecipeDetail struct {
-	material material.Material `form:"material" json:"material"`
-	quantity int               `form:"quality" json:"quality"`
+	material entity.Material `form:"material" json:"material"`
+	quantity int             `form:"quality" json:"quality"`
 }
 
 type RecipeDetailResponse struct {
