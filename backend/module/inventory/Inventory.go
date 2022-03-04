@@ -1,4 +1,4 @@
-package entity
+package inventory
 
 type Inventory struct {
 	id       int
