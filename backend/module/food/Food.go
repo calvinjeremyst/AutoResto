@@ -1,4 +1,4 @@
-package entity
+package food
 
 type Food struct {
 	name  string  `form:"name" json:"name"`
