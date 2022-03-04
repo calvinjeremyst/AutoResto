@@ -1,9 +1,9 @@
 package entity
 
 type Material struct {
+	id     int    `form:"id" json:"id"`
 	name   string `form:"name" json:"name"`
 	weight int    `form:"weight" json:"weight"`
-	id     int    `form:"id" json:"id"`
 }
 
 type MaterialResponse struct {
