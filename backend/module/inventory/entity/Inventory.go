@@ -1,9 +1,9 @@
-package inventory
+package entity
 
 type Inventory struct {
-	id       int
-	capacity int
-	location string
+	id       int    `form:"id" json:"id"`
+	capacity int    `form:"capacity" json:"capacity"`
+	location string `form:"location" json:"location"`
 }
 
 type InventoryResponse struct {
