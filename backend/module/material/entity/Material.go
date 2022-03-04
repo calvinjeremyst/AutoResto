@@ -1,4 +1,4 @@
-package material
+package entity
 
 type Material struct {
 	name   string `form:"name" json:"name"`
