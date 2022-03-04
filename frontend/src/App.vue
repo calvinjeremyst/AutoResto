@@ -2,6 +2,8 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import header from './views/Header.vue'
+import footer from './views/Footer.vue'
 </script>
 
 <template>
