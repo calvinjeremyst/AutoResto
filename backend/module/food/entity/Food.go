@@ -1,9 +1,9 @@
 package entity
 
 type Food struct {
+	id    int     `form:"id" json:"id"`
 	name  string  `form:"name" json:"name"`
 	price float64 `form:"price" json:"price"`
-	id    int     `form:"id" json:"id"`
 }
 
 type FoodResponse struct {
