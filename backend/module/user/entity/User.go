@@ -110,7 +110,7 @@ func connect() *sql.DB{
 }
 
 func sendLoginSuccessResponse(c *gin.Context,log LoginResponse){
-	c.JSON(http.StatusBadRequest,log)
+	c.JSON(http.StatusOK,log)
 
 }
 

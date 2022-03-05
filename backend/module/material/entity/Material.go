@@ -3,12 +3,21 @@ package entity
 type Material struct {
 	id     int    `form:"id" json:"id"`
 	name   string `form:"name" json:"name"`
-	weight int    `form:"weight" json:"weight"`
+	quantity int    `form:"quantity" json:"quantity"`
+	unit 	 string `form : "unit" json : "unit"`
 }
 
 type MaterialResponse struct {
 	Message string     `form:"message" json:"message"`
 	Data    []Material `form:"data" json:"data"`
+}
+
+func (m *Material) GetUnit() string{
+	return m.unit
+}
+
+func (m *Material) SetUnit(unit string){
+	m.unit = unit
 }
 
 func (m *Material) GetName() string {
@@ -19,12 +28,12 @@ func (m *Material) SetName(name string) {
 	m.name = name
 }
 
-func (m *Material) GetWeight() int {
-	return m.weight
+func (m *Material) GetQuantity() int {
+	return m.quantity
 }
 
-func (m *Material) SetWeigh(weight int) {
-	m.weight = weight
+func (m *Material) SetQuantity(quantity int) {
+	m.quantity = quantity
 }
 
 func (m *Material) GetId() int {

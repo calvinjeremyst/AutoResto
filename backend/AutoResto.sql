@@ -17,7 +17,8 @@ CREATE TABLE `user`(
 CREATE TABLE `material`(
     id int PRIMARY KEY,
     name varchar(128) NOT NULL,
-    weight float(8) NOT NULL
+    quantity int(10) NOT NULL,
+    unit varchar(10)
 );
 
 CREATE TABLE `recipe`(
