@@ -1,12 +1,8 @@
 package entity
 
-import (
-	"golang.org/x/crypto/bcrypt"
-)
-
 type User struct {
 	email       string   `form:"email" json:"email"`
-	password    []byte   `form:"password" json:"password"`
+	password    string   `form:"password" json:"password"`
 	name        string   `form:"name" json:"name"`
 	phoneNumber string   `form:"phonenumber" json:"phonenumber"`
 	position    string   `form:"position" json:"position"`
@@ -27,30 +23,8 @@ func (u *User) SetEmail(email string) {
 	u.email = email
 }
 
-func (u *User) GetHashPassword() []byte {
+func (u *User) GetPassword() string {
 	return u.password
-}
-
-func (u *User) SetHashPassword(rawPassword string) {
-	// Hashing the password with the default cost of 10
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(rawPassword), bcrypt.DefaultCost)
-	if err != nil {
-		panic(err)
-	}
-	u.password = hashedPassword
-}
-
-func (u *User) SetRawPassword(password []byte) {
-	u.password = password
-}
-
-func (u *User) ComparePassword(rawPassword string) bool {
-	// Comparing the password with the hash
-	err := bcrypt.CompareHashAndPassword(u.password, []byte(rawPassword))
-	if err != nil { // nil means it is a match
-		return false
-	}
-	return true
 }
 
 func (u *User) GetName() string {
