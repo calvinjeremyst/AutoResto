@@ -1,8 +1,8 @@
 package entity
 
 type Recipe struct {
-	id          int    `form:"id" json:"id"`
-	description string `form:"description" json:"description"`
+	Id          int    `form:"id" json:"id"`
+	Description string `form:"description" json:"description"`
 }
 
 type RecipeResponse struct {
@@ -10,18 +10,18 @@ type RecipeResponse struct {
 	Data    []Recipe `form:"data" json:"data"`
 }
 
-func (r *Recipe) GetId() int {
-	return r.id
-}
+// func (r *Recipe) GetId() int {
+// 	return r.id
+// }
 
-func (r *Recipe) SetId(id int) {
-	r.id = id
-}
+// func (r *Recipe) SetId(id int) {
+// 	r.id = id
+// }
 
-func (r *Recipe) GetDescription() string {
-	return r.description
-}
+// func (r *Recipe) GetDescription() string {
+// 	return r.description
+// }
 
-func (r *Recipe) SetDescription(description string) {
-	r.description = description
-}
+// func (r *Recipe) SetDescription(description string) {
+// 	r.description = description
+// }
