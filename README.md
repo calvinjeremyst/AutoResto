@@ -29,6 +29,6 @@
 - [Vue.JS](https://vuejs.org/)
   <br>
   Vue.JS is a progressive, incrementally-adoptable JavaScript framework for building UI on the web
-- [Gorilla Mux](https://gorm.io/index.html)
+- [Gin Gonic](https://github.com/gin-gonic)
   <br>
-  The implements a request router and dispatcher for matching incoming requests to their respective handler.
+  Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster.
