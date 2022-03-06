@@ -1,12 +1,15 @@
 package entity
 
 import (
-	"github.com/AutoResto/module/material/entity"
+	entityMaterial "github.com/AutoResto/module/material/entity"
 )
 
 type RecipeDetail struct {
-	material entity.Material `form:"material" json:"material"`
-	quantity int             `form:"quality" json:"quality"`
+	Id       int                     `form:"id" json:"id"`
+	Material entityMaterial.Material `form:"idMaterial" json:"idMaterial"`
+	Recipe   Recipe                  `form:"idRecipe" json:"idRecipe"`
+	Quantity int                     `form:"quality" json:"quality"`
+	Unit     string                  `form:"unit" json:"unit"`
 }
 
 type RecipeDetailResponse struct {
@@ -14,10 +17,10 @@ type RecipeDetailResponse struct {
 	Data    []RecipeDetail `form:"data" json:"data"`
 }
 
-func (r *RecipeDetail) GetQuantity() int {
-	return r.quantity
-}
+// func (r *RecipeDetail) GetQuantity() int {
+// 	return r.quantity
+// }
 
-func (r *RecipeDetail) SetQuantity(quantity int) {
-	r.quantity = quantity
-}
+// func (r *RecipeDetail) SetQuantity(quantity int) {
+// 	r.quantity = quantity
+// }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Mar 2022 pada 08.40
+-- Waktu pembuatan: 06 Mar 2022 pada 04.54
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.12
 
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `autoresto`
 --
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `food`
---
-
-CREATE TABLE `food` (
-  `id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `price` float NOT NULL,
-  `idRecipeFK` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `food`
---
-
-INSERT INTO `food` (`id`, `name`, `price`, `idRecipeFK`) VALUES
-(1, 'Nasi Goreng Spesial', 20000, 1);
 
 -- --------------------------------------------------------
 
@@ -103,6 +83,26 @@ INSERT INTO `material` (`id`, `name`, `quantity`, `unit`) VALUES
 (5, 'Garam', 2, 'KG'),
 (6, 'Micin', 2, 'KG'),
 (7, 'Ayam', 10, 'KG');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `menu`
+--
+
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `price` float NOT NULL,
+  `idRecipeFK` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `menu`
+--
+
+INSERT INTO `menu` (`id`, `name`, `price`, `idRecipeFK`) VALUES
+(1, 'Nasi Goreng Spesial', 20000, 1);
 
 -- --------------------------------------------------------
 
@@ -201,13 +201,6 @@ INSERT INTO `userrole` (`id`, `userType`) VALUES
 --
 
 --
--- Indeks untuk tabel `food`
---
-ALTER TABLE `food`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idRecipeFK` (`idRecipeFK`) USING BTREE;
-
---
 -- Indeks untuk tabel `inventory`
 --
 ALTER TABLE `inventory`
@@ -225,6 +218,13 @@ ALTER TABLE `location`
 --
 ALTER TABLE `material`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idRecipeFK` (`idRecipeFK`) USING BTREE;
 
 --
 -- Indeks untuk tabel `recipe`
@@ -267,7 +267,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT untuk tabel `recipedetail`
 --
 ALTER TABLE `recipedetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -284,6 +284,13 @@ ALTER TABLE `user`
 --
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`location`) REFERENCES `location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  ADD CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`idMaterialFK`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `menu_ibfk_2` FOREIGN KEY (`idRecipeFK`) REFERENCES `recipe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `recipedetail`
