@@ -1,58 +1,64 @@
-CREATE TABLE `userrole`(
-    id int PRIMARY KEY,
-    userType varchar(20) NOT NULL
-);
+CREATE TABLE `inventory`(
+  id int(11) AUTO_INCREMENT,
+  capacity int(11) NOT NULL,
+  location int(11) NOT NULL,
+  PRIMARY KEY (id)
+); 
 
-CREATE TABLE `user`(
-    id int PRIMARY KEY,
-    email varchar(128),
-    password varchar(128),
-    name varchar(128) NOT NULL,
-    phoneNumber varchar(50) NOT NULL,
-    position varchar(10) NOT NULL,
-    idRole int,
-    FOREIGN KEY (idRole) REFERENCES userrole(id) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE `location`(
+  id int(11) AUTO_INCREMENT,
+  loc_name varchar(128) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE `material`(
-    id int PRIMARY KEY,
-    name varchar(128) NOT NULL,
-    quantity int(10) NOT NULL,
-    unit varchar(10)
+  id int(11) AUTO_INCREMENT,
+  name varchar(128) NOT NULL,
+  quantity float NOT NULL,
+  unit varchar(50) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE `recipe`(
-    id int PRIMARY KEY,
-    description varchar(255)
+  id int(11) AUTO_INCREMENT,
+  description varchar(255) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE `recipedetail`(
-    id int PRIMARY KEY,
-    quantity int,
-    idMaterialFK int,
-    idRecipeFK int,
-    FOREIGN KEY (idMaterialFK) REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE,    
-    FOREIGN KEY (idRecipeFK) REFERENCES recipe(id) ON UPDATE CASCADE ON DELETE CASCADE
+  id int(11) AUTO_INCREMENT,
+  quantity int(11) NOT NULL,
+  idMaterialFK int(11) DEFAULT NULL,
+  idRecipeFK int(11) DEFAULT NULL,
+  unit varchar(50) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idMaterialFK) REFERENCES material(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (idRecipeFK) REFERENCES recipe(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `food`(
-    id int PRIMARY KEY,
-    name varchar(128) NOT NULL,
-    price float(8) NOT NULL,
-    idMaterialFK int,
-    idRecipeFK int,
-    FOREIGN KEY(idMaterialFK) REFERENCES material(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY(idRecipeFK) REFERENCES recipe(id) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE `menu`(
+  id int(11) AUTO_INCREMENT,
+  name varchar(128) NOT NULL,
+  price float NOT NULL,
+  idRecipeFK int(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idRecipeFK) REFERENCES recipe(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `location`(
-	id int PRIMARY KEY,
-	loc_name varchar(128) NOT NULL
+CREATE TABLE `userrole`(
+  id int(11) AUTO_INCREMENT,
+  userType varchar(20) NOT NULL,
+  PRIMARY KEY (id)
 );
 
-CREATE TABLE `inventory`(
-     id int PRIMARY KEY,
-     capacity int NOT NULL,
-     location int,
-	 FOREIGN KEY(location) REFERENCES location(id) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE `user`(
+  id int(11) AUTO_INCREMENT,
+  email varchar(128) NOT NULL,
+  password varchar(128) NOT NULL,
+  name varchar(128) NOT NULL,
+  phoneNumber varchar(50) NOT NULL,
+  position varchar(10) NOT NULL,
+  idRole int(11) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idRole) REFERENCES userrole(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

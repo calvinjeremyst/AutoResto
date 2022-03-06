@@ -1,37 +1,29 @@
 package inventory
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
 	"strconv"
 
+	"github.com/AutoResto/controller"
+	//controller "github.com/AutoResto/controller"
 	model "github.com/AutoResto/module/material/entity"
 	"github.com/gin-gonic/gin"
 )
 
-func connect() *sql.DB {
-	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/autoresto?parseTime=true&loc=Asia%2FJakarta")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return db
-
-}
 
 func InsertMaterial(c *gin.Context) {
 
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
 
-	id, _ := strconv.Atoi(c.PostForm("id"))
 	name := c.PostForm("name")
 	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
 	unit := c.PostForm("unit")
 
-	_, errQuery := db.Exec("INSERT INTO material(id,name,quantity,unit) VALUES(?,?,?,?)",
-		id,
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)",
+		
 		name,
 		quantity,
 		unit)
@@ -49,12 +41,12 @@ func InsertMaterial(c *gin.Context) {
 }
 
 func SearchMaterial(c *gin.Context){
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
 
-	idmaterial := c.Param("id")
+	namematerial := c.Param("name")
 
-	query := "SELECT * FROM `material` WHERE id = '"+idmaterial+"'"
+	query := "SELECT * FROM `material` WHERE id = '"+namematerial+"'"
 
 	rows,err := db.Query(query)
 	if err != nil {
@@ -64,13 +56,9 @@ func SearchMaterial(c *gin.Context){
 	var material model.Material
 	var materials []model.Material
 	
-	var id = material.GetId()
-	var materialname = material.GetName()
-	var materialquantity = material.GetQuantity()
-	var materialunit = material.GetUnit()
-
+	
 	for rows.Next(){
-		if err := rows.Scan(id,materialname,materialquantity,materialunit);err != nil{
+		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
 			log.Fatal(err.Error())
 		}else{
 			materials = append(materials, material)
@@ -93,7 +81,7 @@ func SearchMaterial(c *gin.Context){
 
 func GetMaterial(c* gin.Context){
 
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	query := "SELECT * FROM material"
@@ -105,14 +93,8 @@ func GetMaterial(c* gin.Context){
 	var material model.Material
 	var materials []model.Material
 
-	var idmaterial = material.GetId()
-	var materialname = material.GetName()
-	var materialquantity = material.GetQuantity()
-	var materialunit = material.GetUnit()
-
-
 	for rows.Next(){
-		if err := rows.Scan(idmaterial,materialname,materialquantity,materialunit);err != nil{
+		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
 			log.Fatal(err.Error())
 		}else{
 			materials = append(materials, material)
@@ -134,12 +116,12 @@ func GetMaterial(c* gin.Context){
 
 func UpdateMaterial(c *gin.Context){
 
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	idMaterial := c.Param("id")
 	materialName := c.PostForm("name")
-	_,materialQuantity := strconv.Atoi(c.PostForm("quantity"))
+	materialQuantity,_ := strconv.Atoi(c.PostForm("quantity"))
 	materialUnit := c.PostForm("unit")
 
 	
@@ -147,28 +129,24 @@ func UpdateMaterial(c *gin.Context){
 
 	var material model.Material
 
-	var id = material.GetId()
-	var name = material.GetName()
-	var qty = material.GetQuantity()
-	var unt = material.GetUnit()
-
+	
 
 	for rows.Next(){
-		if err := rows.Scan(id,name,qty,unt);err!= nil{
+		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err!= nil{
 			log.Fatal(err.Error())
 		}
 	}
 
 	if materialName == ""{
-		materialName = name
+		materialName = material.Name
 	}
 
 	if materialQuantity == materialQuantity{
-		materialQuantity = materialQuantity 
+		materialQuantity = material.Quantity
 	}
 
 	if materialUnit == ""{
-		materialUnit = unt
+		materialUnit = material.Unit
 	}
 
 	_, errQuery := db.Exec("UPDATE material SET name = ?,quantity = ?,unit = ? WHERE id = ?",
@@ -187,18 +165,12 @@ func UpdateMaterial(c *gin.Context){
 		sendMaterialErrorResponse(c,response)
 	}
 
-
-
-
-	
-
-
 	
 }
 
 func DeleteMaterial(c *gin.Context){
 
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	idmaterial := c.Param("id")
@@ -214,8 +186,6 @@ func DeleteMaterial(c *gin.Context){
 		response.Message = "Delete Failed"
 		sendMaterialErrorResponse(c,response)
 	}
-
-
 
 }
 
