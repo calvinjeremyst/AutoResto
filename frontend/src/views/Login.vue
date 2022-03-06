@@ -88,7 +88,7 @@ export default {
 }
 
 .box1 {
-  background-color: white;
+  background-color: darkslategray;
   margin: 5%;
   margin-top: 10px;
 }

@@ -16,7 +16,7 @@
 
 <script>
     import OwnerNavbar from "./components/OwnerNavbar";
-    import InventoryNavbar from "./components/StaffNavbar";
+    import InventoryNavbar from "./components/InventoryNavbar";
     import ChefNavbar from "./components/ChefNavbar";
     import Login from "./services/Login";
     import Footer from "./components/Footer";
@@ -29,16 +29,14 @@
             const data = [];
             return {
                 userType: "",
-                loginService: new LoginService(),
+                loginService: new Login(),
                 data,
             };
         },
         components: {
-            Navbar,
             OwnerNavbar,
-            StaffNavbar,
+            InventoryNavbar,
             ChefNavbar,
-            DeliveryNavbar,
             Footer,
         },
         methods: {
@@ -53,7 +51,7 @@
 </script>
 
 <style lang="scss">
-@import "../scss/main.scss";
+@import "../src/assets/main.scss";
 
 .app {
   background-color: #ececec;

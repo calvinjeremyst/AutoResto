@@ -43,7 +43,7 @@
 </template>
 <script>
 import axios from "axios";
-import LoginService from "@/services/LoginService";
+import Login from "@/services/Login";
 
 export default {
   mounted() {
@@ -53,7 +53,7 @@ export default {
     const data = [];
     return {
       userType: "",
-      loginService: new LoginService(),
+      loginService: new Login(),
 
       data,
     };

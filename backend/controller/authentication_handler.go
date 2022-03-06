@@ -17,7 +17,7 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-func generateToken(c *gin.Context, id int, name string, email string) {
+func GenerateToken(c *gin.Context, id int, name string, email string) {
 	tokenExpiryTime := time.Now().Add(60 * time.Minute)
 
 	claims := &Claims{
@@ -28,51 +28,21 @@ func generateToken(c *gin.Context, id int, name string, email string) {
 			ExpiresAt: tokenExpiryTime.Unix(),
 		},
 	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	signedToken, err := token.SignedString(jwtKey)
 	if err != nil {
 		return
 	}
 
-	// c.SetCookie(tokenName, signedToken, tokenExpiryTime, "/", "localhost", false, true)
 	c.SetCookie(tokenName, signedToken, 1000, "/", "localhost", false, true)
 }
 
-func resetUserToken(c *gin.Context) {
+func ResetUserToken(c *gin.Context) {
 	c.SetCookie(tokenName, "", -1, "/", "localhost", false, true)
 }
 
-// func Authenticate(accessType int) gin.HandlerFunc {
-//  return func(c *gin.Context) {
-//   isValidToken := validateUserToken(c, accessType)
-//   if !isValidToken {
-//    var response model.UserResponse
-//    response.Message = "Unauthorized Access"
-//    fmt.Println("Unauthorized Access")
-//    // sendUnAuthorizedResponse(c, response)
-//    c.Abort()
-//    return
-//   } else {
-//    c.Next()
-//   }
-//  }
-// }
-
-// func validateUserToken(c *gin.Context, accessType int) bool {
-//  isAccessTokenValid, id, name, email := validateTokenFromCookies(c)
-//  fmt.Print(id, email, userType, accessType, isAccessTokenValid)
-
-//  if isAccessTokenValid {
-//   isUserValid := name == accessType
-//   fmt.Print(isUserValid)
-//   if isUserValid {
-//    return true
-//   }
-//  }
-//  return false
-// }
-
-func validateTokenFromCookies(c *gin.Context) (bool, int, string, string) {
+func ValidateTokenFromCookies(c *gin.Context) (bool, int, string, string) {
 	if cookie, err := c.Cookie(tokenName); err == nil {
 		accessToken := cookie
 		accessClaims := &Claims{}
