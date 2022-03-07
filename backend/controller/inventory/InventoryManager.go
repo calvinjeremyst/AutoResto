@@ -46,7 +46,7 @@ func SearchMaterial(c *gin.Context){
 
 	namematerial := c.Param("name")
 
-	query := "SELECT * FROM `material` WHERE id = '"+namematerial+"'"
+	query := "SELECT * FROM `material` WHERE name = '"+namematerial+"'"
 
 	rows,err := db.Query(query)
 	if err != nil {
@@ -141,9 +141,6 @@ func UpdateMaterial(c *gin.Context){
 		materialName = material.Name
 	}
 
-	if materialQuantity == materialQuantity{
-		materialQuantity = material.Quantity
-	}
 
 	if materialUnit == ""{
 		materialUnit = material.Unit

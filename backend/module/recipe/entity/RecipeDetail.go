@@ -5,8 +5,11 @@ import (
 )
 
 type RecipeDetail struct {
-	material entity.Material `form:"material" json:"material"`
-	quantity int             `form:"quality" json:"quality"`
+	Id 	int  `form : "id" json : "id"`
+	Unit string `form : "unit" json : ""unit`
+	Material entity.Material `form:"material" json:"material"`
+	Recipe Recipe `form : "recipe" json : "recipe"`
+	Quantity int             `form:"quality" json:"quality"`
 }
 
 type RecipeDetailResponse struct {
@@ -14,10 +17,3 @@ type RecipeDetailResponse struct {
 	Data    []RecipeDetail `form:"data" json:"data"`
 }
 
-func (r *RecipeDetail) GetQuantity() int {
-	return r.quantity
-}
-
-func (r *RecipeDetail) SetQuantity(quantity int) {
-	r.quantity = quantity
-}

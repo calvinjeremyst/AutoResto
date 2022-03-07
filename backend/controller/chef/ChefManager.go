@@ -1,54 +1,48 @@
 package chef
 
 import (
-	"database/sql"
+	
 	"log"
 	"net/http"
 	"strconv"
 
-	"github.com/AutoResto/controller"
-	modelFood "github.com/AutoResto/module/food/entity"
+	controller "github.com/AutoResto/controller"
+	modelMenu "github.com/AutoResto/module/menu/entity"
 	modelRecipe "github.com/AutoResto/module/recipe/entity"
 	"github.com/gin-gonic/gin"
 )
 
-func connect() *sql.DB {
-	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/autoresto?parseTime=true&loc=Asia%2FJakarta")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return db
 
-}
 
 
  func GetRecipeandMenu(c *gin.Context){
 
-	db := connect()
+	db := controller.Connect()
 	defer db.Close()
-
-	query := "SELECT food.name AS foodname recipe.description AS recipe FROM food JOIN recipe ON food.id = recipe.idFood"
+	id := c.Param("id")
+	query := "SELECT recipe.id,recipe.description,menu.id,menu.name,menu.price FROM recipe INNER JOIN menu ON recipe.id = menu.idRecipeFK WHERE recipe.id = '"+id+"'"
 	rows,err := db.Query(query)
 	
 	if err != nil{
 		log.Println(err)
 	}
 
-	var food modelFood.Food
+	var menu modelMenu.Menu
 	var recipe modelRecipe.Recipe
-	var foods []modelFood.Food
+	var foods []modelMenu.Menu
 	var recipes []modelRecipe.Recipe
 
 	for rows.Next(){
-		if err := rows.Scan(food.Name,recipe.Description);err != nil{
+		if err := rows.Scan(&recipe.Id,&recipe.Description,&menu.Id,&menu.Name,&menu.Price);err != nil{
 			log.Fatal(err)
 		}else{
-			foods = append(foods, food)
 			recipes = append(recipes, recipe)
+			foods = append(foods, menu)
+			
 		}
 	}
 
-	var responseFood modelFood.FoodResponse
+	var responseFood modelMenu.MenuResponse
 	var responseRecipe modelRecipe.RecipeResponse
 
 	
@@ -62,20 +56,20 @@ func connect() *sql.DB {
 		sendRecipeSuccessResponse(c,responseRecipe)
 
 	}else{
-		responseFood.Message = "Food  Get Success"
-		responseRecipe.Message = "Recipe Get Success"
+		responseFood.Message = "Food  Get Failed"
+		responseRecipe.Message = "Recipe Get Failed"
 		sendFoodErrorResponse(c,responseFood)
 		sendRecipeErrorResponse(c,responseRecipe)
 	}
 
  }
 
-
+ //masih di usahakan :v
  func RecordChangeMenu(c *gin.Context){
 	db := controller.Connect()
 	defer db.Close()
 
-	var notchangeMenu modelFood.Food
+	var notchangeMenu modelMenu.Menu
 	//If there is no changes
 	foodId := c.Param("id")
 	foodName := c.PostForm("name")
@@ -87,7 +81,7 @@ func connect() *sql.DB {
 		foodPrice = int(notchangeMenu.Price)
 
 		rows,err := db.Query("SELECT name,price FROM food")
-		var notchangeMenus 	  []modelFood.Food
+		var notchangeMenus 	  []modelMenu.Menu
 		
 
 		for rows.Next(){
@@ -98,7 +92,7 @@ func connect() *sql.DB {
 			}	
 			
 		}
-		var oldrepsonse modelFood.FoodResponse
+		var oldrepsonse modelMenu.MenuResponse
 		if err == nil{
 			oldrepsonse.Message = "Memunculkan Data yang tidak di update"
 			oldrepsonse.Data = notchangeMenus
@@ -108,8 +102,8 @@ func connect() *sql.DB {
 			sendFoodSuccessResponse(c,oldrepsonse)
 		}
 	}else{
-		var changeMenus 	  []modelFood.Food
-		var changeMenu modelFood.Food
+		var changeMenus []modelMenu.Menu
+		var changeMenu modelMenu.Menu
 		_, query := db.Exec("UPDATE food SET name = ?,price = ? WHERE id = ?",
 			foodName,
 			foodPrice,
@@ -125,9 +119,7 @@ func connect() *sql.DB {
 			}
 		}
 
-
-
-		var newresponse modelFood.FoodResponse
+		var newresponse modelMenu.MenuResponse
 		if query == nil && err2 == nil {
 			newresponse.Message = "Update Food Success"
 			newresponse.Data = changeMenus
@@ -143,7 +135,7 @@ func connect() *sql.DB {
 	}	
  }
 
- func sendFoodSuccessResponse(c *gin.Context, response modelFood.FoodResponse){
+ func sendFoodSuccessResponse(c *gin.Context, response modelMenu.MenuResponse){
 	c.JSON(http.StatusOK, response)
  }
 
@@ -151,7 +143,7 @@ func connect() *sql.DB {
 	c.JSON(http.StatusOK, response)
  }
 
- func sendFoodErrorResponse(c *gin.Context,response modelFood.FoodResponse){
+ func sendFoodErrorResponse(c *gin.Context,response modelMenu.MenuResponse){
 	 c.JSON(http.StatusBadRequest,response)
 
  }

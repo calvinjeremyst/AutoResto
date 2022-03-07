@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	inventoryCt "github.com/AutoResto/controller/inventory"
+	chefCt "github.com/AutoResto/controller/chef"
+	ownerCt "github.com/AutoResto/controller/owner"
 )
 
 func main() {
@@ -33,12 +35,22 @@ func main() {
 
 	inventory := router.Group("/InventoryManager")
 	{
-		inventory.GET("/search",inventoryCt.SearchMaterial)
+		inventory.GET("/:name",inventoryCt.SearchMaterial)
 		inventory.POST("/insert",inventoryCt.InsertMaterial)
 		inventory.PUT("/:id",inventoryCt.UpdateMaterial)
 		inventory.DELETE("/:id",inventoryCt.DeleteMaterial)
 	}
 
+	chef := router.Group("/ChefManager")
+	{
+		chef.GET("/:id",chefCt.GetRecipeandMenu)
+		
+	}
+	
+	owner := router.Group("/OwnerManager")
+	{
+		owner.GET("/:id",ownerCt.GetRecipe)
+	}
 
 	router.Run(":8080")
 	fmt.Println("Connected to port 8080")

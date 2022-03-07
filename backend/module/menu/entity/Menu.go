@@ -1,14 +1,14 @@
 package entity
 
-type Food struct {
+type Menu struct {
 	Id    int     `form:"id" json:"id"`
 	Name  string  `form:"name" json:"name"`
 	Price float64 `form:"price" json:"price"`
 	
 }
 
-type FoodResponse struct {
+type MenuResponse struct {
 	Message string `form:"message" json:"message"`
-	Data    []Food `form:"data" json:"data"`
+	Data    []Menu `form:"data" json:"data"`
 }
 
