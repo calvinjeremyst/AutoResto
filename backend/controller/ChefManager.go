@@ -23,7 +23,6 @@ func GetRecipeandMenu(c *gin.Context){
 		log.Println(err)
 	}
 
-	
 	var recipe modelRecipe.Recipe
 	var recipes []modelRecipe.Recipe
 
@@ -31,27 +30,19 @@ func GetRecipeandMenu(c *gin.Context){
 		if err := rows.Scan(&recipe.Id,&recipe.Description,&recipe.Menu.Id,&recipe.Menu.Name,&recipe.Menu.Price);err != nil{
 			log.Fatal(err)
 		}else{
-			recipes = append(recipes, recipe)
-			
-			
+			recipes = append(recipes, recipe)			
 		}
 	}
 	
 	var responseRecipe modelRecipe.RecipeResponse
-
-
 	if err == nil{
-	
 		responseRecipe.Message = "Get Recipe Success"
 		responseRecipe.Data = recipes
 		sendRecipeSuccessResponse(c,responseRecipe)
-
 	}else{
-		
 		responseRecipe.Message = "Recipe Get Failed"
 		sendRecipeErrorResponse(c,responseRecipe)
 	}
-
  }
 
  //masih di usahakan :v
@@ -65,7 +56,6 @@ func GetRecipeandMenu(c *gin.Context){
 	foodName := c.PostForm("name")
 	foodPrice,_ := strconv.Atoi(c.PostForm("price"))
 	
-
 	if foodName == "" && foodPrice == foodPrice{
 		foodName = notchangeMenu.Name
 		foodPrice = int(notchangeMenu.Price)
@@ -73,14 +63,12 @@ func GetRecipeandMenu(c *gin.Context){
 		rows,err := db.Query("SELECT name,price FROM food")
 		var notchangeMenus 	  []modelMenu.Menu
 		
-
 		for rows.Next(){
 			if err := rows.Scan(&notchangeMenu.Name,&notchangeMenu.Price);err != nil{
 				log.Fatal(err)
 			}else{
 				notchangeMenus = append(notchangeMenus,notchangeMenu)
-			}	
-			
+			}		
 		}
 		var oldrepsonse modelMenu.MenuResponse
 		if err == nil{
@@ -98,7 +86,6 @@ func GetRecipeandMenu(c *gin.Context){
 			foodName,
 			foodPrice,
 			foodId,
-
 		)
 		rows2,err2 := db.Query("SELECT name,price FROM food")
 		for rows2.Next(){
@@ -114,13 +101,9 @@ func GetRecipeandMenu(c *gin.Context){
 			newresponse.Message = "Update Food Success"
 			newresponse.Data = changeMenus
 			sendFoodSuccessResponse(c,newresponse)
-		
-
 		}else{
 			newresponse.Message = "Update Food Failed"
 			sendFoodErrorResponse(c,newresponse)
 		}
-
-		
 	}	
  }
