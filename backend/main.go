@@ -9,9 +9,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-	inventoryCt "github.com/AutoResto/controller/inventory"
-	chefCt "github.com/AutoResto/controller/chef"
-	ownerCt "github.com/AutoResto/controller/owner"
+
+	controller "github.com/AutoResto/controller"
+	entity "github.com/AutoResto/module/user/entity"
 )
 
 func main() {
@@ -33,23 +33,33 @@ func main() {
 
 	router.GET("/login", entity.Login)
 
-	inventory := router.Group("/InventoryManager")
+	// Inventory Manager
+	InventoryManager := router.Group("/InventoryManager")
 	{
-		inventory.GET("/:name",inventoryCt.SearchMaterial)
-		inventory.POST("/insert",inventoryCt.InsertMaterial)
-		inventory.PUT("/:id",inventoryCt.UpdateMaterial)
-		inventory.DELETE("/:id",inventoryCt.DeleteMaterial)
+		InventoryManager.POST("/insert", controller.InsertMaterial)
+		InventoryManager.GET("/allmaterial", controller.GetAllMaterial)
+		InventoryManager.PUT("/:material_id", controller.UpdateMaterial)
+		InventoryManager.DELETE("/:material_id", controller.DeleteMaterial)
 	}
 
-	chef := router.Group("/ChefManager")
+	//Chef Manager
+	ChefManager := router.Group("/ChefManager")
 	{
-		chef.GET("/:id",chefCt.GetRecipeandMenu)
-		
+		ChefManager.GET("/allmenu", controller.GetListMenu)
+		ChefManager.GET("/:menu_id", controller.GetMenuRecipe)
 	}
-	
-	owner := router.Group("/OwnerManager")
+
+	//Owner Manager
+	OwnerManager := router.Group("/OwnerManager")
 	{
-		owner.GET("/:id",ownerCt.GetAllRecipe)
+		OwnerManager.GET("/menu/:menu_name", controller.SearchMenu)
+		OwnerManager.GET("/material/:material_name", controller.SearchMaterial)
+		OwnerManager.GET("/allmaterial", controller.GetAllMaterial)
+		OwnerManager.GET("/allmenu", controller.GetListMenu)
+		OwnerManager.GET("/:recipe_name", controller.GetAllRecipe)
+		OwnerManager.POST("/insert", controller.InsertMenu)
+		OwnerManager.PUT("/:menu_id", controller.UpdateMenu)
+		OwnerManager.DELETE("/:menu_id", controller.DeleteMenu)
 	}
 
 	router.Run(":8080")

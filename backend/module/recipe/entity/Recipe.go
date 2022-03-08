@@ -1,4 +1,5 @@
 package entity
+
 import (
 	MN "github.com/AutoResto/module/menu/entity"
 )
@@ -13,6 +14,3 @@ type RecipeResponse struct {
 	Message string   `form:"message" json:"message"`
 	Data    []Recipe `form:"data" json:"data"`
 }
-
-
-

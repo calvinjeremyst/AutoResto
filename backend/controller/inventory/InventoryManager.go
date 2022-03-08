@@ -7,14 +7,12 @@ import (
 	"strconv"
 
 	"github.com/AutoResto/controller"
-	//controller "github.com/AutoResto/controller"
 	model "github.com/AutoResto/module/material/entity"
 	"github.com/gin-gonic/gin"
 )
 
 
 func InsertMaterial(c *gin.Context) {
-
 	db := controller.Connect()
 	defer db.Close()
 
@@ -55,8 +53,6 @@ func SearchMaterial(c *gin.Context){
 
 	var material model.Material
 	var materials []model.Material
-	
-	
 	for rows.Next(){
 		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
 			log.Fatal(err.Error())
@@ -80,7 +76,6 @@ func SearchMaterial(c *gin.Context){
 }
 
 func GetMaterial(c* gin.Context){
-
 	db := controller.Connect()
 	defer db.Close()
 
@@ -111,11 +106,9 @@ func GetMaterial(c* gin.Context){
 		fmt.Println(err)
 		sendMaterialErrorResponse(c,response)
 	}
-
 }
 
 func UpdateMaterial(c *gin.Context){
-
 	db := controller.Connect()
 	defer db.Close()
 
@@ -124,13 +117,9 @@ func UpdateMaterial(c *gin.Context){
 	materialQuantity,_ := strconv.Atoi(c.PostForm("quantity"))
 	materialUnit := c.PostForm("unit")
 
-	
-	rows, _ := db.Query("SELECT * fROM material WHERE id = '"+idMaterial+"'")
+  rows, _ := db.Query("SELECT * fROM material WHERE id = '"+idMaterial+"'")
 
 	var material model.Material
-
-	
-
 	for rows.Next(){
 		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err!= nil{
 			log.Fatal(err.Error())
@@ -140,7 +129,6 @@ func UpdateMaterial(c *gin.Context){
 	if materialName == ""{
 		materialName = material.Name
 	}
-
 
 	if materialUnit == ""{
 		materialUnit = material.Unit
@@ -161,12 +149,9 @@ func UpdateMaterial(c *gin.Context){
 		response.Message = "Update Material Failed"
 		sendMaterialErrorResponse(c,response)
 	}
-
-	
 }
 
 func DeleteMaterial(c *gin.Context){
-
 	db := controller.Connect()
 	defer db.Close()
 
@@ -183,20 +168,12 @@ func DeleteMaterial(c *gin.Context){
 		response.Message = "Delete Failed"
 		sendMaterialErrorResponse(c,response)
 	}
-
 }
-
 
 func sendMaterialSuccessResponse(c *gin.Context, response model.MaterialResponse) {
 	c.JSON(http.StatusOK, response)
-
 }
 
 func sendMaterialErrorResponse(c *gin.Context, response model.MaterialResponse) {
 	c.JSON(http.StatusBadRequest, response)
-
 }
-
-
-
-
