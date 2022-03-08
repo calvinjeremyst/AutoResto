@@ -38,11 +38,7 @@ func GenerateToken(c *gin.Context, id int, name string, email string) {
 	c.SetCookie(tokenName, signedToken, 1000, "/", "localhost", false, true)
 }
 
-func ResetUserToken(c *gin.Context) {
-	c.SetCookie(tokenName, "", -1, "/", "localhost", false, true)
-}
-
-func ValidateTokenFromCookies(c *gin.Context) (bool, int, string, string) {
+func validateTokenFromCookies(c *gin.Context) (bool, int, string, string) {
 	if cookie, err := c.Cookie(tokenName); err == nil {
 		accessToken := cookie
 		accessClaims := &Claims{}
