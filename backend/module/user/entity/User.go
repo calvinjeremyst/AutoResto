@@ -72,4 +72,5 @@ func sendLoginSuccessResponse(c *gin.Context, log LoginResponse) {
 
 func sendLoginErrorResponse(c *gin.Context, err LoginResponse) {
 	c.JSON(http.StatusBadRequest, err)
+
 }

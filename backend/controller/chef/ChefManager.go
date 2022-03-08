@@ -16,14 +16,14 @@ func GetRecipeandMenu(c *gin.Context){
 	db := controller.Connect()
 	defer db.Close()
 
-	id := c.Param("id")
+  id := c.Param("id")
 	query := "SELECT recipe.id,recipe.description,menu.id,menu.name,menu.price FROM recipe INNER JOIN menu ON recipe.id = menu.idRecipeFK WHERE recipe.id = '"+id+"'"
 	rows,err := db.Query(query)
 	
 	if err != nil{
 		log.Println(err)
 	}
-	
+
 	var recipe modelRecipe.Recipe
 	var recipes []modelRecipe.Recipe
 	for rows.Next(){
@@ -59,19 +59,19 @@ func GetRecipeandMenu(c *gin.Context){
 	if foodName == "" && foodPrice == foodPrice{
 		foodName = notchangeMenu.Name
 		foodPrice = int(notchangeMenu.Price)
+
 		rows,err := db.Query("SELECT name,price FROM food")
 		
-		var notchangeMenus 	  []modelMenu.Menu
+    var notchangeMenus 	  []modelMenu.Menu
 		for rows.Next(){
 			if err := rows.Scan(&notchangeMenu.Name,&notchangeMenu.Price);err != nil{
 				log.Fatal(err)
 			}else{
 				notchangeMenus = append(notchangeMenus,notchangeMenu)
-			}	
-			
+			}		
 		}
-
-		var oldrepsonse modelMenu.MenuResponse
+		
+    var oldrepsonse modelMenu.MenuResponse
 		if err == nil{
 			oldrepsonse.Message = "Memunculkan Data yang tidak di update"
 			oldrepsonse.Data = notchangeMenus
@@ -88,6 +88,7 @@ func GetRecipeandMenu(c *gin.Context){
 			foodPrice,
 			foodId,
 		)
+    
 		rows2,err2 := db.Query("SELECT name,price FROM food")
 		for rows2.Next(){
 			if err2 := rows2.Scan(&changeMenu.Name,&changeMenu.Price);err2 != nil{
@@ -123,5 +124,4 @@ func GetRecipeandMenu(c *gin.Context){
 
  func sendRecipeErrorResponse(c *gin.Context,response modelRecipe.RecipeResponse){
 	c.JSON(http.StatusBadRequest,response)
-}
- 
+ }

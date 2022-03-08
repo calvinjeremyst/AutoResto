@@ -4,13 +4,12 @@ import (
 
 	"log"
 	"net/http"
-	controller  "github.com/AutoResto/controller"
+	"github.com/AutoResto/controller"
 	modelRecipe "github.com/AutoResto/module/recipe/entity"
 	"github.com/gin-gonic/gin"
 )
 
 func GetAllRecipe(c *gin.Context){
-
 	db := controller.Connect()
 	defer db.Close()
 
@@ -172,38 +171,5 @@ func DeleteMenu(c *gin.Context) {
 	} else {
 		response.Message = "Delete Menu Failed Error"
 		sendMenuErrorResponse(c, response)
-	}
-}
-
-// Get Recipe
-func GetAllRecipe(c *gin.Context) {
-	db := Connect()
-	defer db.Close()
-
-	query := "SELECT id,description FROM recipe"
-
-	rows, err := db.Query(query)
-	if err != nil {
-		log.Println(err)
-	}
-
-	var recipe modelRecipe.RecipeDetail
-	var recipes []modelRecipe.RecipeDetail
-
-	for rows.Next() {
-		if err := rows.Scan(&recipe.Id, &recipe.Quantity, &recipe.Unit); err != nil {
-			log.Fatal(err.Error())
-		} else {
-			recipes = append(recipes, recipe)
-		}
-	}
-
-	var response modelRecipe.RecipeDetailResponse
-	if err == nil {
-		response.Message = "Delete Menu Success"
-		sendRecipeDetailSuccessResponse(c, response)
-	} else {
-		response.Message = "Delete Menu Failed Error"
-		sendRecipeDetailErrorResponse(c, response)
 	}
 }

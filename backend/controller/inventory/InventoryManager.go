@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/AutoResto/controller"
-	//controller "github.com/AutoResto/controller"
 	model "github.com/AutoResto/module/material/entity"
 	"github.com/gin-gonic/gin"
 )
@@ -54,7 +53,6 @@ func SearchMaterial(c *gin.Context){
 
 	var material model.Material
 	var materials []model.Material
-	
 	for rows.Next(){
 		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
 			log.Fatal(err.Error())
@@ -119,7 +117,7 @@ func UpdateMaterial(c *gin.Context){
 	materialQuantity,_ := strconv.Atoi(c.PostForm("quantity"))
 	materialUnit := c.PostForm("unit")
 
-	rows, _ := db.Query("SELECT * fROM material WHERE id = '"+idMaterial+"'")
+  rows, _ := db.Query("SELECT * fROM material WHERE id = '"+idMaterial+"'")
 
 	var material model.Material
 	for rows.Next(){
