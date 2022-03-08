@@ -12,13 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
-
- func GetRecipeandMenu(c *gin.Context){
-
+func GetRecipeandMenu(c *gin.Context){
 	db := controller.Connect()
 	defer db.Close()
+
 	id := c.Param("id")
 	query := "SELECT recipe.id,recipe.description,menu.id,menu.name,menu.price FROM recipe INNER JOIN menu ON recipe.id = menu.idRecipeFK WHERE recipe.id = '"+id+"'"
 	rows,err := db.Query(query)
@@ -27,7 +24,6 @@ import (
 		log.Println(err)
 	}
 
-	
 	var recipe modelRecipe.Recipe
 	var recipes []modelRecipe.Recipe
 
@@ -42,16 +38,12 @@ import (
 	}
 	
 	var responseRecipe modelRecipe.RecipeResponse
-
-
 	if err == nil{
-	
 		responseRecipe.Message = "Get Recipe Success"
 		responseRecipe.Data = recipes
 		sendRecipeSuccessResponse(c,responseRecipe)
 
 	}else{
-		
 		responseRecipe.Message = "Recipe Get Failed"
 		sendRecipeErrorResponse(c,responseRecipe)
 	}
@@ -69,7 +61,6 @@ import (
 	foodName := c.PostForm("name")
 	foodPrice,_ := strconv.Atoi(c.PostForm("price"))
 	
-
 	if foodName == "" && foodPrice == foodPrice{
 		foodName = notchangeMenu.Name
 		foodPrice = int(notchangeMenu.Price)
@@ -77,15 +68,14 @@ import (
 		rows,err := db.Query("SELECT name,price FROM food")
 		var notchangeMenus 	  []modelMenu.Menu
 		
-
 		for rows.Next(){
 			if err := rows.Scan(&notchangeMenu.Name,&notchangeMenu.Price);err != nil{
 				log.Fatal(err)
 			}else{
 				notchangeMenus = append(notchangeMenus,notchangeMenu)
-			}	
-			
+			}		
 		}
+
 		var oldrepsonse modelMenu.MenuResponse
 		if err == nil{
 			oldrepsonse.Message = "Memunculkan Data yang tidak di update"
@@ -95,15 +85,15 @@ import (
 			oldrepsonse.Message = "Data tidak ke load"
 			sendFoodSuccessResponse(c,oldrepsonse)
 		}
-	}else{
+
 		var changeMenus []modelMenu.Menu
 		var changeMenu modelMenu.Menu
 		_, query := db.Exec("UPDATE food SET name = ?,price = ? WHERE id = ?",
 			foodName,
 			foodPrice,
 			foodId,
-
 		)
+
 		rows2,err2 := db.Query("SELECT name,price FROM food")
 		for rows2.Next(){
 			if err2 := rows2.Scan(&changeMenu.Name,&changeMenu.Price);err2 != nil{
@@ -118,14 +108,10 @@ import (
 			newresponse.Message = "Update Food Success"
 			newresponse.Data = changeMenus
 			sendFoodSuccessResponse(c,newresponse)
-		
-
 		}else{
 			newresponse.Message = "Update Food Failed"
 			sendFoodErrorResponse(c,newresponse)
 		}
-
-		
 	}	
  }
 
@@ -139,13 +125,8 @@ import (
 
  func sendFoodErrorResponse(c *gin.Context,response modelMenu.MenuResponse){
 	 c.JSON(http.StatusBadRequest,response)
-
  }
 
  func sendRecipeErrorResponse(c *gin.Context,response modelRecipe.RecipeResponse){
 	c.JSON(http.StatusBadRequest,response)
-
 }
-
-
- 
