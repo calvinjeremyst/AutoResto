@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetRecipe(c *gin.Context){
+func GetAllRecipe(c *gin.Context){
 
 	db := controller.Connect()
 	defer db.Close()
@@ -39,7 +39,11 @@ func GetRecipe(c *gin.Context){
 	if err == nil{
 		response.Message = "Get Recipe Success"
 		response.Data = recipedetails
+		sendRecipeSuccessResponse(c,response)
 
+	}else{
+		response.Message = "Get All Recipe Failed"
+		sendRecipeErrorResponse(c,response)
 	}
 }
 

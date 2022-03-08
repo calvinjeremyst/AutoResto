@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	controller "github.com/AutoResto/controller"
-	modelMenu "github.com/AutoResto/module/menu/entity"
 	modelRecipe "github.com/AutoResto/module/recipe/entity"
+	modelMenu "github.com/AutoResto/module/menu/entity"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,38 +27,32 @@ import (
 		log.Println(err)
 	}
 
-	var menu modelMenu.Menu
+	
 	var recipe modelRecipe.Recipe
-	var foods []modelMenu.Menu
 	var recipes []modelRecipe.Recipe
 
 	for rows.Next(){
-		if err := rows.Scan(&recipe.Id,&recipe.Description,&menu.Id,&menu.Name,&menu.Price);err != nil{
+		if err := rows.Scan(&recipe.Id,&recipe.Description,&recipe.Menu.Id,&recipe.Menu.Name,&recipe.Menu.Price);err != nil{
 			log.Fatal(err)
 		}else{
 			recipes = append(recipes, recipe)
-			foods = append(foods, menu)
+			
 			
 		}
 	}
-
-	var responseFood modelMenu.MenuResponse
+	
 	var responseRecipe modelRecipe.RecipeResponse
 
-	
 
 	if err == nil{
-		responseFood.Message = "Get Food Success"
+	
 		responseRecipe.Message = "Get Recipe Success"
-		responseFood.Data = foods
 		responseRecipe.Data = recipes
-		sendFoodSuccessResponse(c,responseFood)
 		sendRecipeSuccessResponse(c,responseRecipe)
 
 	}else{
-		responseFood.Message = "Food  Get Failed"
+		
 		responseRecipe.Message = "Recipe Get Failed"
-		sendFoodErrorResponse(c,responseFood)
 		sendRecipeErrorResponse(c,responseRecipe)
 	}
 

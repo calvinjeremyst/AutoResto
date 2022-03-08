@@ -49,7 +49,7 @@ func main() {
 	
 	owner := router.Group("/OwnerManager")
 	{
-		owner.GET("/:id",ownerCt.GetRecipe)
+		owner.GET("/:id",ownerCt.GetAllRecipe)
 	}
 
 	router.Run(":8080")
