@@ -1,5 +1,14 @@
 package entity
 
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	controller "github.com/AutoResto/controller"
+	"github.com/gin-gonic/gin"
+)
+
 type User struct {
 	Email       string   `form:"email" json:"email"`
 	Password    string   `form:"password" json:"password"`
@@ -15,54 +24,52 @@ type UserResponse struct {
 	Data    []User `form:"data" json:"data"`
 }
 
-// func (u *User) GetEmail() string {
-// 	return u.email
-// }
+type LoginResponse struct {
+	Message string `form:"message" json:"message"`
+	Type    string `form:"userType" json:"userType"`
+}
 
-// func (u *User) SetEmail(email string) {
-// 	u.email = email
-// }
+func Login(c *gin.Context) {
+	db := controller.Connect()
+	defer db.Close()
 
-// func (u *User) GetPassword() string {
-// 	return u.password
-// }
+	var userData User
+	err := json.NewDecoder(c.Request.Body).Decode(&userData)
 
-// func (u *User) GetName() string {
-// 	return u.name
-// }
+	if err != nil {
+		log.Println(err)
+	}
 
-// func (u *User) SetName(name string) {
-// 	u.name = name
-// }
+	query := "SELECT id,name,position FROM user WHERE email = '" + userData.Email + "' AND password = '" + string(userData.Password) + "'"
 
-// func (u *User) GetPhoneNumber() string {
-// 	return u.phoneNumber
-// }
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	}
 
-// func (u *User) SetPhoneNumber(phoneNumber string) {
-// 	u.phoneNumber = phoneNumber
-// }
+	var user User
+	for rows.Next() {
+		if err := rows.Scan(&user.Id, &user.Name, &user.Position); err != nil {
+			log.Fatal(err.Error())
+		}
+	}
 
-// func (u *User) GetPosition() string {
-// 	return u.position
-// }
+	var response LoginResponse
+	if user.Password == userData.Password {
+		controller.GenerateToken(c, user.Id, user.Name, user.Email)
+		response.Message = "Login Success"
+		sendLoginSuccessResponse(c, response)
+	} else {
+		response.Message = "Login Error"
+		sendLoginErrorResponse(c, response)
+	}
 
-// func (u *User) SetPosition(position string) {
-// 	u.position = position
-// }
+}
 
-// func (u *User) GetId() int {
-// 	return u.id
-// }
+func sendLoginSuccessResponse(c *gin.Context, log LoginResponse) {
+	c.JSON(http.StatusOK, log)
+}
 
-// func (u *User) SetId(id int) {
-// 	u.id = id
-// }
-
-// func (u *User) GetRoles() UserRole {
-// 	return u.roles
-// }
-
-// func (u *User) SetRoles(roles UserRole) {
-// 	u.roles = roles
-// }
+func sendLoginErrorResponse(c *gin.Context, err LoginResponse) {
+	c.JSON(http.StatusBadRequest, err)
+}

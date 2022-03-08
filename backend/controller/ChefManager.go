@@ -3,15 +3,15 @@ package controller
 import (
 	"log"
 
-	entityMenu "github.com/AutoResto/module/menu/entity"
-	entityRecipe "github.com/AutoResto/module/recipe/entity"
+	modelMenu "github.com/AutoResto/module/menu/entity"
+	modelRecipe "github.com/AutoResto/module/recipe/entity"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Get All Menus
+//Get List Menu
 func GetListMenu(c *gin.Context) {
-	db := connect()
+	db := Connect()
 	defer db.Close()
 
 	query := "SELECT id,name,price FROM menu"
@@ -21,8 +21,8 @@ func GetListMenu(c *gin.Context) {
 		log.Println(err)
 	}
 
-	var menu entityMenu.Menu
-	var menus []entityMenu.Menu
+	var menu modelMenu.Menu
+	var menus []modelMenu.Menu
 
 	for rows.Next() {
 		if err := rows.Scan(&menu.Id, &menu.Name, &menu.Price); err != nil {
@@ -32,11 +32,11 @@ func GetListMenu(c *gin.Context) {
 		}
 	}
 
-	var response entityMenu.MenuResponse
+	var response modelMenu.MenuResponse
 	if err == nil {
 		response.Message = "Get Menu Success"
 		response.Data = menus
-		sendMenuSuccessresponse(c, response)
+		sendMenuSuccessResponse(c, response)
 	} else {
 		response.Message = "Get Menu Query Error"
 		sendMenuErrorResponse(c, response)
@@ -45,7 +45,7 @@ func GetListMenu(c *gin.Context) {
 
 // Get Menu Recipe
 func GetMenuRecipe(c *gin.Context) {
-	db := connect()
+	db := Connect()
 	defer db.Close()
 
 	menuId := c.Param("menu_id")
@@ -57,8 +57,8 @@ func GetMenuRecipe(c *gin.Context) {
 		log.Println(err)
 	}
 
-	var recipedetail entityRecipe.RecipeDetail
-	var recipedetails []entityRecipe.RecipeDetail
+	var recipedetail modelRecipe.RecipeDetail
+	var recipedetails []modelRecipe.RecipeDetail
 
 	for rows.Next() {
 		if err := rows.Scan(&recipedetail.Id, &recipedetail.Quantity, &recipedetail.Material.Id, &recipedetail.Recipe.Id, &recipedetail.Unit, &recipedetail.Material.Name); err != nil {
@@ -68,11 +68,11 @@ func GetMenuRecipe(c *gin.Context) {
 		}
 	}
 
-	var response entityRecipe.RecipeDetailResponse
+	var response modelRecipe.RecipeDetailResponse
 	if err == nil {
 		response.Message = "Get Menu Success"
 		response.Data = recipedetails
-		sendRecipeDetailSuccessresponse(c, response)
+		sendRecipeDetailSuccessResponse(c, response)
 	} else {
 		response.Message = "Get Menu Query Error"
 		sendRecipeDetailErrorResponse(c, response)

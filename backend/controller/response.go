@@ -10,7 +10,7 @@ import (
 )
 
 // Menu Response
-func sendMenuSuccessresponse(c *gin.Context, ur entityMenu.MenuResponse) {
+func sendMenuSuccessResponse(c *gin.Context, ur entityMenu.MenuResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 
@@ -18,7 +18,7 @@ func sendMenuErrorResponse(c *gin.Context, ur entityMenu.MenuResponse) {
 	c.JSON(http.StatusBadRequest, ur)
 }
 
-func sendRecipeDetailSuccessresponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
+func sendRecipeDetailSuccessResponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 
@@ -26,7 +26,7 @@ func sendRecipeDetailErrorResponse(c *gin.Context, ur entityRecipe.RecipeDetailR
 	c.JSON(http.StatusBadRequest, ur)
 }
 
-func sendMaterialSuccessresponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
+func sendMaterialSuccessResponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 

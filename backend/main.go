@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	controller "github.com/AutoResto/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
+
+	controller "github.com/AutoResto/controller"
+	entity "github.com/AutoResto/module/user/entity"
 )
 
 func main() {
@@ -27,31 +29,35 @@ func main() {
 		MaxAge: 12 * time.Hour,
 	}))
 
-	menu := router.Group("/menu")
+	router.GET("/login", entity.Login)
+
+	// Inventory Manager
+	InventoryManager := router.Group("/InventoryManager")
 	{
-		// Melihat daftar menu
-		menu.GET("/getmenu", controller.GetListMenu)
-		// Pencarian menu
-		menu.GET("/searchmenu", controller.SearchMenu)
-		// Menambah menu baru
-		menu.POST("/insertmenu", controller.InsertMenu)
-		// Memperbarui menu
-		menu.PUT("/updatemenu/:menu_id", controller.UpdateMenu)
-		// Menghapus menu
-		menu.DELETE("/deletemenu/:menu_id", controller.DeleteMenu)
-	}
-	recipe := router.Group("/recipe")
-	{
-		// Melihat resep menu
-		recipe.GET("/getrecipe/:menu_id", controller.GetMenuRecipe)
+		InventoryManager.POST("/insert", controller.InsertMaterial)
+		InventoryManager.GET("/allmaterial", controller.GetAllMaterial)
+		InventoryManager.PUT("/:material_id", controller.UpdateMaterial)
+		InventoryManager.DELETE("/:material_id", controller.DeleteMaterial)
 	}
 
-	material := router.Group("/material")
+	//Chef Manager
+	ChefManager := router.Group("/ChefManager")
 	{
-		// Melihat bahan baku
-		material.GET("/getmaterial/:material_id", controller.GetMaterial)
-		// Pencarian bahan baku
-		material.GET("/searchmaterial", controller.SearchMaterial)
+		ChefManager.GET("/allmenu", controller.GetListMenu)
+		ChefManager.GET("/:menu_id", controller.GetMenuRecipe)
+	}
+
+	//Owner Manager
+	OwnerManager := router.Group("/OwnerManager")
+	{
+		OwnerManager.GET("/menu/:menu_name", controller.SearchMenu)
+		OwnerManager.GET("/material/:material_name", controller.SearchMaterial)
+		OwnerManager.GET("/allmaterial", controller.GetAllMaterial)
+		OwnerManager.GET("/allmenu", controller.GetListMenu)
+		OwnerManager.GET("/:recipe_name", controller.GetAllRecipe)
+		OwnerManager.POST("/insert", controller.InsertMenu)
+		OwnerManager.PUT("/:menu_id", controller.UpdateMenu)
+		OwnerManager.DELETE("/:menu_id", controller.DeleteMenu)
 	}
 
 	router.Run(":8080")
