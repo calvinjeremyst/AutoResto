@@ -1,80 +1,62 @@
-<!-- Comment -->
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-import header from './views/Header.vue'
-import footer from './views/Footer.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="AutoResto logo" class="logo" src="./assets/AutoResto.png" width="100" height="100" />
-
-    <div class="wrapper">
-      <HelloWorld msg="AutoResto | Halaman Sambutan" />
+  <div class="app">
+    <div v-if="userType == 'chef'">
+      <ChefNavbar />
     </div>
-  </header>
+    <div v-else-if="userType == 'owner'">
+      <OwnerNavbar />
+    </div>
+    <div v-else-if="userType == 'inventory'">
+      <InventoryNavbar />
+    </div>
+    <router-view />
+    <Footer />
+  </div>
 </template>
 
-<style>
-@import './assets/base.css';
+<script>
+    import OwnerNavbar from "./components/OwnerNavbar";
+    import InventoryNavbar from "./components/StaffNavbar";
+    import ChefNavbar from "./components/ChefNavbar";
+    import Login from "./services/Login";
+    import Footer from "./components/Footer";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+    export default {
+        mounted() {
+            this.fetchData();
+        },
+        data: () => {
+            const data = [];
+            return {
+                userType: "",
+                loginService: new LoginService(),
+                data,
+            };
+        },
+        components: {
+            Navbar,
+            OwnerNavbar,
+            StaffNavbar,
+            ChefNavbar,
+            DeliveryNavbar,
+            Footer,
+        },
+        methods: {
+            async fetchData() {
+                this.userType = this.loginService.getCurrentUserType();
+            },
+            async getUserType() {
+                return this.userType;
+            },
+        },
+    };
+</script>
 
-  font-weight: normal;
-}
+<style lang="scss">
+@import "../scss/main.scss";
 
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.color {
-  text-decoration: none;
-  color: rgba(184, 144, 68, 0.822);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.app {
+  background-color: #ececec;
+  height: 100%;
 }
 </style>

@@ -29,9 +29,9 @@ func (r UserRole) String() string {
 func (u *User) SetUserRoleString(str string) {
 	for key, val := range userEnum {
 		if val == str {
-			u.roles = key
+			u.Roles = key
 			return
 		}
 	}
-	u.roles = -1
+	u.Roles = -1
 }

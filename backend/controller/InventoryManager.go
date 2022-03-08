@@ -47,13 +47,19 @@ func SearchMaterial(c *gin.Context){
 	query := "SELECT * FROM `material` WHERE name = '"+namematerial+"'"
 
 	rows,err := db.Query(query)
+
+func GetAllMaterial(c *gin.Context) {
+	db := Connect()
+	defer db.Close()
+
+	query := "SELECT * FROM material"
+	rows, err := db.Query(query)
 	if err != nil {
 		log.Println(err)
 	}
 
 	var material model.Material
 	var materials []model.Material
-	
 	
 	for rows.Next(){
 		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
@@ -131,16 +137,81 @@ func UpdateMaterial(c *gin.Context){
 
 	for rows.Next(){
 		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err!= nil{
+
+	for rows.Next() {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			materials = append(materials, material)
+		}
+	}
+
+	var response model.MaterialResponse
+	if err == nil {
+		response.Message = "Get Material Success"
+		response.Data = materials
+		sendMaterialSuccessResponse(c, response)
+	} else {
+		response.Message = "Get Material Failed"
+		fmt.Println(err)
+		sendMaterialErrorResponse(c, response)
+	}
+}
+
+func InsertMaterial(c *gin.Context) {
+	db := Connect()
+	defer db.Close()
+
+	id, _ := strconv.Atoi(c.PostForm("id"))
+	name := c.PostForm("name")
+	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
+	unit := c.PostForm("unit")
+
+	_, errQuery := db.Exec("INSERT INTO material(id,name,quantity,unit) VALUES(?,?,?,?)",
+		id,
+		name,
+		quantity,
+		unit)
+
+	var response model.MaterialResponse
+
+	if errQuery == nil {
+		response.Message = "Insert Material Success"
+		sendMaterialSuccessResponse(c, response)
+	} else {
+		response.Message = "Insert Material Failed"
+		sendMaterialErrorResponse(c, response)
+	}
+}
+
+func UpdateMaterial(c *gin.Context) {
+	db := Connect()
+	defer db.Close()
+
+	idMaterial := c.Param("material_id")
+	materialName := c.PostForm("name")
+	materialQuantity, _ := strconv.Atoi(c.PostForm("quantity"))
+	materialUnit := c.PostForm("unit")
+
+	rows, _ := db.Query("SELECT * FROM material WHERE id = '" + idMaterial + "'")
+
+	var material model.Material
+
+	for rows.Next() {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
 			log.Fatal(err.Error())
 		}
 	}
 
-	if materialName == ""{
+	if materialName == "" {
 		materialName = material.Name
 	}
 
+	if materialQuantity == materialQuantity {
+		materialQuantity = material.Quantity
+	}
 
-	if materialUnit == ""{
+	if materialUnit == "" {
 		materialUnit = material.Unit
 	}
 
