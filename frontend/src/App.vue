@@ -1,3 +1,4 @@
+
 <template>
   <div class="app">
     <div v-if="userType == 'chef'">

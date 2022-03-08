@@ -2,51 +2,88 @@ package controller
 
 import (
 	"log"
-	"strconv"
+	"net/http"
 
-	model "github.com/AutoResto/module/menu/entity"
+	modelMenu "github.com/AutoResto/module/menu/entity"
+	modelRecipe "github.com/AutoResto/module/recipe/entity"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Update Menu
-func UpdateMenu(c *gin.Context) {
+//Get List Menu
+func GetListMenu(c *gin.Context) {
 	db := Connect()
 	defer db.Close()
 
-	menuId := c.Param("id")
-	name := c.PostForm("name")
-	price, _ := strconv.Atoi(c.PostForm("price"))
+	query := "SELECT id,name,price FROM menu"
 
-	rows, _ := db.Query("SELECT * FROM menu WHERE id='" + menuId + "'")
-	var menu model.Menu
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	}
+
+	var menu modelMenu.Menu
+	var menus []modelMenu.Menu
+
 	for rows.Next() {
 		if err := rows.Scan(&menu.Id, &menu.Name, &menu.Price); err != nil {
 			log.Fatal(err.Error())
+		} else {
+			menus = append(menus, menu)
 		}
 	}
 
-	// Jika kosong dimasukkan nilai lama
-	if name == "" {
-		name = menu.Name
-	}
-
-	if price == 0 {
-		price = int(menu.Price)
-	}
-
-	_, errQuery := db.Exec("UPDATE menu SET name = ?, price = ?, WHERE id=?",
-		name,
-		price,
-		menuId,
-	)
-
-	var response model.MenuResponse
-	if errQuery == nil {
-		response.Message = "Update Menu Success"
+	var response modelMenu.MenuResponse
+	if err == nil {
+		response.Message = "Get Menu Success"
+		response.Data = menus
 		sendMenuSuccessResponse(c, response)
 	} else {
-		response.Message = "Update Menu Failed Error"
+		response.Message = "Get Menu Query Error"
 		sendMenuErrorResponse(c, response)
 	}
+}
+
+// Get Menu Recipe
+func GetMenuRecipe(c *gin.Context) {
+	db := Connect()
+	defer db.Close()
+
+	menuId := c.Param("menu_id")
+
+	query := "SELECT recipedetail.id, recipedetail.quantity, recipedetail.idMaterialFK, recipedetail.idRecipeFK, recipedetail.unit, material.name FROM `recipedetail` join `material` on recipedetail.id = material.id WHERE recipedetail.idRecipeFK=" + menuId + ""
+
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	}
+
+	var recipedetail modelRecipe.RecipeDetail
+	var recipedetails []modelRecipe.RecipeDetail
+
+	for rows.Next() {
+		if err := rows.Scan(&recipedetail.Id, &recipedetail.Quantity, &recipedetail.Material.Id, &recipedetail.Recipe.Id, &recipedetail.Unit, &recipedetail.Material.Name); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			recipedetails = append(recipedetails, recipedetail)
+		}
+	}
+
+	var response modelRecipe.RecipeDetailResponse
+	if err == nil {
+		response.Message = "Get Menu Success"
+		response.Data = recipedetails
+		sendRecipeDetailSuccessResponse(c, response)
+	} else {
+		response.Message = "Get Menu Query Error"
+		sendRecipeDetailErrorResponse(c, response)
+	}
+}
+
+func sendRecipeDetailSuccessResponse(c *gin.Context, response modelRecipe.RecipeDetailResponse) {
+	c.JSON(http.StatusOK, response)
+}
+
+func sendRecipeDetailErrorResponse(c *gin.Context, response modelRecipe.RecipeDetailResponse) {
+	c.JSON(http.StatusBadRequest, response)
 }

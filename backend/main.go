@@ -34,7 +34,6 @@ func main() {
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.GET("/:name", controller.SearchMaterial)
 		InventoryManager.POST("/insert", controller.InsertMaterial)
 		InventoryManager.GET("/allmaterial", controller.GetAllMaterial)
 		InventoryManager.PUT("/:material_id", controller.UpdateMaterial)
@@ -44,14 +43,20 @@ func main() {
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
-		ChefManager.GET("")
+		ChefManager.GET("/allmenu", controller.GetListMenu)
+		ChefManager.GET("/:menu_id", controller.GetMenuRecipe)
 	}
 
 	//Owner Manager
 	OwnerManager := router.Group("/OwnerManager")
 	{
-		OwnerManager.GET("/allmenu", controller.GetAllMenus)
+		OwnerManager.GET("/menu/:menu_name", controller.SearchMenu)
+		OwnerManager.GET("/material/:material_name", controller.SearchMaterial)
+		OwnerManager.GET("/allmaterial", controller.GetAllMaterial)
+		OwnerManager.GET("/allmenu", controller.GetListMenu)
+		OwnerManager.GET("/:recipe_name", controller.GetAllRecipe)
 		OwnerManager.POST("/insert", controller.InsertMenu)
+		OwnerManager.PUT("/:menu_id", controller.UpdateMenu)
 		OwnerManager.DELETE("/:menu_id", controller.DeleteMenu)
 	}
 

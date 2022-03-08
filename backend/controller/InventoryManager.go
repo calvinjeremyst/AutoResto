@@ -10,70 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InsertMaterial(c *gin.Context) {
-	db := Connect()
-	defer db.Close()
-
-	id, _ := strconv.Atoi(c.PostForm("id"))
-	name := c.PostForm("name")
-	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
-	unit := c.PostForm("unit")
-
-	_, errQuery := db.Exec("INSERT INTO material(id,name,quantity,unit) VALUES(?,?,?,?)",
-		id,
-		name,
-		quantity,
-		unit)
-
-	var response model.MaterialResponse
-
-	if errQuery == nil {
-		response.Message = "Insert Material Success"
-		sendMaterialSuccessResponse(c, response)
-	} else {
-		response.Message = "Insert Material Failed"
-		sendMaterialErrorResponse(c, response)
-	}
-}
-
-func SearchMaterial(c *gin.Context) {
-	db := Connect()
-	defer db.Close()
-
-	materialName := c.Param("name")
-
-	query := "SELECT * FROM `material` WHERE name = '" + materialName + "'"
-
-	rows, err := db.Query(query)
-	if err != nil {
-		log.Println(err)
-	}
-
-	var material model.Material
-	var materials []model.Material
-
-	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
-			log.Fatal(err.Error())
-		} else {
-			materials = append(materials, material)
-		}
-	}
-
-	var response model.MaterialResponse
-	if err == nil {
-		response.Message = "Search Material Success"
-		response.Data = materials
-		sendMaterialSuccessResponse(c, response)
-
-	} else {
-		response.Message = "Search material failed"
-		fmt.Print(err)
-		sendMaterialErrorResponse(c, response)
-	}
-
-}
-
 func GetAllMaterial(c *gin.Context) {
 	db := Connect()
 	defer db.Close()
@@ -107,11 +43,37 @@ func GetAllMaterial(c *gin.Context) {
 	}
 }
 
+func InsertMaterial(c *gin.Context) {
+	db := Connect()
+	defer db.Close()
+
+	id, _ := strconv.Atoi(c.PostForm("id"))
+	name := c.PostForm("name")
+	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
+	unit := c.PostForm("unit")
+
+	_, errQuery := db.Exec("INSERT INTO material(id,name,quantity,unit) VALUES(?,?,?,?)",
+		id,
+		name,
+		quantity,
+		unit)
+
+	var response model.MaterialResponse
+
+	if errQuery == nil {
+		response.Message = "Insert Material Success"
+		sendMaterialSuccessResponse(c, response)
+	} else {
+		response.Message = "Insert Material Failed"
+		sendMaterialErrorResponse(c, response)
+	}
+}
+
 func UpdateMaterial(c *gin.Context) {
 	db := Connect()
 	defer db.Close()
 
-	idMaterial := c.Param("id")
+	idMaterial := c.Param("material_id")
 	materialName := c.PostForm("name")
 	materialQuantity, _ := strconv.Atoi(c.PostForm("quantity"))
 	materialUnit := c.PostForm("unit")
@@ -159,7 +121,7 @@ func DeleteMaterial(c *gin.Context) {
 	db := Connect()
 	defer db.Close()
 
-	idmaterial := c.Param("id")
+	idmaterial := c.Param("material_id")
 
 	_, query := db.Exec("DELETE FROM material WHERE id = ?", idmaterial)
 
