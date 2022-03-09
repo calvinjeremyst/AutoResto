@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/AutoResto/controller"
-	modelMaterial "github.com/AutoResto/module/material/entity"
-	modelMenu "github.com/AutoResto/module/menu/entity"
+	modelMaterial "github.com/AutoResto/domain/material/entity"
+	modelMenu "github.com/AutoResto/domain/menu/entity"
 	"github.com/gin-gonic/gin"
 )
 
@@ -162,7 +162,6 @@ func InsertMenu(c *gin.Context) {
 	}
 
 	for i := 0; i < len(materialArr); i++ {
-
 		for j := 0; j < len(materials); j++ {
 			//mengecek apakah material sudah ada
 			if materialArr[i] != materials[j].Name {

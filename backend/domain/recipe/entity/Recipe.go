@@ -1,7 +1,7 @@
 package entity
 
 import (
-	MN "github.com/AutoResto/module/menu/entity"
+	MN "github.com/AutoResto/domain/menu/entity"
 )
 
 type Recipe struct {

@@ -6,10 +6,11 @@ import (
 	"strconv"
 
 	"github.com/AutoResto/controller"
-	model "github.com/AutoResto/module/material/entity"
+	model "github.com/AutoResto/domain/material/entity"
 	"github.com/gin-gonic/gin"
 )
 
+//Insert Material
 func InsertMaterial(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
@@ -36,6 +37,7 @@ func InsertMaterial(c *gin.Context) {
 
 }
 
+//Get Material
 func GetMaterial(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
@@ -69,6 +71,7 @@ func GetMaterial(c *gin.Context) {
 	}
 }
 
+//Update Material
 func UpdateMaterial(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
@@ -112,6 +115,7 @@ func UpdateMaterial(c *gin.Context) {
 	}
 }
 
+//Delete Material
 func DeleteMaterial(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()

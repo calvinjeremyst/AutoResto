@@ -3,9 +3,9 @@ package controller
 import (
 	"net/http"
 
-	entityMaterial "github.com/AutoResto/module/material/entity"
-	entityMenu "github.com/AutoResto/module/menu/entity"
-	entityRecipe "github.com/AutoResto/module/recipe/entity"
+	entityMaterial "github.com/AutoResto/domain/material/entity"
+	entityMenu "github.com/AutoResto/domain/menu/entity"
+	entityRecipe "github.com/AutoResto/domain/recipe/entity"
 	"github.com/gin-gonic/gin"
 )
 

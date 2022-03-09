@@ -1,7 +1,7 @@
 package entity
 
 import (
-	model "github.com/AutoResto/module/location/entity"
+	model "github.com/AutoResto/domain/location/entity"
 )
 
 type Inventory struct {

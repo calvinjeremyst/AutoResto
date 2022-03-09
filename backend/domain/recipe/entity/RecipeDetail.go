@@ -1,7 +1,7 @@
 package entity
 
 import (
-	model "github.com/AutoResto/module/material/entity"
+	model "github.com/AutoResto/domain/material/entity"
 )
 
 type RecipeDetail struct {
