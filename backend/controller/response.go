@@ -10,26 +10,34 @@ import (
 )
 
 // Menu Response
-func sendMenuSuccessResponse(c *gin.Context, ur entityMenu.MenuResponse) {
+func SendMenuSuccessResponse(c *gin.Context, ur entityMenu.MenuResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 
-func sendMenuErrorResponse(c *gin.Context, ur entityMenu.MenuResponse) {
+func SendMenuErrorResponse(c *gin.Context, ur entityMenu.MenuResponse) {
 	c.JSON(http.StatusBadRequest, ur)
 }
 
-func sendRecipeDetailSuccessResponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
+func SendRecipeSuccessResponse(c *gin.Context, ur entityRecipe.RecipeResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 
-func sendRecipeDetailErrorResponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
+func SendRecipeErrorResponse(c *gin.Context, ur entityRecipe.RecipeResponse) {
 	c.JSON(http.StatusBadRequest, ur)
 }
 
-func sendMaterialSuccessResponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
+func SendRecipeDetailSuccessResponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
 	c.JSON(http.StatusOK, ur)
 }
 
-func sendMaterialErrorResponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
+func SendRecipeDetailErrorResponse(c *gin.Context, ur entityRecipe.RecipeDetailResponse) {
+	c.JSON(http.StatusBadRequest, ur)
+}
+
+func SendMaterialSuccessResponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
+	c.JSON(http.StatusOK, ur)
+}
+
+func SendMaterialErrorResponse(c *gin.Context, ur entityMaterial.MaterialResponse) {
 	c.JSON(http.StatusBadRequest, ur)
 }

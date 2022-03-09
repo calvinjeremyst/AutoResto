@@ -5,9 +5,9 @@ import (
 )
 
 type Recipe struct {
-	Id          int    		`form:"id" json:"id"`
-	Description string 		`form:"description" json:"description"`
-	Menu	    	MN.Menu `form : "menu" json : "menu"`
+	Id          int     `form:"id" json:"id"`
+	Description string  `form:"description" json:"description"`
+	Menu        MN.Menu `form : "menu" json : "menu"`
 }
 
 type RecipeResponse struct {

@@ -1,21 +1,95 @@
 package owner
 
 import (
-
 	"log"
-	"net/http"
+	"strconv"
+	"strings"
+
 	"github.com/AutoResto/controller"
-	modelRecipe "github.com/AutoResto/module/recipe/entity"
+	modelMaterial "github.com/AutoResto/module/material/entity"
+	modelMenu "github.com/AutoResto/module/menu/entity"
 	"github.com/gin-gonic/gin"
 )
 
-func GetAllRecipe(c *gin.Context){
+// Search Menu
+func SearchMenu(c *gin.Context) {
+	db := controller.Connect()
+	defer db.Close()
+
+	menuName := c.PostForm("menu_name")
+
+	query := "SELECT m.id, m.name, m.price FROM `menu` m WHERE m.name LIKE '%" + menuName + "%'"
+
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	}
+
+	var menu modelMenu.Menu
+	var menus []modelMenu.Menu
+
+	for rows.Next() {
+		if err := rows.Scan(&menu.Id, &menu.Name, &menu.Price); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			menus = append(menus, menu)
+		}
+	}
+
+	var response modelMenu.MenuResponse
+	if err == nil {
+		response.Message = "Get Menu Success"
+		response.Data = menus
+		controller.SendMenuSuccessResponse(c, response)
+	} else {
+		response.Message = "Get Menu Query Error"
+		controller.SendMenuErrorResponse(c, response)
+	}
+}
+
+// Search Material
+func SearchMaterial(c *gin.Context) {
+	db := controller.Connect()
+	defer db.Close()
+
+	materialName := c.PostForm("material_name")
+
+	query := "SELECT m.id, m.name, m.quantity, m.unit FROM `material` m WHERE m.name LIKE '" + materialName + "%'"
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Println(err)
+	}
+
+	var material modelMaterial.Material
+	var materials []modelMaterial.Material
+
+	for rows.Next() {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			materials = append(materials, material)
+		}
+	}
+
+	var response modelMaterial.MaterialResponse
+	if err == nil {
+		response.Message = "Get Material Success"
+		response.Data = materials
+		controller.SendMaterialSuccessResponse(c, response)
+	} else {
+		response.Message = "Get Material Query Error"
+		controller.SendMaterialErrorResponse(c, response)
+	}
+}
+
+//Get All Recipe
+func GetAllRecipe(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
 
 	id := c.Param("id")
-	query := "SELECT recipedetail.id,recipedetail.quantity,recipedetail.unit,recipe.id,recipe.description,material.name  FROM recipedetail JOIN recipe ON recipedetail.idRecipeFK = recipe.id JOIN material ON recipedetail.idMaterialFK = material.id WHERE recipedetail.id = '"+id+"'"
-	rows,err := db.Query(query)
+	query := "SELECT recipedetail.id,recipedetail.quantity,recipedetail.unit,recipe.id,recipe.description,material.name  FROM recipedetail JOIN recipe ON recipedetail.idRecipeFK = recipe.id JOIN material ON recipedetail.idMaterialFK = material.id WHERE recipedetail.id = '" + id + "'"
+	rows, err := db.Query(query)
 
 	if err != nil {
 		log.Println(err)
@@ -36,19 +110,22 @@ func GetAllRecipe(c *gin.Context){
 	if err == nil {
 		response.Message = "Get Material Success"
 		response.Data = materials
-		sendMaterialSuccessResponse(c, response)
+		controller.SendMaterialSuccessResponse(c, response)
 	} else {
 		response.Message = "Get Material Query Error"
-		sendMaterialErrorResponse(c, response)
+		controller.SendMaterialErrorResponse(c, response)
 	}
 }
 
 // Insert Menu
 func InsertMenu(c *gin.Context) {
-	db := Connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	name := c.PostForm("name")
+	price, _ := strconv.Atoi(c.PostForm("price"))
+	description := c.PostForm("description")
+	materialName := c.PostForm("material")
 	quantity := c.PostForm("quantity")
 	unit := c.PostForm("unit")
 	materialArr := strings.Split(materialName, ",")
@@ -79,8 +156,11 @@ func InsertMenu(c *gin.Context) {
 	for rows.Next() {
 		if err := rows.Scan(&material.Id, &material.Name); err != nil {
 			log.Fatal(err.Error())
+		} else {
 			materials = append(materials, material)
+		}
 	}
+
 	for i := 0; i < len(materialArr); i++ {
 
 		for j := 0; j < len(materials); j++ {
@@ -104,16 +184,16 @@ func InsertMenu(c *gin.Context) {
 	var response modelMenu.MenuResponse
 	if errQuery == nil {
 		response.Message = "Insert Menu Success"
-		sendMenuSuccessResponse(c, response)
+		controller.SendMenuSuccessResponse(c, response)
 	} else {
 		response.Message = "Insert Menu Failed Error"
-		sendMenuErrorResponse(c, response)
+		controller.SendMenuErrorResponse(c, response)
 	}
 }
 
 //Update Menu
 func UpdateMenu(c *gin.Context) {
-	db := Connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	menuId := c.Param("menu_id")
@@ -146,16 +226,16 @@ func UpdateMenu(c *gin.Context) {
 	var response modelMenu.MenuResponse
 	if errQuery == nil {
 		response.Message = "Update Menu Success"
-		sendMenuSuccessResponse(c, response)
+		controller.SendMenuSuccessResponse(c, response)
 	} else {
 		response.Message = "Update Menu Failed Error"
-		sendMenuErrorResponse(c, response)
+		controller.SendMenuErrorResponse(c, response)
 	}
 }
 
 // Delete Menu
 func DeleteMenu(c *gin.Context) {
-	db := Connect()
+	db := controller.Connect()
 	defer db.Close()
 
 	menuId := c.Param("menu_id")
@@ -167,9 +247,9 @@ func DeleteMenu(c *gin.Context) {
 	var response modelMenu.MenuResponse
 	if errQuery == nil {
 		response.Message = "Delete Menu Success"
-		sendMenuSuccessResponse(c, response)
+		controller.SendMenuSuccessResponse(c, response)
 	} else {
 		response.Message = "Delete Menu Failed Error"
-		sendMenuErrorResponse(c, response)
+		controller.SendMenuErrorResponse(c, response)
 	}
 }
