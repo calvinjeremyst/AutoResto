@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+      <Header />
     <div v-if="userType == 'chef'">
       <ChefNavbar />
     </div>
@@ -16,9 +17,10 @@
 
 <script>
     import OwnerNavbar from "./components/OwnerNavbar";
-    import InventoryNavbar from "./components/StaffNavbar";
+    import InventoryNavbar from "./components/InventoryNavbar";
     import ChefNavbar from "./components/ChefNavbar";
     import Login from "./services/Login";
+    import Header from "./components/Header"
     import Footer from "./components/Footer";
 
     export default {
@@ -29,18 +31,17 @@
             const data = [];
             return {
                 userType: "",
-                loginService: new LoginService(),
+                loginService: new Login(),
                 data,
             };
         },
         components: {
-            Navbar,
-            OwnerNavbar,
-            StaffNavbar,
-            ChefNavbar,
-            DeliveryNavbar,
-            Footer,
-        },
+    OwnerNavbar,
+    InventoryNavbar,
+    ChefNavbar,
+    Footer,
+    Header
+},
         methods: {
             async fetchData() {
                 this.userType = this.loginService.getCurrentUserType();
@@ -56,7 +57,7 @@
 @import "../scss/main.scss";
 
 .app {
-  background-color: #ececec;
+  background-color: #686868;
   height: 100%;
 }
 </style>
