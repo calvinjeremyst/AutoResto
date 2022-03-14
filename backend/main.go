@@ -11,7 +11,7 @@ import (
 	cf "github.com/AutoResto/controller/chef"
 	iv "github.com/AutoResto/controller/inventory"
 	ow "github.com/AutoResto/controller/owner"
-	entity "github.com/AutoResto/module/user/entity"
+	entity "github.com/AutoResto/domain/user/entity"
 )
 
 func main() {

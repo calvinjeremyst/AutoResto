@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/AutoResto/controller"
-	modelMenu "github.com/AutoResto/module/menu/entity"
-	modelRecipe "github.com/AutoResto/module/recipe/entity"
+	modelMenu "github.com/AutoResto/domain/menu/entity"
+	modelRecipe "github.com/AutoResto/domain/recipe/entity"
 	"github.com/gin-gonic/gin"
 )
 
