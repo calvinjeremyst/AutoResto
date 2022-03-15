@@ -9,8 +9,7 @@
                 <b-icon pack="fab" icon="youtube-square" size="is-medium"></b-icon>
             </div>
             <p>
-            Copyright 2022 AutoResto. All Rights Reserved.<br>
-            Powered by Cheems
+            Copyright 2022 AutoResto. All Rights Reserved.
             </p>
         </div>
     </footer>

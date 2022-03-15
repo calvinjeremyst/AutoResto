@@ -38,15 +38,15 @@ func main() {
 	{
 		InventoryManager.POST("/insert", iv.InsertMaterial)
 		InventoryManager.GET("/allmaterial", iv.GetMaterial)
-		InventoryManager.PUT("/:material_id", iv.UpdateMaterial)
-		InventoryManager.DELETE("/:material_id", iv.DeleteMaterial)
+		InventoryManager.PUT("/:id", iv.UpdateMaterial)
+		InventoryManager.DELETE("/:id", iv.DeleteMaterial)
 	}
 
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
 		ChefManager.GET("/allmenu", cf.GetListMenu)
-		ChefManager.GET("/:menu_id", cf.GetRecipeandMenu)
+		ChefManager.GET("/:id", cf.GetRecipeandMenu)
 	}
 
 	//Owner Manager

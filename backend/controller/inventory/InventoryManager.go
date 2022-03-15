@@ -90,13 +90,7 @@ func UpdateMaterial(c *gin.Context) {
 		}
 	}
 
-	if materialName == "" {
-		materialName = material.Name
-	}
-
-	if materialUnit == "" {
-		materialUnit = material.Unit
-	}
+	
 
 	_, errQuery := db.Exec("UPDATE material SET name = ?,quantity = ?,unit = ? WHERE id = ?",
 		materialName,

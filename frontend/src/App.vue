@@ -22,6 +22,7 @@
     import Login from "./services/Login";
     import Header from "./components/Header"
     import Footer from "./components/Footer";
+    import AddMaterial from "./views/inventory/AddMaterial.vue"
 
     export default {
         mounted() {
@@ -40,7 +41,8 @@
     InventoryNavbar,
     ChefNavbar,
     Footer,
-    Header
+    Header,
+    AddMaterial
 },
         methods: {
             async fetchData() {
