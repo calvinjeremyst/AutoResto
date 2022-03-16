@@ -1,13 +1,15 @@
 <template>
   <div class="app">
+    <div v-if="idRole == 'Guest'">
       <Header />
-    <div v-if="userType == 'chef'">
+    </div>
+    <div v-if="idRole == 0">
       <ChefNavbar />
     </div>
-    <div v-else-if="userType == 'owner'">
+    <div v-else-if="idRole == 1">
       <OwnerNavbar />
     </div>
-    <div v-else-if="userType == 'inventory'">
+    <div v-else-if="idRole == 2">
       <InventoryNavbar />
     </div>
     <router-view />
@@ -22,7 +24,6 @@
     import Login from "./services/Login";
     import Header from "./components/Header"
     import Footer from "./components/Footer";
-    import AddMaterial from "./views/inventory/AddMaterial.vue"
 
     export default {
         mounted() {
@@ -31,22 +32,21 @@
         data: () => {
             const data = [];
             return {
-                userType: "",
+                idRole: null,
                 loginService: new Login(),
                 data,
             };
         },
         components: {
-    OwnerNavbar,
-    InventoryNavbar,
-    ChefNavbar,
-    Footer,
-    Header,
-    AddMaterial
-},
+          OwnerNavbar,
+          InventoryNavbar,
+          ChefNavbar,
+          Footer,
+          Header
+        },
         methods: {
             async fetchData() {
-                this.userType = this.loginService.getCurrentUserType();
+                this.idRole = this.loginService.getCurrentUserType();
             },
             async getUserType() {
                 return this.userType;
@@ -58,8 +58,4 @@
 <style lang="scss">
 @import "../scss/main.scss";
 
-.app {
-  background-color: #686868;
-  height: 100%;
-}
 </style>

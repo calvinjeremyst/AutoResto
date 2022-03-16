@@ -6,35 +6,35 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/">
-        <b-icon pack="fas" icon="home" size="is-small" type="is-primary">
+      <b-navbar-item href="/addMenu">
+        <b-icon pack="fas" icon="plus-square" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">Home</span>
+        <span style="margin-left: 0.5rem">Add Menu</span>
       </b-navbar-item>
-      <b-navbar-item href="/owner/log">
-        <b-icon pack="fas" icon="book-open" size="is-small" type="is-primary">
+      <b-navbar-item href="/recipeList">
+        <b-icon pack="fas" icon="sticky-note" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">View Transaction Log</span>
+        <span style="margin-left: 0.5rem">Recipe List</span>
       </b-navbar-item>
-      <b-navbar-item href="/owner/income">
-        <b-icon
-          pack="fas"
-          icon="money-bill-alt"
-          size="is-small"
-          type="is-primary"
-        >
+      <b-navbar-item href="/materialList">
+        <b-icon pack="fas" icon="sticky-note-o" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">View Income</span>
+        <span style="margin-left: 0.5rem">Material List</span>
       </b-navbar-item>
-      <b-navbar-item href="/owner/product">
-        <b-icon
-          pack="fas"
-          icon="concierge-bell"
-          size="is-small"
-          type="is-primary"
-        >
+      <b-navbar-item href="/menuList">
+        <b-icon pack="fas" icon="book" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">View Product Sold</span>
+        <span style="margin-left: 0.5rem">Menu List</span>
+      </b-navbar-item>
+      <b-navbar-item href="/searchMaterial">
+        <b-icon pack="fas" icon="search" size="is-small" type="is-primary">
+        </b-icon>
+        <span style="margin-left: 0.5rem">Search Material</span>
+      </b-navbar-item>
+      <b-navbar-item href="/searchMenu">
+        <b-icon pack="fas" icon="search" size="is-small" type="is-primary">
+        </b-icon>
+        <span style="margin-left: 0.5rem">Search Menu</span>
       </b-navbar-item>
       <b-navbar-item href="">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
