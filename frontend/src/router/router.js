@@ -18,57 +18,57 @@ import MenuRecipe from '../views/chef/MenuRecipe'
 
 const routes = [
     {
+        path: '/',
+        name: 'Firstpage',
+        component: FirstPage,
+    },
+    {
         path: '/login',
         name: 'Login',
         component: Login,
     },
     {
-      path: '/homepage',
+      path: '/home',
       name: 'HomePage',
       component: HomePage,
     },
     {
-      path: '/firstpage',
-      name: 'FirstPage',
-      component: FirstPage,
-    },
-    {
-      path: '/addMaterial',
+      path: '/add_material',
       name: 'Add Material',
       component: AddMaterial,
     },
     {
-      path: '/materialList',
+      path: '/material_list',
       name: 'MaterialList',
       component: MaterialList,
     },
     {
-      path: '/menuList',
+      path: '/menu_list',
       name: 'MenuList',
       component: MenuList,
     },
     {
-      path: '/recipelist',
+      path: '/recipe_list',
       name: 'RecipeList',
       component: RecipeList,
     },
     {
-      path: '/searchMaterial',
+      path: '/search_material',
       name: 'SearchMaterial',
       component: SearchMaterial,
     },
     {
-      path: '/searchMenu',
+      path: '/search_menu',
       name: 'SearchMenu',
       component: SearchMenu,
     },
     {
-      path: '/addMenu',
+      path: '/add_menu',
       name: 'AddMenu',
       component: AddMenu,
     },
     {
-      path: '/menuRecipe',
+      path: '/menu_recipe',
       name: 'MenuRecipe',
       component: MenuRecipe,
     },

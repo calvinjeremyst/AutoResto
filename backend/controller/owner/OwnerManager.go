@@ -16,9 +16,9 @@ func SearchMenu(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
 
-	menuName := c.PostForm("menu_name")
+	menuName := c.Param("menu_name")
 
-	query := "SELECT m.id, m.name, m.price FROM `menu` m WHERE m.name LIKE '%" + menuName + "%'"
+	query := "SELECT m.id, m.name, m.price FROM `menu` m WHERE m.name LIKE '"+menuName+"%'"
 
 	rows, err := db.Query(query)
 	if err != nil {
@@ -52,9 +52,9 @@ func SearchMaterial(c *gin.Context) {
 	db := controller.Connect()
 	defer db.Close()
 
-	materialName := c.PostForm("material_name")
+	materialName := c.Param("material_name")
 
-	query := "SELECT m.id, m.name, m.quantity, m.unit FROM `material` m WHERE m.name LIKE '" + materialName + "%'"
+	query := "SELECT m.id, m.name, m.quantity, m.unit FROM material m WHERE m.name LIKE '"+materialName+"%'"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Println(err)
