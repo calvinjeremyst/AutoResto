@@ -53,10 +53,10 @@
         background-color: rgba(250, 250, 250, 0.285);
 
     }
-   .title{
+    .title{
        text-size : 200%;
        text-align: center;
-   }
+    }
     .isiname{
         margin-left: 25px;
         width: 150px;
@@ -69,7 +69,7 @@
         height: 30px;
     }
 
-     .isiunit{
+    .isiunit{
         margin-left: 38px;
         width: 150px;
         height: 30px;
@@ -87,12 +87,9 @@
         text-align: center;
     }
 
-
-  .btninsert{
+    .btninsert{
       margin-left: 210px;
       width : 75px;
-  }
-
- 
+    }
 
 </style>

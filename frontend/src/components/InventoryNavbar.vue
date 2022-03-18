@@ -6,37 +6,17 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/">
-        <b-icon pack="fas" icon="home" size="is-small" type="is-primary">
+      <b-navbar-item href="/addMaterial">
+        <b-icon pack="fas" icon="plus-square" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">Home</span>
-      </b-navbar-item>
-      <b-navbar-item href="/inventory/process">
-        <b-icon
-          pack="fas"
-          icon="shopping-cart"
-          size="is-small"
-          type="is-primary"
-        >
-        </b-icon>
-        <span style="margin-left: 0.5rem">Process Orders</span>
-      </b-navbar-item>
-      <b-navbar-item href="/inventory/view">
-        <b-icon
-          pack="fas"
-          icon="shopping-cart"
-          size="is-small"
-          type="is-primary"
-        >
-        </b-icon>
-        <span style="margin-left: 0.5rem">View Order</span>
+        <span style="margin-left: 0.5rem">Add Material</span>
       </b-navbar-item>
       <b-navbar-item href="">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem" v-on:click="logout"
-          ><button class="btn">Logout</button></span
-        >
+        <span style="margin-left: 0.5rem" v-on:click="logout">
+          <button class="btn">Logout</button>
+        </span>
       </b-navbar-item>
     </template>
   </b-navbar>

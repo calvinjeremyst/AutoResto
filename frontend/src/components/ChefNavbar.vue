@@ -6,15 +6,10 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/">
-        <b-icon pack="fas" icon="home" size="is-small" type="is-primary">
+      <b-navbar-item href="/menuRecipe">
+        <b-icon pack="fas" icon="book" size="is-small" type="is-primary">
         </b-icon>
-        <span style="margin-left: 0.5rem">Home</span>
-      </b-navbar-item>
-      <b-navbar-item href="/chef/cook">
-        <b-icon pack="fas" icon="pizza-slice" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Cook</span>
+        <span style="margin-left: 0.5rem">Menu and Recipe</span>
       </b-navbar-item>
       <b-navbar-item href="">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
