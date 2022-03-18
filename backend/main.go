@@ -49,7 +49,7 @@ func main() {
 	}
 
 	
-	OwnerManager := router.Group("/OwnerManager")
+	OwnerManager :=   router.Group("/OwnerManager")
 	{
 		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)
 		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)
