@@ -7,11 +7,10 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-
-	cf "github.com/AutoResto/controller/chef"
-	iv "github.com/AutoResto/controller/inventory"
-	ow "github.com/AutoResto/controller/owner"
-	entity "github.com/AutoResto/domain/user/entity"
+	cf "github.com/AutoResto/chef/controller/chef"
+	iv "github.com/AutoResto/inventory/controller/inventory"
+	ow "github.com/AutoResto/owner/controller/owner"
+	entity "github.com/AutoResto/user/entity"
 )
 
 func main() {
@@ -36,29 +35,29 @@ func main() {
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.POST("/insert", iv.InsertMaterial)
-		InventoryManager.GET("/allmaterial", iv.GetMaterial)
+		InventoryManager.POST("/insert", iv.AddNewMaterial)
+		InventoryManager.GET("/allmaterial", iv.ShowMaterial)
 		InventoryManager.PUT("/:id", iv.UpdateMaterial)
-		InventoryManager.DELETE("/:id", iv.DeleteMaterial)
+		InventoryManager.DELETE("/:id", iv.RemoveMaterial)
 	}
 
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
-		ChefManager.GET("/allmenu", cf.GetListMenu)
-		ChefManager.GET("/:id", cf.GetRecipeandMenu)
+		ChefManager.GET("/allmenu", cf.ShowListMenu)
+		ChefManager.GET("/:id", cf.ShowRecipeandMenu)
 	}
 
-	//Owner Manager
+	
 	OwnerManager := router.Group("/OwnerManager")
 	{
 		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)
 		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)
-		OwnerManager.GET("/allmaterial", iv.GetMaterial)
-		OwnerManager.GET("/allmenu", cf.GetListMenu)
-		OwnerManager.GET("/:recipe_name", ow.GetAllRecipe)
-		OwnerManager.POST("/insert", ow.InsertMenu)
-		OwnerManager.PUT("/:menu_id", ow.UpdateMenu)
+		OwnerManager.GET("/allmaterial", iv.ShowMaterial)
+		OwnerManager.GET("/allmenu", cf.ShowListMenu)
+		OwnerManager.GET("/:id", ow.ShowAllRecipe)
+		OwnerManager.POST("/insert", ow.AddNewMenu)
+		OwnerManager.PUT("/:menu_id", ow.EditMenu)
 		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)
 	}
 
