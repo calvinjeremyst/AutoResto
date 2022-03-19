@@ -5,50 +5,54 @@ import (
 	"log"
 	"strconv"
 	"strings"
+
 	handler "github.com/AutoResto/handler"
 	material "github.com/AutoResto/material/entity"
 	"github.com/gin-gonic/gin"
 )
 
-
-func GetMaterialServiceDB() (rows *sql.Rows,err error){
+func GetMaterialServiceDB() (rows *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 
 	query := "SELECT * FROM material"
-	material,err := db.Query(query)
+	material, err := db.Query(query)
 
-	return material,err
-	
+	return material, err
+
 }
 
-func SearchMaterialServiceDB(c*gin.Context)(rows *sql.Rows,err error){
+func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 
 	materialName := c.Param("material_name")
 
-	query := "SELECT m.id, m.name, m.quantity, m.unit FROM material m WHERE m.name LIKE '"+materialName+"%'"
-	material,err := db.Query(query)
-	return material,err
+	query := "SELECT m.id, m.name, m.quantity, m.unit FROM material m WHERE m.name LIKE '" + materialName + "%'"
+	material, err := db.Query(query)
+	return material, err
 
 }
 
-func InsertMaterialHelperServiceDB(c* gin.Context,i int) error{
+func InsertMaterialHelperServiceDB(c *gin.Context, i int) error {
 
 	db := handler.Connect()
 	defer db.Close()
 
 	materialName := c.PostForm("material")
 	materialArr := strings.Split(materialName, ",")
+	quantityMaterial := c.PostForm("quantity_material")
+	unitMaterial := c.PostForm("unit_material")
 
-	_, errQuery := db.Exec("INSERT INTO material(name) VALUES(?)",
-					materialArr[i],
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)",
+		materialArr[i],
+		quantityMaterial,
+		unitMaterial,
 	)
 	return errQuery
 }
 
-func InsertMaterialServiceDB(c* gin.Context) error{
+func InsertMaterialServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -65,7 +69,7 @@ func InsertMaterialServiceDB(c* gin.Context) error{
 	return errQuery
 }
 
-func UpdateMaterialServiceDB(c *gin.Context) error{
+func UpdateMaterialServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -93,7 +97,7 @@ func UpdateMaterialServiceDB(c *gin.Context) error{
 	return errQuery
 }
 
-func DeleteMaterialServiceDB(c *gin.Context) error{
+func DeleteMaterialServiceDB(c *gin.Context) error {
 
 	db := handler.Connect()
 	defer db.Close()

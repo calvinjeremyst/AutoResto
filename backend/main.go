@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
 	cf "github.com/AutoResto/chef/controller/chef"
 	iv "github.com/AutoResto/inventory/controller/inventory"
 	ow "github.com/AutoResto/owner/controller/owner"
 	entity "github.com/AutoResto/user/entity"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
@@ -48,8 +48,7 @@ func main() {
 		ChefManager.GET("/:id", cf.ShowRecipeandMenu)
 	}
 
-	
-	OwnerManager :=   router.Group("/OwnerManager")
+	OwnerManager := router.Group("/OwnerManager")
 	{
 		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)
 		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)
