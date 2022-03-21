@@ -1,7 +1,7 @@
 <template>
 <div class="bg-addmaterial">
 <div class="container">
-    <form>
+    <form @submit.prevent = "InsertMaterial">
         <div class="headcard" style="padding :1rem">
             <h2 class = "title">Insert Material</h2>
         </div>
@@ -9,16 +9,16 @@
         <div class="cardbody">
             <div class = "namemtdiv" style = "padding : 2rem">
                 <b><label for="name" class="materialname" style="text-size:25px">Name:</label></b>
-                <input type="name" required v-model="name" class="isiname"><br>
+                <input type="name" v-model="name" class="isiname" id="name"><br>
             </div>
             <div class="qtymtdiv" style = "padding : 2rem">
                 <b><label for = "quantity" class="materialquantity">Quantity:</label></b>
-                <input type="text" required v-model="quantity" class="isiquty"><br>
+                <input type="text" v-model="quantity" class="isiquty" id="quantity"><br>
             </div>
 
             <div class="unitdiv" style="padding : 2rem">
                 <b><label for="unit" class = "materialunit">Unit:</label></b>
-                <input type = "text" required v-model="unit" class="isiunit"><br>
+                <input type = "text" v-model="unit" class="isiunit" id="unit"><br>
             </div>
             <div class="buttons"> 
                 <button name="insertmaterial" class="btninsert">Insert</button>
@@ -31,17 +31,36 @@
 </template>
 
 <script>
+import axios from "axios";
+const nameInput = document.getElementById("name");
+const quantityInput = document.getElementById("quantity")
+const unitInput = document.getElementById("unit")
+  
      export default{
+
          name : 'AddMaterial',
          data(){
-             return{
-                 name: '',
-                 quantity: '',
-                 unit:''
-
+             return {
+                material:{
+                    name: '',
+                    quantity: '',
+                    unit:''
+                }
+            };
+         },
+         methods:{
+             async InsertMaterial(){   
+                try{
+                    await axios.post('/InventoryManager/insert',this.material)
+                }
+                catch(error){
+                    console.log(error)
+                }
              }
          }
      }
+
+
 </script>
 
 <style>

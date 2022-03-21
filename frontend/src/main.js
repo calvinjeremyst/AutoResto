@@ -10,6 +10,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
+
 library.add(fas, fab);
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 Vue.config.productionTip = false;

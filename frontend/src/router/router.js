@@ -34,7 +34,7 @@ const routes = [
     },
     {
       path: '/add_material',
-      name: 'Add Material',
+      name: 'AddMaterial',
       component: AddMaterial,
     },
     {
