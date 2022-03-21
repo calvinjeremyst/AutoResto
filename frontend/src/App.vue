@@ -24,6 +24,7 @@
     import Login from "./services/Login";
     import Header from "./components/Header"
     import Footer from "./components/Footer";
+import OwnerNavbar1 from "./components/OwnerNavbar.vue";
 
     export default {
         mounted() {
@@ -38,12 +39,13 @@
             };
         },
         components: {
-          OwnerNavbar,
-          InventoryNavbar,
-          ChefNavbar,
-          Footer,
-          Header
-        },
+    OwnerNavbar,
+    InventoryNavbar,
+    ChefNavbar,
+    Footer,
+    Header,
+    OwnerNavbar1
+},
         methods: {
             async fetchData() {
                 this.idRole = this.loginService.getCurrentUserType();

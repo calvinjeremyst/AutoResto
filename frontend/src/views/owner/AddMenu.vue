@@ -5,10 +5,9 @@
                 <div class="headcard">
                     <h2 class="title">Insert Menu</h2>
                 </div>
-
                 <div class="cardbody">
                     <div class="foodname">
-                        <b><label for="foodname">Name:</label></b>
+                        <b><label for="foodname">Name</label></b>
                         <input type="text" required v-model="menuname" class="isifoodname"><br>
                     </div>
 
@@ -18,7 +17,7 @@
                     </div>
 
                     <div class="idrecipemenu">
-                        <b><label for="idrecipe">ID Recipe</label></b>
+                        <b><label for="idrecipe">Recipe</label></b>
                         <input type="text" required v-model="idrecipe" class="isiidrecipe"><br>
                     </div>
 
@@ -26,7 +25,6 @@
                         <button name="insertmenu" class="btn-insertmenu">Insert</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
@@ -39,49 +37,50 @@ export default{
             menuname:'',
             menuprice:'',
             idrecipe:''
-
         }
     }
 }
 </script>
 
 <style>
+    .foodname{
+        padding: 2rem;
+        text-align: center;
+    }
 
-.foodname{
-    padding: 2rem;
-    text-align: center;
-}
-.isifoodname{
-    margin-left: 30px;
-    height: 30px;
-}
-.pricemenu{
-    padding: 2rem;
-    text-align: center;
-    margin-right: 10px;
-}
+    .isifoodname{
+        margin-left: 30px;
+        height: 30px;
+    }
 
-.isifoodprice{
-    margin-left: 40px;
-    height: 30px;
-}
-.labelprice{
-    margin-left: 20px;
-}
+    .pricemenu{
+        padding: 2rem;
+        text-align: center;
+        margin-right: 10px;
+    }
 
-.idrecipemenu{
-    padding: 2rem;
-    text-align: center;
-    margin-right: 30px;
-}
+    .isifoodprice{
+        margin-left: 30px;
+        height: 30px;
+    }
 
-.isiidrecipe{
-    margin-left: 50px;
-    height: 30px;
-}
- .btn-insertmenu{
-      margin-left: 210px;
-      width : 75px;
-  }
+    .labelprice{
+        margin-left: 20px;
+    }
+
+    .idrecipemenu{
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .isiidrecipe{
+        margin-left: 30px;
+        height: 30px;
+    }
+
+    .btn-insertmenu{
+        margin-left: 33rem;
+        width : 75px;
+    }
 
 </style>

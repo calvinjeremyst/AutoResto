@@ -19,7 +19,6 @@
 </template>
 
 <style>
-
     .bg-searchmenu{
          padding: 2000x;
         width: 100%;
@@ -42,5 +41,4 @@
         margin-left: 48%;
         padding: 0.5rem;
     }
-
 </style>
