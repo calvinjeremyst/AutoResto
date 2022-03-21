@@ -1,6 +1,6 @@
 <template>
-    <div>
-        
+    <div id="app">
+        <h1>Home Page</h1>
     </div>
 </template>
 
@@ -9,3 +9,9 @@ export default {
 
 }
 </script>
+
+<style>
+    #app {
+        text-align: center;
+    }
+</style>

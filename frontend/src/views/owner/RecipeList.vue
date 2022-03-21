@@ -1,6 +1,6 @@
 <template>
   <div class="table" id="app">
-    <h1><b>Material List</b></h1>
+    <h1><b>Recipe List</b></h1>
     <center>
       <table>
         <tr>

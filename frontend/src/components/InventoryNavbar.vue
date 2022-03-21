@@ -6,7 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/addMaterial">
+      <b-navbar-item href="/add_material">
         <b-icon pack="fas" icon="plus-square" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem">Add Material</span>

@@ -8,14 +8,14 @@
           <b-field label="Email">
             <b-input
               v-model="person.email"
-              placeholder="Insert Email"
+              placeholder="Email"
             ></b-input>
           </b-field>
           <b-field label="Password">
             <b-input
               type="password"
               v-model="person.password"
-              placeholder="Insert Password"
+              placeholder="Password"
             ></b-input>
           </b-field>
           <center>
@@ -75,7 +75,7 @@ export default {
 <style>
 .container {
   width: 450px;
-  height: 400px;
+  height: 100px;
   margin: 9% auto;
   background-color: rgba(250, 250, 250, 0.295);
 }

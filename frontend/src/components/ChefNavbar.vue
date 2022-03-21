@@ -6,7 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/menuRecipe">
+      <b-navbar-item href="/menu_recipe">
         <b-icon pack="fas" icon="book" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem">Menu and Recipe</span>

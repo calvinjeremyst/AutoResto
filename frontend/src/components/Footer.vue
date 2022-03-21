@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer">
+    <footer class="footer" style="background-color:lightgray">
         <div class="content has-text-centered">
             <div class="media-social">
                 <b-icon pack="fab" icon="facebook-square" size="is-medium"></b-icon>
