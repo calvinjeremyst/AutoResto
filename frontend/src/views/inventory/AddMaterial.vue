@@ -29,18 +29,14 @@
 
 <script>
      import axios from "axios";
-     //const nameInput = document.getElementById("name");
-     //const quantityInput = document.getElementById("quantity");
-     //const unitInput = document.getElementById("unit");
-
      export default{
          name : 'AddMaterial',
          data(){
              return {
                 'material': {
-                    'name':'',
-                    'quantity':'',
-                    'unit': '',
+                    'name': '',
+                    'quantity': '',
+                    'unit':'',
                 }
             };
          },
