@@ -13,15 +13,13 @@
                     <button class="button-search">Search</button>
                 </div>
             </form>
-
         </div>
     </div>
 </template>
 
 <style>
-
     .bg-searchmaterial{
-         padding: 2000x;
+        padding: 2000x;
         width: 100%;
         height: 100%;
         margin: 2% auto;
@@ -42,5 +40,4 @@
         margin-left: 48%;
         padding: 0.5rem;
     }
-
 </style>

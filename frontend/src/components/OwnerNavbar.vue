@@ -1,7 +1,7 @@
 <template>
   <b-navbar style="background-color: white; padding: 16px" shadow>
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item tag="router-link" :to="{ path: '/home' }">
         <img src="@/assets/AutoResto.png" />
       </b-navbar-item>
     </template>
@@ -17,7 +17,7 @@
         <span style="margin-left: 0.5rem">Recipe List</span>
       </b-navbar-item>
       <b-navbar-item href="/material_list">
-        <b-icon pack="fas" icon="sticky-note-o" size="is-small" type="is-primary">
+        <b-icon pack="fas" icon="sticky-note" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem">Material List</span>
       </b-navbar-item>
