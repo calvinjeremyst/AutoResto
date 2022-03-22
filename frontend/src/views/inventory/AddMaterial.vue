@@ -53,7 +53,6 @@
             }
         }
     }
-
 </script>
 
 <style>
@@ -66,7 +65,6 @@
     }
 
     .title{
-       text-size : 200%;
        text-align: center;
     }
 
@@ -74,7 +72,6 @@
         margin-left: 25px;
         width: 150px;
         height: 30px;
-      
     }
 
     .isiquty{
@@ -102,7 +99,7 @@
     }
 
     .btninsert{
-      margin-left: 33rem;
+      margin-left: 40rem;
       width : 75px;
     }
 
