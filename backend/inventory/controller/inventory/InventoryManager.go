@@ -59,7 +59,6 @@ func ShowMaterial(c *gin.Context) {
 func UpdateMaterial(c *gin.Context) {
 
 	errQuery := mtservice.UpdateMaterialServiceDB(c)
-
 	var response model.MaterialResponse
 	if errQuery == nil {
 		response.Message = "Update Material Success"

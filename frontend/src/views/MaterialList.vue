@@ -49,11 +49,11 @@ export default {
 </script>
 
 <style>
-.table{
-  text-align: center;
-}
+  .table{
+    text-align: center;
+  }
 
-.btnUpdate{
-  margin-right: 10px;
-}
+  .btnUpdate{
+    margin-right: 10px;
+  }
 </style>

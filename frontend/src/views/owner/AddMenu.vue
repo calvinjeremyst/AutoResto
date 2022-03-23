@@ -79,7 +79,7 @@ export default{
     }
 
     .btn-insertmenu{
-        margin-left: 33rem;
+        margin-left: 40rem;
         width : 75px;
     }
 
