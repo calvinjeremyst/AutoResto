@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="gridClass" :style="gridStyle"></div>
+  <div class="card" :style="gridStyle"></div>
 </template>
 
 <script>
@@ -9,12 +9,7 @@ export default {
     gridStyle() {
       return {
         "--i": this.index,
-        "background-image": "url(" + require("../assets" + this.item.img) + ")",
-      };
-    },
-    gridClass() {
-      return {
-        "card-1-1": this.item.grid === "card-1-1",
+        "background-image": "url(" + require("../assets/home" + this.item.img) + ")",
       };
     },
   },
@@ -23,14 +18,9 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  width: 100%;
-  height: 250px;
+  width: 300px;
+  height: 200px;
   background-position: center;
   background-size: cover;
 }
-
-.card-1-1 {
-  grid-column: span 1;
-}
-
 </style>

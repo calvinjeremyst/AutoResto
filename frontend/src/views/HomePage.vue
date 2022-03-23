@@ -1,31 +1,105 @@
 <template>
   <div id="app">
-    <router-link to="/login">
-      <transition-group appear name="slide-in" class="grid-wrapper" tag="div">
-        <Card
-          v-for="(card, index) in cards"
-          :key="'card' + index"
-          :item="card"
-          :index="index"
-        />
-      </transition-group>
-    </router-link>
+    <div class="grid-wrapper">
+      <div class="grid-item">
+        <router-link to="/add_material">
+          <Card
+            v-for="(card, index) in card1"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/add_menu">
+          <Card
+            v-for="(card, index) in card2"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/menu_list">
+          <Card
+            v-for="(card, index) in card3"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/material_list">
+          <Card
+            v-for="(card, index) in card4"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/recipe_list">
+          <Card
+            v-for="(card, index) in card5"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/search_material">
+          <Card
+            v-for="(card, index) in card6"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+      <div class="grid-item">
+        <router-link to="/search_menu">
+          <Card
+            v-for="(card, index) in card7"
+            :key="'card' + index"
+            :item="card"
+            :index="index"
+          />
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Card from "../components/FirstPageLayout";
+import Card from "../components/HomeLayout";
 export default {
   data: () => {
     return {
-      cards: [
-        { img: "/addMaterial.png", grid: "card-1-1" },
-        { img: "/materialList.png", grid: "card-1-1" },
-        { img: "/searchMaterial.png", grid: "card-1-1" },
-        { img: "/searchMenu.png", grid: "card-1-1" },
+      card1: [
+        { img: "/addMaterial.png", grid: "card-1-1" },       
+      ],
+      card2: [
+        { img: "/addMenu.png", grid: "card-1-1" },
+      ],
+      card3: [
         { img: "/menuList.png", grid: "card-1-1" },
+      ],
+      card4: [
+        { img: "/materialList.png", grid: "card-1-1" },
+      ],
+      card5: [
         { img: "/recipeList.png", grid: "card-1-1" },
-        { img: "/menuRecipe.png", grid: "card-1-1" },
+      ],
+      card6: [
+        { img: "/searchMaterial.png", grid: "card-1-1" },
+      ],
+      card7: [
+        { img: "/searchMenu.png", grid: "card-1-1" },
       ],
     };
   },
@@ -67,8 +141,13 @@ export default {
 }
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  margin-left: 6%;
+}
+
+.grid-item {
+  padding: 10px;
 }
 
 .slide-in-enter {
