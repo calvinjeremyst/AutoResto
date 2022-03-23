@@ -150,13 +150,4 @@ export default {
   padding: 10px;
 }
 
-.slide-in-enter {
-  opacity: 0;
-  transform: scale(0.5);
-}
-
-.slide-in-enter-active {
-  transition: all 0.4s ease;
-  transition-delay: calc(0.1s * var(--i));
-}
 </style>
