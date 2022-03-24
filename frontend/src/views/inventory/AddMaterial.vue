@@ -28,6 +28,24 @@
 </template>
 
 <script>
+function buildFormData(formData, data, parentKey) {
+  if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+    Object.keys(data).forEach(key => {
+      buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+    });
+  } else {
+    const value = data == null ? '' : data;
+
+    formData.append(parentKey, value);
+  }
+}
+
+function jsonToFormData(data){
+    const formData = new FormData();
+    buildFormData(formData,data);
+    return formData
+}
+
      import axios from "axios";
      export default{
          name : 'AddMaterial',
@@ -35,16 +53,17 @@
              return {
                 'material': {
                     'name': '',
-                    'quantity': '',
                     'unit':'',
                 }
             };
          },
+        
          methods:{
-             async InsertMaterial(){   
+          
+             async InsertMaterial(){ 
+              this.material = jsonToFormData(this.material)
                 try{
                     const response = await axios.post('/InventoryManager/insert',this.material);
-                    //res.data.headers['Content-Type'];
                     console.log(response,this.material)
                 }
                 catch(error){

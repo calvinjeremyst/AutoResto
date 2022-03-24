@@ -12,12 +12,14 @@ import (
 
 //Insert Material
 func AddNewMaterial(c *gin.Context) {
-	errQuery := mtservice.InsertMaterialServiceDB(c)
-
+	c.Header("Content-Type","Application/JSON")
 	var response model.MaterialResponse
-	if errQuery == nil {
+	errQuery := mtservice.InsertMaterialServiceDB(c)
+	
+	
+	if errQuery == nil{
 		response.Message = "Insert Material Success"
-		c.JSON(http.StatusOK, response)
+		c.JSON(http.StatusOK,response)
 	} else {
 		response.Message = "Insert Material Failed"
 		c.JSON(http.StatusBadRequest, response)
