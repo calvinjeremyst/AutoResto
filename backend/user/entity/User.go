@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	controller "github.com/AutoResto/user/controller"
 	handler "github.com/AutoResto/handler"
+	controller "github.com/AutoResto/user/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,7 +22,6 @@ type User struct {
 
 type User2 interface {
 	Login(c *gin.Context)
-
 }
 type LoginResponse struct {
 	Message string `form:"message" json:"message"`
@@ -40,7 +39,7 @@ func Login(c *gin.Context) {
 		log.Println(err)
 	}
 
-	query := "SELECT id,name,position FROM user WHERE email = '" + userData.Email+ "' AND password = '" + string(userData.Password) + "'"
+	query := "SELECT id,name,position FROM user WHERE email = '" + userData.Email + "' AND password = '" + string(userData.Password) + "'"
 
 	rows, err := db.Query(query)
 	if err != nil {

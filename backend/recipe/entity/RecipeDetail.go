@@ -11,5 +11,3 @@ type RecipeDetail struct {
 	Quantity int            `form:"quality" json:"quality"`
 	Unit     string         `form:"unit" json:"unit"`
 }
-
-

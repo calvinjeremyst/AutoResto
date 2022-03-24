@@ -46,7 +46,7 @@ const routes = [
       name: 'AddMaterial',
       component: AddMaterial,
       meta: {
-        title: "Home"
+        title: "Add Material"
       }
     },
     {

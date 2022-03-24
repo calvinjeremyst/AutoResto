@@ -1,18 +1,19 @@
 package chef
 
 import (
-	"net/http"
 	"log"
+	"net/http"
+
 	modelMenu "github.com/AutoResto/menu/entity"
-	modelRecipe "github.com/AutoResto/recipe/entity"
 	mnservice "github.com/AutoResto/menu/service"
+	modelRecipe "github.com/AutoResto/recipe/entity"
 	rcservice "github.com/AutoResto/recipe/service"
 	"github.com/gin-gonic/gin"
 )
 
 //Get List Menu
 func ShowListMenu(c *gin.Context) {
-	rows,err := mnservice.SelectMenuServiceDB()
+	rows, err := mnservice.SelectMenuServiceDB()
 	if err != nil {
 		log.Println(err)
 	}
@@ -29,16 +30,16 @@ func ShowListMenu(c *gin.Context) {
 	if err == nil {
 		response.Message = "Get Menu Success"
 		response.Data = menus
-		c.JSON(http.StatusOK,response)
+		c.JSON(http.StatusOK, response)
 	} else {
 		response.Message = "Get Menu Query Error"
-		c.JSON(http.StatusBadRequest,response)
+		c.JSON(http.StatusBadRequest, response)
 	}
 }
 
 func ShowRecipeandMenu(c *gin.Context) {
-	
-	rows,err := rcservice.SelectMenuRecipeServiceDB(c)
+
+	rows, err := rcservice.SelectMenuRecipeServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}
@@ -56,11 +57,9 @@ func ShowRecipeandMenu(c *gin.Context) {
 	if err == nil {
 		responseRecipe.Message = "Get Recipe Success"
 		responseRecipe.Data = recipes
-		c.JSON(http.StatusOK,responseRecipe)
+		c.JSON(http.StatusOK, responseRecipe)
 	} else {
 		responseRecipe.Message = "Recipe Get Failed"
-		c.JSON(http.StatusBadRequest,responseRecipe)
+		c.JSON(http.StatusBadRequest, responseRecipe)
 	}
 }
-
-

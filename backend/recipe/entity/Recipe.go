@@ -9,4 +9,3 @@ type Recipe struct {
 	Description string  `form:"description" json:"description"`
 	Menu        MN.Menu `form : "menu" json : "menu"`
 }
-

@@ -6,5 +6,3 @@ type Material struct {
 	Quantity int    `form : "quantity" json:"quantity"`
 	Unit     string `form : "unit" json:"unit"`
 }
-
-

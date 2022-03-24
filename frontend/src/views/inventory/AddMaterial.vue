@@ -7,19 +7,19 @@
             </div>
             <div class="cardbody">
                 <div class = "namemtdiv" style = "padding : 2rem">
-                    <b><label for="name" class="materialname" style="text-size:25px">Name:</label></b>
-                    <input type="name" v-model="material.name" class="isiname" id="name"><br>
+                    <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
+                    <input type = "name" v-model = "material.name" class = "isiname" id = "name"><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
-                    <b><label for = "quantity" class="materialquantity">Quantity:</label></b>
-                    <input type="text" v-model="material.quantity" class="isiquty" id="quantity"><br>
+                    <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
+                    <input type = "text" v-model = "material.quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
-                    <b><label for="unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model="material.unit" class="isiunit" id="unit"><br>
+                    <b><label for = "unit" class = "materialunit">Unit:</label></b>
+                    <input type = "text" v-model = "material.unit" class = "isiunit" id = "unit"><br>
                 </div>
                 <div class="buttons"> 
-                    <button name="insertmaterial" class="btninsert">Insert</button>
+                    <button name = "insertmaterial" class = "btninsert">Insert</button>
                 </div>
             </div>
         </form>
@@ -28,40 +28,39 @@
 </template>
 
 <script>
-function buildFormData(formData, data, parentKey) {
-  if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-    Object.keys(data).forEach(key => {
-      buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-    });
-  } else {
-    const value = data == null ? '' : data;
+    function buildFormData(formData, data, parentKey) {
+        if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+            Object.keys(data).forEach(key => {
+            buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+            });
+        } else {
+            const value = data == null ? '' : data;
 
-    formData.append(parentKey, value);
-  }
-}
+            formData.append(parentKey, value);
+        }
+    }
 
-function jsonToFormData(data){
-    const formData = new FormData();
-    buildFormData(formData,data);
-    return formData
-}
+    function jsonToFormData(data){
+        const formData = new FormData();
+        buildFormData(formData,data);
+        return formData
+    }
 
-     import axios from "axios";
-     export default{
-         name : 'AddMaterial',
-         data(){
-             return {
+    import axios from "axios";
+    export default{
+        name : 'AddMaterial',
+        data(){
+            return {
                 'material': {
                     'name': '',
                     'unit':'',
                 }
             };
-         },
+        },
         
-         methods:{
-          
-             async InsertMaterial(){ 
-              this.material = jsonToFormData(this.material)
+        methods:{
+            async InsertMaterial(){ 
+                this.material = jsonToFormData(this.material)
                 try{
                     const response = await axios.post('/InventoryManager/insert',this.material);
                     console.log(response,this.material)

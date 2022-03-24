@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+
 	handler "github.com/AutoResto/handler"
 	material "github.com/AutoResto/material/entity"
 	"github.com/gin-gonic/gin"
@@ -22,10 +23,10 @@ func GetMaterialServiceDB() (rows *sql.Rows, err error) {
 }
 
 func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
-	c.Header("Content-Type","Application/JSON")
+	c.Header("Content-Type", "Application/JSON")
 	db := handler.Connect()
 	defer db.Close()
-     
+
 	materialName := c.Param("material_name")
 
 	query := "SELECT m.id, m.name, m.quantity, m.unit FROM material m WHERE m.name LIKE '" + materialName + "%'"
@@ -57,12 +58,12 @@ func InsertMaterialServiceDB(c *gin.Context) error {
 	defer db.Close()
 
 	materialname := c.PostForm("name")
-	quantity,_ := strconv.Atoi(c.PostForm("quantity"))
+	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
 	unit := c.PostForm("unit")
 
-		_,errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)",materialname,quantity,unit)	   
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)", materialname, quantity, unit)
 	return errQuery
-		
+
 }
 
 func UpdateMaterialServiceDB(c *gin.Context) error {
