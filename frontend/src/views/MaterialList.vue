@@ -10,18 +10,17 @@
           <th>Satuan</th>
           <th>Data Option</th>
         </tr>
-        <tr v-for="log in data" :key="log.id">
-          <td>{{ log.id }}</td>
-          <td>{{ log.name }}</td>
-          <td>{{ log.quantity }}</td>
-          <td>{{ log.alamat }}</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Beras</td>
-          <td>100</td>
-          <td>KG</td>
-          <td><button name="edit" class="btnUpdate">Edit</button><button name="delete" class="btnDelete">Delete</button></td>
+        <tr v-for="log in data" :key="log.Id">
+          <td>{{ log.Id }}</td>
+          <td>{{ log.Name }}</td>
+          <td>{{ log.Quantity }}</td>
+          <td>{{ log.Alamat }}</td>
+          <td>
+            <router-link :to="{name:'UpdateMaterial',params:{'id':'log.Id'}}">
+              <button name="edit" class="btnUpdate">Edit</button>
+            </router-link>
+             <button name="delete" class="btnDelete">Delete</button>
+          </td>
         </tr>
       </table>
     </center>
@@ -30,22 +29,30 @@
 
 <script>
 import axios from "axios";
-export default {
-  mounted() {
+export default{
+  mounted(){
     this.fetchData();
   },
-  data() {
-      return {
-        data: [],
+  data(){
+    return{
+      data : [],
+    }
+  },
+  methods : {
+    async fetchData(){
+      try{
+          const res = await axios.get("InventoryManager/allmaterial");
+          this.data = res.data.data;
+          console.log(res,this.data)
       }
-  },
-  methods: {
-    async fetchData() {
-      const res = await axios.get("/InventoryManager/allmaterial");
-      this.data = res.data.data[0];
-    },
-  },
+      catch(error){
+          console.log(error)
+      }
+    }
+  }
 };
+  
+ 
 </script>
 
 <style>

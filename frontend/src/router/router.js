@@ -15,6 +15,7 @@ import SearchMaterial from '../views/owner/SearchMaterial.vue'
 import SearchMenu from '../views/owner/SearchMenu.vue'
 import AddMenu from '../views/owner/AddMenu'
 import MenuRecipe from '../views/chef/MenuRecipe'
+import EditMaterial from '../views/inventory/EditMaterial'
 
 const routes = [
     {
@@ -105,6 +106,18 @@ const routes = [
         title: "Menu Recipe"
       }
     },
+
+    {
+      path : '/update_material',
+      name : 'UpdateMaterial',
+      component : EditMaterial,
+      meta: {
+        title : "Update Material"
+      }
+    },
+
+
+
 ];
 
 const router = new VueRouter({

@@ -22,6 +22,18 @@ func GetMaterialServiceDB() (rows *sql.Rows, err error) {
 
 }
 
+func GetMaterialServiceById(c *gin.Context)(rows *sql.Rows,err error){
+
+	db := handler.Connect()
+	defer db.Close()
+	id := c.Param("id")
+	query := "SELECT * FROM material WHERE id = '"+id+"'"
+
+	material,err := db.Query(query)
+	return material,err
+
+}
+
 func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 	c.Header("Content-Type", "Application/JSON")
 	db := handler.Connect()

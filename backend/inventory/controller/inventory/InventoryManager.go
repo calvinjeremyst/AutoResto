@@ -25,6 +25,36 @@ func AddNewMaterial(c *gin.Context) {
 	}
 
 }
+func ShowMaterialById(c *gin.Context){
+	rows,err := mtservice.GetMaterialServiceById(c)
+
+	if err != nil{
+		log.Println(err)
+	}
+
+	var material model.Material
+	var materials []model.Material
+
+	for rows.Next(){
+		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
+			log.Fatal(err.Error())
+		}else{
+			materials = append(materials, material)
+		}
+	}
+
+	var response model.MaterialResponse
+
+	if err == nil{
+		response.Message = "Get Material Success"
+		response.Data = materials
+		c.JSON(http.StatusOK,response)
+	}else{
+		response.Message = "Get Material Failed"
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest,response)
+	}
+}
 
 //Get Material
 func ShowMaterial(c *gin.Context) {
