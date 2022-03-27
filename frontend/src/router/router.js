@@ -15,7 +15,7 @@ import SearchMaterial from '../views/owner/SearchMaterial.vue'
 import SearchMenu from '../views/owner/SearchMenu.vue'
 import AddMenu from '../views/owner/AddMenu'
 import MenuRecipe from '../views/chef/MenuRecipe'
-import EditMaterial from '../views/inventory/EditMaterial'
+import EditMaterial from '../views/inventory/UpdateMaterial'
 
 const routes = [
     {
@@ -108,7 +108,7 @@ const routes = [
     },
 
     {
-      path : '/update_material',
+      path : '/update_material/:id',
       name : 'UpdateMaterial',
       component : EditMaterial,
       meta: {

@@ -20,9 +20,6 @@ type User struct {
 	Roles       UserRole `form:"role" json:"role"`
 }
 
-type User2 interface {
-	Login(c *gin.Context)
-}
 type LoginResponse struct {
 	Message string `form:"message" json:"message"`
 	Type    string `form:"userType" json:"userType"`

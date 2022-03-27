@@ -16,7 +16,7 @@
           <td>{{ log.Quantity }}</td>
           <td>{{ log.Alamat }}</td>
           <td>
-            <router-link :to="{name:'UpdateMaterial',params:{'id':'log.Id'}}">
+            <router-link :to="{name:'UpdateMaterial',params:{'id':log.Id}}">
               <button name="edit" class="btnUpdate">Edit</button>
             </router-link>
              <button name="delete" class="btnDelete">Delete</button>
@@ -41,10 +41,10 @@ export default{
   methods : {
     async fetchData(){
       try{
-          const res = await axios.get("InventoryManager/allmaterial");
-          this.data = res.data.data;
-          console.log(res,this.data)
-      }
+        const res = await axios.get("InventoryManager/allmaterial");
+        this.data = res.data.data;
+        console.log(res,this.data)
+      } 
       catch(error){
           console.log(error)
       }
