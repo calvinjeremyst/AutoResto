@@ -19,7 +19,7 @@
             <router-link :to="{name:'UpdateMaterial',params:{'id':log.Id}}">
               <button name="edit" class="btnUpdate">Edit</button>
             </router-link>
-             <button name="delete" class="btnDelete">Delete</button>
+             <button name="delete" class="btnDelete" @click="deleteMaterial(log.Id)">Delete</button>
           </td>
         </tr>
       </table>
@@ -39,7 +39,7 @@ export default{
     }
   },
   methods : {
-    async fetchData(){
+      async fetchData(){
       try{
         const res = await axios.get("InventoryManager/allmaterial");
         this.data = res.data.data;
@@ -48,8 +48,18 @@ export default{
       catch(error){
           console.log(error)
       }
+    },
+    async deleteMaterial(Id){
+      try{
+          await axios.delete(`InventoryManager/${Id}`);
+          this.fetchData()
+      }
+      catch(error){
+        console.log(error)
+     }
+     
     }
-  }
+ }
 };
   
  

@@ -95,14 +95,12 @@ func UpdateMaterialServiceDB(c *gin.Context) error {
 			log.Fatal(err.Error())
 		}
 	}
-
 	_, errQuery := db.Exec("UPDATE material SET name = ?,quantity = ?,unit = ? WHERE id = ?",
 		materialName,
 		materialQuantity,
 		materialUnit,
 		idMaterial,
 	)
-
 	return errQuery
 }
 

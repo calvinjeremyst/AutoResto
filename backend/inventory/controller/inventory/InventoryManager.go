@@ -88,7 +88,7 @@ func ShowMaterial(c *gin.Context) {
 
 //Update Material
 func UpdateMaterial(c *gin.Context) {
-
+	c.Header("Content-Type", "Application/JSON")
 	errQuery := mtservice.UpdateMaterialServiceDB(c)
 	var response model.MaterialResponse
 	if errQuery == nil {

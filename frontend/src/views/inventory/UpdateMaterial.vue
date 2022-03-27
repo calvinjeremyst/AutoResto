@@ -48,19 +48,22 @@ function jsonToFormData(data){
 
 import axios from "axios"
 export default{
+    
     name : 'UpdateMaterial',
     data(){
         return {
-            data :[],
-            'material':{
+            
+             'material':{
                 'name':'',
                 'quantity':'',
                 'unit':'',
-            } 
+            }, 
+            data :[],
         }
     },
     mounted(){
-        this.fetchById()
+        this.fetchById(),
+        this.data
     },
     methods:{
         async fetchById(){
@@ -74,10 +77,22 @@ export default{
             }
         },
         async UpdateMaterial(){
-            this.material = jsonToFormData(this.material)
-            try{  
-                const response = await axios.put('/InventoryManager/'+this.$route.params.id,this.material);
-                console.log(response,this.material)
+            this.material.name = jsonToFormData(this.material.name)
+            this.material.quantity = jsonToFormData(this.material.quantity)
+            this.material.unit = jsonToFormData(this.material.unit)
+            try{
+                const response = await axios.put('InventoryManager/'+this.$route.params.id,{
+                    'name' : this.material.name,
+                    'quantity' : this.material.quantity,
+                    'unit' : this.material.unit,
+                });
+                const form_data = new FormData();
+                form_data.append('name', this.material.name);
+                form_data.append('quantity',this.material.quantity);
+                form_data.append('unit',this.material.unit)
+
+                this.material = response.data.material
+                console.log(response,this.material.name)
             }
             catch(error){
                 console.log(error)
