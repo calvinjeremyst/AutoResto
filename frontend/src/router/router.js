@@ -9,13 +9,15 @@ import FirstPage from '../views/FirstPage.vue';
 import HomePage from '../views/HomePage.vue';
 import AddMaterial from '../views/inventory/AddMaterial.vue'
 import MaterialList from '../views/MaterialList.vue'
-import MenuList from '../views/MenuList.vue'
+import MenuListChef from '../views/chef/MenuListChef'
 import RecipeList from '../views/owner/RecipeList.vue'
 import SearchMaterial from '../views/owner/SearchMaterial.vue'
 import SearchMenu from '../views/owner/SearchMenu.vue'
 import AddMenu from '../views/owner/AddMenu'
 import MenuRecipe from '../views/chef/MenuRecipe'
 import EditMaterial from '../views/inventory/UpdateMaterial'
+import FormRecipe from '../views/chef/FormRecipe'
+
 
 const routes = [
     {
@@ -59,11 +61,11 @@ const routes = [
       }
     },
     {
-      path: '/menu_list',
-      name: 'MenuList',
-      component: MenuList,
+      path: '/menu_list_chef',
+      name: 'MenuListChef',
+      component: MenuListChef,
       meta: {
-        title: "Menu List"
+        title: "Menu List Chef"
       }
     },
     {
@@ -115,8 +117,14 @@ const routes = [
         title : "Update Material"
       }
     },
-
-
+    {
+      path : '/form_recipe_menu',
+      name : 'FormRecipe',
+      component : FormRecipe,
+      meta : {
+        title : "Form Recipe Menu"
+      }
+    }
 
 ];
 
