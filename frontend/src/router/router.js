@@ -7,17 +7,25 @@ Vue.use(VueRouter);
 import Login from '../views/Login.vue';
 import FirstPage from '../views/FirstPage.vue';
 import HomePage from '../views/HomePage.vue';
+//Component Material
 import AddMaterial from '../views/inventory/AddMaterial.vue'
 import MaterialList from '../views/MaterialList.vue'
-import MenuListChef from '../views/chef/MenuListChef'
-import RecipeList from '../views/owner/RecipeList.vue'
+import MaterialListSearch from '../views/owner/MaterialListSearch.vue'
 import SearchMaterial from '../views/owner/SearchMaterial.vue'
+import EditMaterial from '../views/inventory/UpdateMaterial'
+
+
+//Component Menu
+import MenuListChef from '../views/chef/MenuListChef'
+import MenuListOwner from '../views/owner/MenuListOwner'
 import SearchMenu from '../views/owner/SearchMenu.vue'
 import AddMenu from '../views/owner/AddMenu'
-import MenuRecipe from '../views/chef/MenuRecipe'
-import EditMaterial from '../views/inventory/UpdateMaterial'
-import FormRecipe from '../views/chef/FormRecipe'
+import MenuListSearch from '../views/owner/MenuListSearch.vue'
 
+//Component Recipe
+import RecipeList from '../views/owner/RecipeList.vue'
+import MenuRecipe from '../views/chef/MenuRecipe'
+import FormRecipe from '../views/chef/FormRecipe'
 
 const routes = [
     {
@@ -61,11 +69,36 @@ const routes = [
       }
     },
     {
+      path : '/material_list_search/material/:name',
+      name : 'MaterialListSearch',
+      component : MaterialListSearch,
+      meta: {
+        title : "Material List Searched"
+      }
+    },
+    {
+      path : '/menu_list_search/menu/:name',
+      name : 'MenuListSearch',
+      component : MenuListSearch,
+      meta : {
+        title : "Menu List Search"
+      }
+    },
+
+    {
       path: '/menu_list_chef',
       name: 'MenuListChef',
       component: MenuListChef,
       meta: {
         title: "Menu List Chef"
+      }
+    },
+    {
+      path : '/menu_list_owner',
+      name : 'MenuListOwner',
+      component : MenuListOwner,
+      meta:{
+        title : "Menu List Owner"
       }
     },
     {
@@ -101,7 +134,7 @@ const routes = [
       }
     },
     {
-      path: '/menu_recipe',
+      path: '/menu_recipe/:id',
       name: 'MenuRecipe',
       component: MenuRecipe,
       meta: {

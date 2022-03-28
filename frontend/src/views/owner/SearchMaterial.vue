@@ -7,15 +7,29 @@
             <form>
                 <div class="keyword">
                     <h3><b><label for="keywords" class="labelkeyword">Kata Kunci</label></b></h3><br>
-                    <input type="text" class="searchkeyword">
+                    <input type="text" class="searchkeyword" v-model="materialname">
                 </div>
                 <div class="buttonsearch">
+                <router-link :to="{name:'MaterialListSearch',params:{'name':materialname}}">
                     <button class="button-search">Search</button>
+                 </router-link>
                 </div>
             </form>
         </div>
     </div>
 </template>
+
+<script>
+export default{
+    data(){
+        return{
+            materialname : null,
+        }
+    }
+}
+</script>
+
+
 
 <style>
     .bg-searchmaterial{

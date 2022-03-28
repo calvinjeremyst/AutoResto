@@ -35,30 +35,30 @@ func main() {
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.POST("/insert", iv.AddNewMaterial)
-		InventoryManager.GET("/allmaterial", iv.ShowMaterial)
-		InventoryManager.GET("/:id",iv.ShowMaterialById)
+		InventoryManager.POST("/insert", iv.AddNewMaterial)//done
+		InventoryManager.GET("/allmaterial", iv.ShowMaterial)//done
+		InventoryManager.GET("/:id",iv.ShowMaterialById)//done
 		InventoryManager.PUT("/:id", iv.UpdateMaterial)
-		InventoryManager.DELETE("/:id", iv.RemoveMaterial)
+		InventoryManager.DELETE("/:id", iv.RemoveMaterial)//done
 	}
 
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
-		ChefManager.GET("/allmenu", cf.ShowListMenu)
-		ChefManager.GET("/:id", cf.ShowRecipeandMenu)
+		ChefManager.GET("/allmenu", cf.ShowListMenu)//done
+		ChefManager.GET("/:id", cf.ShowRecipeandMenu)//done
 	}
 
 	OwnerManager := router.Group("/OwnerManager")
 	{
-		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)
-		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)
-		OwnerManager.GET("/allmaterial", iv.ShowMaterial)
-		OwnerManager.GET("/allmenu", cf.ShowListMenu)
-		OwnerManager.GET("/:id", ow.ShowAllRecipe)
+		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)//done
+		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)//done
+		OwnerManager.GET("/allmaterial", iv.ShowMaterial)//done
+		OwnerManager.GET("/allmenu", cf.ShowListMenu)//done
+		OwnerManager.GET("/:id", ow.ShowAllRecipe)//done
 		OwnerManager.POST("/insert", ow.AddNewMenu)
 		OwnerManager.PUT("/:menu_id", ow.EditMenu)
-		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)
+		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)//done
 	}
 
 	router.Run(":8080")

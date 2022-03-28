@@ -12,7 +12,7 @@
         </tr>
         <tr v-for="log in data" :key="log.id">
           <td>{{ log.id }}</td>
-          <td>{{ log.description }}</td>
+          <td>{{ log.description}}</td>
           <td>{{log.Menu.id}}</td>
           <td>{{log.Menu.name}}</td>
           <td>{{log.Menu.price}}</td>
@@ -36,7 +36,7 @@ mounted() {
 methods: {
   async fetchData() {
     try{
-      const res = await axios.get(`ChefManager/1`);
+      const res = await axios.get('ChefManager/' + this.$route.params.id);
       this.data = res.data.data;
    }
     catch(error){

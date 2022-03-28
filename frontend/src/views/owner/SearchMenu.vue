@@ -7,16 +7,30 @@
             <form>
                 <div class="keyword">
                     <h3><b><label for="keywords" class="labelkeyword">Kata Kunci</label></b></h3><br>
-                    <input type="text" class="searchkeyword">
+                    <input type="text" class="searchkeyword" v-model="namemenu">
                 </div>
                 <div class="buttonsearch">
-                    <button class="button-search">Search</button>
+                     <router-link :to="{name:'MenuListSearch', params:{'name':namemenu}}">
+                        <button class="button-search">Search</button>
+                     </router-link>
                 </div>
             </form>
 
         </div>
     </div>
 </template>
+
+<script>
+
+export default{
+    data(){
+        return{
+            namemenu : null,
+        }
+    }
+}
+
+</script>
 
 <style>
     .bg-searchmenu{

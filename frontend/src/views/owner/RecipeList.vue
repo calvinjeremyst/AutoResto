@@ -55,20 +55,28 @@
 <script>
 import axios from "axios";
 export default {
-  mounted() {
-    this.fetchData();
-  },
-  data() {
-      return {
-        data: [],
-      }
-  },
-  methods: {
-    async fetchData() {
+
+mounted() {
+  this.fetchData();
+},
+
+data() {
+  return {
+    data: [],
+  }
+},
+
+methods: {
+  async fetchData() {
+    try{
       const res = await axios.get("/OwnerManager/allrecipe");
-      this.data = res.data.data[0];
-    },
+      this.data = res.data.data;
+    }
+    catch(error){
+      console.log(error)
+    }
   },
+},
 };
 </script>
 
