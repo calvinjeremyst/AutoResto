@@ -62,7 +62,7 @@
             async InsertMaterial(){ 
                 this.material = jsonToFormData(this.material)
                 try{
-                    const response = await axios.post('/InventoryManager/insert',this.material);
+                    const response = await axios.post('/InventoryManager/insert/',this.material);
                     console.log(response,this.material)
                 }
                 catch(error){

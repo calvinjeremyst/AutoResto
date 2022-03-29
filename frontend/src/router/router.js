@@ -126,7 +126,7 @@ const routes = [
       }
     },
     {
-      path: '/add_menu',
+      path: '/add_menu/',
       name: 'AddMenu',
       component: AddMenu,
       meta: {

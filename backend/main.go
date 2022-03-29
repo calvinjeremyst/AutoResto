@@ -38,7 +38,7 @@ func main() {
 		InventoryManager.POST("/insert", iv.AddNewMaterial)//done
 		InventoryManager.GET("/allmaterial", iv.ShowMaterial)//done
 		InventoryManager.GET("/:id",iv.ShowMaterialById)//done
-		InventoryManager.PUT("/:id", iv.UpdateMaterial)
+		InventoryManager.PUT("/:id",iv.UpdateMaterial)
 		InventoryManager.DELETE("/:id", iv.RemoveMaterial)//done
 	}
 
