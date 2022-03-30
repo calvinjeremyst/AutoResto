@@ -14,7 +14,7 @@
           <td>{{ log.Id }}</td>
           <td>{{ log.Name }}</td>
           <td>{{ log.Quantity }}</td>
-          <td>{{ log.Alamat }}</td>
+          <td>{{ log.Unit }}</td>
           <td>
             <router-link :to="{name:'UpdateMaterial',params:{'id':log.Id}}">
               <button name="edit" class="btnUpdate">Edit</button>

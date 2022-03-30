@@ -2,7 +2,7 @@ package service
 
 import (
 	"database/sql"
-	"strings"
+	//"strings"
 
 	handler "github.com/AutoResto/handler"
 	"github.com/gin-gonic/gin"
@@ -21,24 +21,27 @@ func InsertRecipeService(c *gin.Context) error {
 	return errQuery
 }
 
-func InsertRecipeDetailService(c *gin.Context, i int) error {
+func InsertRecipeDetailService(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
-	materialName := c.PostForm("material")
+	
 	quantity := c.PostForm("quantity_recipe")
+
+	//id_material := c.Param("id_material")
+	materialName := c.PostForm("material")
+
+	//id_recipe := c.Param("id_recipe")
 	description := c.PostForm("description")
 	unit := c.PostForm("unit_recipe")
 
-	materialArr := strings.Split(materialName, ",")
-	quantityArr := strings.Split(quantity, ",")
-	unitArr := strings.Split(unit, ",")
+	//materialArr := strings.Split(materialName, ",")
+	//quantityArr := strings.Split(quantity, ",")
+	//unitArr := strings.Split(unit, ",")
 
-	_, errQuery := db.Exec("INSERT INTO recipedetail(quantity,idMaterialFK,idRecipeFK,unit) VALUES(?,(SELECT id FROM material WHERE material.name=?),(SELECT id FROM recipe WHERE recipe.description=?),?)",
-		quantityArr[i],
-		materialArr[i],
-		description,
-		unitArr[i],
+	_, errQuery := db.Exec("INSERT INTO recipedetail(quantity,idMaterialFK,idRecipeFK,unit) VALUES(?,(SELECT id FROM material WHERE material.name= '"+materialName+"'),(SELECT id FROM recipe WHERE recipe.description= '"+description+"'),?)",
+		quantity,
+		unit,
 	)
 
 	return errQuery

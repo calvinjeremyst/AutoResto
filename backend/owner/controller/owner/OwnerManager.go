@@ -3,8 +3,6 @@ package owner
 import (
 	"log"
 	"net/http"
-	"strings"
-
 	modelMaterial "github.com/AutoResto/material/entity"
 	mtservice "github.com/AutoResto/material/service"
 	modelMenu "github.com/AutoResto/menu/entity"
@@ -103,7 +101,7 @@ func ShowAllRecipe(c *gin.Context) {
 // Insert Menu
 func AddNewMenu(c *gin.Context) {
 	materialName := c.PostForm("material")
-	materialArr := strings.Split(materialName, ",")
+	//materialArr := strings.Split(materialName, ",")
 
 	//insert recipe
 	errQuery := rcservice.InsertRecipeService(c)
@@ -127,20 +125,33 @@ func AddNewMenu(c *gin.Context) {
 			materials = append(materials, material)
 		}
 	}
-
-	for i := 0; i < len(materialArr); i++ {
-		for j := 0; j < len(materials); j++ {
-			//mengecek apakah material sudah ada
-			if materialArr[i] != materials[j].Name {
-				// menambah material jika tidak ada
-				errQuery = mtservice.InsertMaterialHelperServiceDB(c, i)
-				break
-			} else {
-				break
-			}
+	cek := true
+	for i := 0; i < len(materials); i++ {
+		if materials[i].Name == materialName {
+			cek = false
 		}
-		errQuery = rcservice.InsertRecipeDetailService(c, i)
 	}
+
+	if cek == true {
+		errQuery = mtservice.InsertMaterialHelperServiceDB(c)
+		errQuery = rcservice.InsertRecipeDetailService(c)
+	}
+
+
+	
+	//for i := 0; i < len(materialArr); i++ {
+	//	for j := 0; j < len(materials); j++ {
+	//		//mengecek apakah material sudah ada
+	//		if materialArr[i] != materials[j].Name {
+	//			// menambah material jika tidak ada
+	//			errQuery = mtservice.InsertMaterialHelperServiceDB(c, i)
+	//			break
+	//		} else {
+	//			break
+	//		}
+	//	}
+	//	errQuery = rcservice.InsertRecipeDetailService(c, i)
+	//}*/
 
 	var response modelMenu.MenuResponse
 	if errQuery == nil {

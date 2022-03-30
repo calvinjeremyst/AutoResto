@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"strconv"
-	"strings"
+	//"strings"
 
 	handler "github.com/AutoResto/handler"
 	material "github.com/AutoResto/material/entity"
@@ -47,18 +47,18 @@ func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 
 }
 
-func InsertMaterialHelperServiceDB(c *gin.Context, i int) error {
+func InsertMaterialHelperServiceDB(c *gin.Context) error {
 
 	db := handler.Connect()
 	defer db.Close()
 
 	materialName := c.PostForm("material")
-	materialArr := strings.Split(materialName, ",")
-	quantityMaterial := c.PostForm("quantity_material")
+	//materialArr := strings.Split(materialName, ",")
+	quantityMaterial,_ := strconv.Atoi(c.PostForm("quantity_material"))
 	unitMaterial := c.PostForm("unit_material")
 
 	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)",
-		materialArr[i],
+		materialName,
 		quantityMaterial,
 		unitMaterial,
 	)
