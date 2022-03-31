@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
 	model "github.com/AutoResto/material/entity"
 	mtservice "github.com/AutoResto/material/service"
 	"github.com/gin-gonic/gin"
@@ -14,7 +13,7 @@ import (
 func AddNewMaterial(c *gin.Context) {
 	c.Header("Content-Type", "Application/JSON")
 	var response model.MaterialResponse
-	errQuery := mtservice.InsertMaterialServiceDB(c)
+	errQuery := mtservice.NewMaterialRepository().InsertMaterialServiceDB(c)
 
 	if errQuery == nil {
 		response.Message = "Insert Material Success"
@@ -26,7 +25,7 @@ func AddNewMaterial(c *gin.Context) {
 
 }
 func ShowMaterialById(c *gin.Context){
-	rows,err := mtservice.GetMaterialServiceById(c)
+	rows,err := mtservice.NewMaterialRepository().GetMaterialServiceById(c)
 
 	if err != nil{
 		log.Println(err)
@@ -58,7 +57,7 @@ func ShowMaterialById(c *gin.Context){
 
 //Get Material
 func ShowMaterial(c *gin.Context) {
-	rows, err := mtservice.GetMaterialServiceDB()
+	rows, err := mtservice.NewMaterialRepository().GetMaterialServiceDB()
 	if err != nil {
 		log.Println(err)
 	}
@@ -89,7 +88,7 @@ func ShowMaterial(c *gin.Context) {
 //Update Material
 func UpdateMaterial(c *gin.Context) {
 	c.Header("Content-Type", "Application/JSON")
-	errQuery := mtservice.UpdateMaterialServiceDB(c)
+	errQuery := mtservice.NewMaterialRepository().UpdateMaterialServiceDB(c)
 	var response model.MaterialResponse
 	if errQuery == nil {
 		response.Message = "Update Material Success"
@@ -102,7 +101,7 @@ func UpdateMaterial(c *gin.Context) {
 
 //Delete Material
 func RemoveMaterial(c *gin.Context) {
-	query := mtservice.DeleteMaterialServiceDB(c)
+	query := mtservice.NewMaterialRepository().DeleteMaterialServiceDB(c)
 	var response model.MaterialResponse
 	if query == nil {
 		response.Message = "Delete Success"

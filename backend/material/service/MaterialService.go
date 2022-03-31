@@ -5,13 +5,24 @@ import (
 	"log"
 	"strconv"
 	//"strings"
-
 	handler "github.com/AutoResto/handler"
 	material "github.com/AutoResto/material/entity"
+	mtrepo "github.com/AutoResto/material/repository"
 	"github.com/gin-gonic/gin"
 )
 
-func GetMaterialServiceDB() (rows *sql.Rows, err error) {
+type MaterialRepo struct{
+	mtrepo.MaterialRepository
+}
+
+
+
+func NewMaterialRepository() *MaterialRepo{
+	return &MaterialRepo{}
+}
+
+//(r *MaterialRepo)
+func (r *MaterialRepo) GetMaterialServiceDB() (rows *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -22,7 +33,7 @@ func GetMaterialServiceDB() (rows *sql.Rows, err error) {
 
 }
 
-func GetMaterialServiceById(c *gin.Context)(rows *sql.Rows,err error){
+func (r *MaterialRepo) GetMaterialServiceById(c *gin.Context)(rows *sql.Rows,err error){
 
 	db := handler.Connect()
 	defer db.Close()
@@ -34,7 +45,7 @@ func GetMaterialServiceById(c *gin.Context)(rows *sql.Rows,err error){
 
 }
 
-func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
+func (r *MaterialRepo) SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 	c.Header("Content-Type", "Application/JSON")
 	db := handler.Connect()
 	defer db.Close()
@@ -47,7 +58,7 @@ func SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 
 }
 
-func InsertMaterialHelperServiceDB(c *gin.Context) error {
+func(r *MaterialRepo)InsertMaterialHelperServiceDB(c *gin.Context) error {
 
 	db := handler.Connect()
 	defer db.Close()
@@ -65,7 +76,7 @@ func InsertMaterialHelperServiceDB(c *gin.Context) error {
 	return errQuery
 }
 
-func InsertMaterialServiceDB(c *gin.Context) error {
+func (r *MaterialRepo)InsertMaterialServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -78,7 +89,7 @@ func InsertMaterialServiceDB(c *gin.Context) error {
 
 }
 
-func UpdateMaterialServiceDB(c *gin.Context) error {
+func (r *MaterialRepo) UpdateMaterialServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -92,7 +103,7 @@ func UpdateMaterialServiceDB(c *gin.Context) error {
 	var material material.Material
 	for rows.Next() {
 		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
-			log.Fatal(err.Error())
+			log.Fatal(err. Error())
 		}
 	}
 	_, errQuery := db.Exec("UPDATE material SET name = ?,quantity = ?,unit = ? WHERE id = ?",
@@ -104,7 +115,7 @@ func UpdateMaterialServiceDB(c *gin.Context) error {
 	return errQuery
 }
 
-func DeleteMaterialServiceDB(c *gin.Context) error {
+func(r *MaterialRepo) DeleteMaterialServiceDB(c *gin.Context) error {
 
 	db := handler.Connect()
 	defer db.Close()

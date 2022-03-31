@@ -13,7 +13,7 @@ import (
 
 //Get List Menu
 func ShowListMenu(c *gin.Context) {
-	rows, err := mnservice.SelectMenuServiceDB()
+	rows, err := mnservice.NewMenuRepository().SelectMenuServiceDB()
 	if err != nil {
 		log.Println(err)
 	}
@@ -39,7 +39,7 @@ func ShowListMenu(c *gin.Context) {
 
 func ShowRecipeandMenu(c *gin.Context) {
 
-	rows, err := rcservice.SelectMenuRecipeServiceDB(c)
+	rows, err := rcservice.NewRecipeRepository().SelectMenuRecipeServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}

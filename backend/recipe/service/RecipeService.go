@@ -3,12 +3,20 @@ package service
 import (
 	"database/sql"
 	//"strings"
-
+	rcrepo "github.com/AutoResto/recipe/repository"
 	handler "github.com/AutoResto/handler"
 	"github.com/gin-gonic/gin"
 )
 
-func InsertRecipeService(c *gin.Context) error {
+type RecipeRepo struct{
+	rcrepo.RecipeRepository
+}
+
+func NewRecipeRepository() *RecipeRepo{
+	return &RecipeRepo{}
+}
+
+func (r *RecipeRepo) InsertRecipeService(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -21,7 +29,7 @@ func InsertRecipeService(c *gin.Context) error {
 	return errQuery
 }
 
-func InsertRecipeDetailService(c *gin.Context) error {
+func(r *RecipeRepo)InsertRecipeDetailService(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -47,7 +55,7 @@ func InsertRecipeDetailService(c *gin.Context) error {
 	return errQuery
 }
 
-func SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
+func (r *RecipeRepo) SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -58,13 +66,11 @@ func SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	return recipe, err
 }
 
-func SelectAllRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
+func(r *RecipeRepo) SelectAllRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
-
 	id := c.Param("id")
 	query := "SELECT recipedetail.id,recipedetail.quantity,recipedetail.unit,recipe.id,recipe.description,material.name  FROM recipedetail JOIN recipe ON recipedetail.idRecipeFK = recipe.id JOIN material ON recipedetail.idMaterialFK = material.id WHERE recipedetail.id = '" + id + "'"
-
 	recipe, err := db.Query(query)
 	return recipe, err
 

@@ -1,13 +1,13 @@
 package repository
 
 import (
-	rc "github.com/AutoResto/recipe/entity"
+	"database/sql"
 	"github.com/gin-gonic/gin"
 )
 
 type RecipeRepository interface {
-	SelectAllRecipeServiceDB(c *gin.Context) (rc.RecipeDetail, error)
+	SelectAllRecipeServiceDB(c *gin.Context) (*sql.DB, error)
 	InsertRecipeService(c *gin.Context) error
 	InsertRecipeDetailService(c *gin.Context) error
-	SelectMenuRecipeServiceDB(c *gin.Context) (rc.Recipe, error)
+	SelectMenuRecipeServiceDB(c *gin.Context) (*sql.DB, error)
 }

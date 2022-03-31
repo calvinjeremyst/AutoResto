@@ -6,11 +6,20 @@ import (
 
 	handler "github.com/AutoResto/handler"
 	menu "github.com/AutoResto/menu/entity"
+	mnrepo "github.com/AutoResto/menu/repository"
 	"github.com/gin-gonic/gin"
 )
 
+type MenuRepo struct{
+	mnrepo.MenuRepository
+}
+
+func NewMenuRepository() *MenuRepo{
+	return &MenuRepo{}
+}
+
 //Select Menu Service
-func SelectMenuServiceDB() (row *sql.Rows, err error) {
+func (r *MenuRepo) SelectMenuServiceDB() (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 	query := "SELECT id,name,price FROM menu"
@@ -19,7 +28,7 @@ func SelectMenuServiceDB() (row *sql.Rows, err error) {
 }
 
 //Search Menu Service
-func SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
+func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -31,7 +40,7 @@ func SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	return menu, err
 }
 
-func UpdateMenuServiceDB(c *gin.Context) error {
+func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
@@ -56,15 +65,12 @@ func UpdateMenuServiceDB(c *gin.Context) error {
 	return errQuery
 }
 
-func InsertMenuService(c *gin.Context) error {
-
+func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
-
 	name := c.PostForm("name")
 	price, _ := strconv.Atoi(c.PostForm("price"))
 	description := c.PostForm("description")
-
 	_, errQuery := db.Exec("INSERT INTO menu(name,price,idRecipeFK) VALUES (?,?,(SELECT id from recipe where recipe.description='"+description+"'));",
 		name,
 		price,
@@ -73,7 +79,7 @@ func InsertMenuService(c *gin.Context) error {
 	return errQuery
 }
 
-func DeleteMenuServiceDB(c *gin.Context) error {
+func (r *MenuRepo) DeleteMenuServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 	menuId := c.Param("menu_id")

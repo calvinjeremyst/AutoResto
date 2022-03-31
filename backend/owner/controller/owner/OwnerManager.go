@@ -14,7 +14,7 @@ import (
 
 // Search Menu
 func SearchMenu(c *gin.Context) {
-	rows, err := mnservice.SearchMenuServiceDB(c)
+	rows, err := mnservice.NewMenuRepository().SearchMenuServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}
@@ -43,7 +43,7 @@ func SearchMenu(c *gin.Context) {
 
 // Search Material
 func SearchMaterial(c *gin.Context) {
-	rows, err := mtservice.SearchMaterialServiceDB(c)
+	rows, err := mtservice.NewMaterialRepository().SearchMaterialServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}
@@ -71,7 +71,7 @@ func SearchMaterial(c *gin.Context) {
 
 //Get All Recipe
 func ShowAllRecipe(c *gin.Context) {
-	rows, err := rcservice.SelectAllRecipeServiceDB(c)
+	rows, err := rcservice.NewRecipeRepository().SelectAllRecipeServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}
@@ -104,13 +104,13 @@ func AddNewMenu(c *gin.Context) {
 	//materialArr := strings.Split(materialName, ",")
 
 	//insert recipe
-	errQuery := rcservice.InsertRecipeService(c)
+	errQuery := rcservice.NewRecipeRepository().InsertRecipeService(c)
 
 	//insert menu dengan select id dari description
-	errQuery = mnservice.InsertMenuService(c)
+	errQuery = mnservice.NewMenuRepository().InsertMenuService(c)
 
 	//mencari material dengan nama yang sama
-	rows, err := mtservice.SearchMaterialServiceDB(c)
+	rows, err := mtservice.NewMaterialRepository().SearchMaterialServiceDB(c)
 	if err != nil {
 		log.Println(err)
 	}
@@ -133,12 +133,9 @@ func AddNewMenu(c *gin.Context) {
 	}
 
 	if cek == true {
-		errQuery = mtservice.InsertMaterialHelperServiceDB(c)
-		errQuery = rcservice.InsertRecipeDetailService(c)
+		errQuery = mtservice.NewMaterialRepository().InsertMaterialHelperServiceDB(c)
+		errQuery = rcservice.NewRecipeRepository().InsertRecipeDetailService(c)
 	}
-
-
-	
 	//for i := 0; i < len(materialArr); i++ {
 	//	for j := 0; j < len(materials); j++ {
 	//		//mengecek apakah material sudah ada
@@ -165,9 +162,7 @@ func AddNewMenu(c *gin.Context) {
 
 //Update Menu
 func EditMenu(c *gin.Context) {
-
-	errQuery := mnservice.UpdateMenuServiceDB(c)
-
+	errQuery := mnservice.NewMenuRepository().UpdateMenuServiceDB(c)
 	var response modelMenu.MenuResponse
 	if errQuery == nil {
 		response.Message = "Update Menu Success"
@@ -180,8 +175,7 @@ func EditMenu(c *gin.Context) {
 
 // Delete Menu
 func DeleteMenu(c *gin.Context) {
-
-	errQuery := mnservice.DeleteMenuServiceDB(c)
+	errQuery := mnservice.NewMenuRepository().DeleteMenuServiceDB(c)
 	var response modelMenu.MenuResponse
 	if errQuery == nil {
 		response.Message = "Delete Menu Success"

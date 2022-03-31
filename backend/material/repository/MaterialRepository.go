@@ -1,14 +1,13 @@
 package repository
 
 import (
+	"database/sql"
 	"github.com/gin-gonic/gin"
-	mt "github.com/AutoResto/material/entity"
 )
 
 type MaterialRepository interface {
-
-	GetMaterialServiceDB()(mt.Material,error)
-	SearchMaterialServiceDB()(mt.Material,error)
+	GetMaterialServiceDB()(*sql.Rows,error)
+	SearchMaterialServiceDB()(*sql.Rows,error)
 	InsertMaterialServiceDB(c* gin.Context)error
 	InsertMaterialHelperServiceDB(c* gin.Context) error
 	UpdateMaterialServiceDB(c* gin.Context) error
