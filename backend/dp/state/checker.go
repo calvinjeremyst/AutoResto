@@ -2,7 +2,6 @@ package state
 type checker struct{
 
 	hasItem state
-	requestedItem state
 	noItem state
 	currentState state
 
@@ -22,7 +21,14 @@ func newCondition(Id,Quantity int,Name string) *checker{
 
 	hasItemState := hasItemState{
 		checker: ch,
+	
 	}
+
+	noItemState := noItemState{
+		checker : ch,
+	}
+
 	ch.hasItem = hasItemState.checker.hasItem
+	ch.noItem = noItemState.checker.noItem
 	return ch
 }

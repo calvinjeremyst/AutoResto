@@ -18,13 +18,13 @@
               placeholder="Password"
             ></b-input>
           </b-field>
-          <center>
+          <center>  
             <b-button
               type="is-danger"
               class="is-success"
               v-on:click="submitForm"
-              >Login</b-button
-            >
+              >Login</b-button>
+         
           </center>
         </div>
       </div>
@@ -37,33 +37,47 @@ import axios from "axios";
 import Login from "../services/Login";
 
 export default {
-  name: "Sign-Up",
+name: "Sign-Up",
   data() {
-    return {
-      person: {
-        email: "",
-        password: "",
-      },
-      data: [],
-      loginService: new Login(),
-    };
+      return {
+        person: {
+          email: "",
+          password: "",
+        },
+          data: [],
+          loginService: new Login(),
+        };
   },
   methods: {
     submitForm() {
-      let tipeUser;
-      axios
-        .post("/login", {
-          email: this.person.email,
-          password: this.person.password,
-        })
-        .then((response) => {
-          tipeUser = response.data.userType;
-          this.loginService.addToUserType(tipeUser);
-          location.replace("/");
-        })
-        .catch((error) => {
+    let tipeUser;
+    axios
+      .post("/login", {
+      email: this.person.email,
+      password: this.person.password,
+      })
+      .then((response) => {
+        tipeUser = response.data.userType;
+        this.loginService.addToUserType(tipeUser);
+        /*
+        if (userType == 0){
+            this.$router.push({name : 'HomePageChef'})
+            location.replace("/home_chef");
+        }else if(userType == 1){
+            this.$route.push({name : 'HomePageOwner'})
+            location.replace("/home_owner")
+        }else if(userType == 2){
+            this.$route.push({name : 'HomePageInventory'})
+            location.replace("/home_inventory")
+        }*/
+
+        this.$router.push({name : 'HomePage'})
+        location.replace("/home");
+      })
+      .catch((error) => {
+          alert("Login Failed")
           console.log(error);
-        });
+      });
     },
     isValid() {
       return true;

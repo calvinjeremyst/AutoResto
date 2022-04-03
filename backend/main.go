@@ -30,7 +30,8 @@ func main() {
 		MaxAge: 12 * time.Hour,
 	}))
 
-	router.GET("/login", entity.Login)
+	router.POST("/login", entity.Login)
+
 
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")

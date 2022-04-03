@@ -27,6 +27,12 @@ import RecipeList from '../views/owner/RecipeList.vue'
 import MenuRecipe from '../views/chef/MenuRecipe'
 import FormRecipe from '../views/chef/FormRecipe'
 
+
+//Component Homepage
+import HomePageChef from '../components/ChefHomePage.vue'
+import HomePageInventory from '../components/InventoryHomePage.vue'
+import HomePageOwner from '../components/OwnerHomePage.vue'
+
 const routes = [
     {
         path: '/',
@@ -156,6 +162,30 @@ const routes = [
       component : FormRecipe,
       meta : {
         title : "Form Recipe Menu"
+      }
+    },
+    {
+      path : '/home_chef',
+      name : 'HomePageChef',
+      component : HomePageChef,
+      meta : {
+        title : "Home"
+      }
+    },
+    {
+      path : '/home_inventory',
+      name : 'HomePageInventory',
+      component : HomePageInventory,
+      meta : {
+          title : "Home"
+      }
+    },
+    {
+      path : '/home_owner',
+      name : 'HomePageOwner',
+      component : HomePageOwner,
+      meta : {
+        title : "Home"
       }
     }
 

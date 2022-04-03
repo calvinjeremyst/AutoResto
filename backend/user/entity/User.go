@@ -36,7 +36,7 @@ func Login(c *gin.Context) {
 		log.Println(err)
 	}
 
-	query := "SELECT id,name,position FROM user WHERE email = '" + userData.Email + "' AND password = '" + string(userData.Password) + "'"
+	query := "SELECT * FROM user WHERE email = '" + userData.Email +"'"
 
 	rows, err := db.Query(query)
 	if err != nil {
@@ -44,16 +44,17 @@ func Login(c *gin.Context) {
 	}
 
 	var user User
+	
 	for rows.Next() {
-		if err := rows.Scan(&user.Id, &user.Name, &user.Position); err != nil {
+		if err := rows.Scan(&user.Id,&user.Email,&user.Password, &user.Name,&user.PhoneNumber,&user.Position,&user.Roles); err != nil {
 			log.Fatal(err.Error())
 		}
 	}
-
 	var response LoginResponse
-	if user.Password == userData.Password {
+	if user.Password == userData.Password && err == nil{
 		controller.GenerateToken(c, user.Id, user.Name, user.Email)
 		response.Message = "Login Success"
+		response.Type = user.Position
 		sendLoginSuccessResponse(c, response)
 	} else {
 		response.Message = "Login Error"

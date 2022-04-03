@@ -22,7 +22,7 @@
         </router-link>
       </div>
       <div class="grid-item">
-        <router-link to="/menu_list">
+        <router-link to="/menu_list_chef">
           <Card
             v-for="(card, index) in card3"
             :key="'card' + index"
