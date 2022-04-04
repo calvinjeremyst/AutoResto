@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <div class="grid-wrapper">
-            <div class="grid-item">
-                <router-link to="/menu_list_chef">
+             <div class="grid-item">
+                <router-link to="/add_material">
                     <Card
                     v-for="(card, index) in card1"
                     :key="'card' + index"
@@ -12,19 +12,9 @@
                 </router-link>
             </div>
             <div class="grid-item">
-                <router-link to="/form_menu_recipe">
-                     <Card
+                <router-link to="/material_list">
+                    <Card
                     v-for="(card, index) in card2"
-                    :key="'card' + index"
-                    :item="card"
-                    :index="index"
-                />
-                </router-link>
-            </div>
-            <div class="grid-item">
-                <router-link to="/recipe_list">
-                     <Card
-                    v-for="(card, index) in card3"
                     :key="'card' + index"
                     :item="card"
                     :index="index"
@@ -35,30 +25,26 @@
     </div>
 </template>
 
-
 <script>
-import Card from "../components/HomeLayout.vue";
+    import Card from "../../components/HomeLayout.vue";
 export default{
     data: ()=>{
         return{
             card1 :[
-                { img: "/menuList.png", grid: "card-1-1"}
+                { img: "/addMaterial.png", grid: "card-1-1"}
             ],
             card2 : [
-                {img : "/form_menu_recipe.png",grid: "card-1-1"}
-            ],
-            card3:[
-                {img : "/recipeList.png",grid:"card-1-1"}
+                {img : "/materialList.png",grid: "card-1-1"}
             ]
+
         }
     },
     components : {
         Card,
     }
 }
-
-
 </script>
+
 
 <style>
     column {
@@ -102,3 +88,4 @@ export default{
 }
 
 </style>
+

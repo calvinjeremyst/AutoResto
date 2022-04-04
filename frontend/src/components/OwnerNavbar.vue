@@ -6,37 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/add_menu">
-        <b-icon pack="fas" icon="plus-square" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Add Menu</span>
-      </b-navbar-item>
-      <b-navbar-item href="/recipe_list">
-        <b-icon pack="fas" icon="sticky-note" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Recipe List</span>
-      </b-navbar-item>
-      <b-navbar-item href="/material_list">
-        <b-icon pack="fas" icon="sticky-note" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Material List</span>
-      </b-navbar-item>
-      <b-navbar-item href="/menu_list">
-        <b-icon pack="fas" icon="book" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Menu List</span>
-      </b-navbar-item>
-      <b-navbar-item href="/search_material">
-        <b-icon pack="fas" icon="search" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Search Material</span>
-      </b-navbar-item>
-      <b-navbar-item href="/search_menu">
-        <b-icon pack="fas" icon="search" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Search Menu</span>
-      </b-navbar-item>
-      <b-navbar-item href="">
+      <b-navbar-item href="/welcome">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem" v-on:click="logout"
@@ -70,7 +40,7 @@ export default {
     async logout() {
       console.log("test");
       this.loginService.removeUserType();
-      location.replace("/");
+      location.replace("/welcome");
     },
   },
 };

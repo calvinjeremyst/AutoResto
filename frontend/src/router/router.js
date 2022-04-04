@@ -29,13 +29,13 @@ import FormRecipe from '../views/chef/FormRecipe'
 
 
 //Component Homepage
-import HomePageChef from '../components/ChefHomePage.vue'
-import HomePageInventory from '../components/InventoryHomePage.vue'
-import HomePageOwner from '../components/OwnerHomePage.vue'
+import HomePageChef from '../views/chef/ChefHomePage.vue'
+import HomePageInventory from '../views/inventory/InventoryHomePage.vue'
+import HomePageOwner from '../views/owner/OwnerHomePage.vue'
 
 const routes = [
     {
-        path: '/',
+        path: '/welcome',
         name: 'FirstPage',
         component: FirstPage,
         meta: {

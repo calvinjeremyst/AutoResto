@@ -25,6 +25,9 @@ type LoginResponse struct {
 	Type    string `form:"userType" json:"userType"`
 }
 
+type LogoutResponse struct {
+	Message string `form:"message" json:"message"`
+}
 func Login(c *gin.Context) {
 	db := handler.Connect()
 	defer db.Close()
@@ -63,6 +66,14 @@ func Login(c *gin.Context) {
 
 }
 
+func Logout(c *gin.Context) {
+
+	controller.ResetUserToken(c)
+	var response LogoutResponse
+	response.Message = "Logout Success"
+	sendLogoutSuccessResponse(c, response)
+}
+
 func sendLoginSuccessResponse(c *gin.Context, log LoginResponse) {
 	c.JSON(http.StatusOK, log)
 }
@@ -70,4 +81,12 @@ func sendLoginSuccessResponse(c *gin.Context, log LoginResponse) {
 func sendLoginErrorResponse(c *gin.Context, err LoginResponse) {
 	c.JSON(http.StatusBadRequest, err)
 
+}
+
+func sendLogoutSuccessResponse(c *gin.Context, err LogoutResponse){
+	c.JSON(http.StatusOK,err)
+}
+
+func sendLogoutErrorResponse(c *gin.Context,err LogoutResponse){
+	c.JSON(http.StatusBadRequest,err)
 }

@@ -52,6 +52,6 @@ func validateTokenFromCookies(c *gin.Context) (bool, int, string, string) {
 	return false, -1, "", ""
 }
 
-func resetUserToken(c *gin.Context) {
+func ResetUserToken(c *gin.Context) {
 	c.SetCookie(tokenName, "", -1, "/", "localhost", false, true)
 }

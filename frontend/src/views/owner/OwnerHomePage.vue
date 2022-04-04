@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Card from "../components/HomeLayout.vue";
+import Card from "../../components/HomeLayout.vue";
 export default{
     data: ()=>{
         return{

@@ -1,18 +1,16 @@
 <template>
   <div class="app">
-    <div>
+    <div v-if="userType == 'Guest'">
       <Header />
     </div>
     <div v-if="userType == 0">
       <ChefNavbar />
-      <HomePageChef />
+    
     </div>
     <div v-else-if="userType == 1">
-      <HomePageOwner />
       <OwnerNavbar />
     </div>
     <div v-else-if="userType == 2">
-      <HomePageInventory />
       <InventoryNavbar />
     </div>
     <router-view />
@@ -26,14 +24,15 @@
     import InventoryNavbar from "./components/InventoryNavbar";
     import ChefNavbar from "./components/ChefNavbar";
 
-//import HomePageChef from './components/ChefHomePage.vue'
-//import HomePageInventory from './components/InventoryHomePage.vue'
-//import HomePageOwner from './components/OwnerHomePage.vue'
 
     import Login from "./services/Login";
     import Header from "./components/Header"
     import Footer from "./components/Footer";
 
+    
+    import HomePageChef from './views/chef/ChefHomePage.vue'
+    import HomePageInventory from './views/inventory/InventoryHomePage.vue'
+    import HomePageOwner from './views/owner/OwnerHomePage.vue'
     
     export default {
         mounted() {
@@ -52,11 +51,18 @@
           InventoryNavbar,
           ChefNavbar,
 
-          //HomePageInventory,
-          //HomePageChef,
-          //HomePageOwner,
           Footer,
           Header
+        },
+
+        chef:{
+            HomePageChef,
+        },
+        inventory:{
+            HomePageInventory,
+        },
+        owner:{
+          HomePageOwner,
         },
         methods: {
             async fetchData() {

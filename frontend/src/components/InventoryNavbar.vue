@@ -6,12 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/add_material">
-        <b-icon pack="fas" icon="plus-square" size="is-small" type="is-primary">
-        </b-icon>
-        <span style="margin-left: 0.5rem">Add Material</span>
-      </b-navbar-item>
-      <b-navbar-item href="">
+      <b-navbar-item href="/welcome">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem" v-on:click="logout">
@@ -45,7 +40,7 @@ export default {
     async logout() {
       console.log("test");
       this.loginService.removeUserType();
-      location.replace("/");
+      location.replace("/welcome");
     },
   },
 };

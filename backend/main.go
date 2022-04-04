@@ -61,7 +61,8 @@ func main() {
 		OwnerManager.PUT("/:menu_id", ow.EditMenu)
 		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)//done
 	}
-
+	router.GET("/logout",entity.Login)
+	
 	router.Run(":8080")
 	fmt.Println("Connected to port 8080")
 }
