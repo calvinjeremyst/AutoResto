@@ -1,12 +1,12 @@
 <template>
   <div class="app">
-    <div v-if="userType == 0">
-      <HomePageChef/>
-    </div>
-    <div v-else-if="userType == 1">
+    <div v-if="userType == 1">
       <HomePageOwner/>
     </div>
     <div v-else-if="userType == 2">
+      <HomePageChef/>
+    </div>
+    <div v-else-if="userType == 3">
       <HomePageInventory/>
     </div>
     <router-view />
@@ -38,7 +38,7 @@ import Login from "../services/Login";
         components: {
             HomePageChef,
             HomePageInventory,
-             HomePageOwner,
+            HomePageOwner,
         },
         methods: {
             async fetchData() {

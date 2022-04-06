@@ -21,32 +21,6 @@
                         <b><label for="price">Price</label></b>
                         <input type="text" required v-model="data.price" class="isiprice"><br>
                     </div>
-
-                    <div class="material">
-                        <b><label for="material" class="labelmaterial">Material Name</label></b>
-                        <input type="text" v-model="data.material" class="isimaterial"><br>
-                    </div>
-
-                    <div class="unitrecipe">
-                        <b><label for="unitrecpe" class="untrecipe">Unit Recipe</label></b>
-                        <input type="text" v-model="data.unit_recipe" class="isiunitrecipe"><br>
-                    </div>
-
-                    <div class="quantityrecipe">
-                        <b><label for="quantityrecipe" class="qtyrecipe">Quantity Recipe</label></b>
-                        <input type="text" v-model="data.quantity_recipe" class="isiquantityrecipe"><br>
-                    </div>
-
-                    <div class="quantitymaterial">
-                        <b><label for="quantitymaterial" class="qtymaterial">Quantity Material</label></b>
-                        <input type="text" v-model="data.quantity_material" class="isiquantitymaterial"><br>
-                    </div>
-
-                    <div class="unitmaterial">
-                        <b><label for="unitmaterial" class="untmaterial">Unit Material</label></b>
-                        <input type="text" v-model="data.unit_material" class="isiunitmaterial">
-                    </div>
-
                     <div class="buttons">
                         <button name="insertmenu" class="btn-insertmenu">Insert</button>
                     </div>
@@ -81,14 +55,9 @@ name:'AddMenu',
 data(){
     return{
         'data':{
-            'description' : '',
+            'description': '',
             'name' : '',
             'price' : '',
-            'material' : '',
-            'unit_recipe' : '',
-            'quantity_recipe': '',
-            'quantity_material': '',
-            'unit_material' : '',
         }
     };
 },
@@ -96,10 +65,11 @@ methods:{
     async InsertMenu(){
         this.data = jsonToFormData(this.data)
         try{
-            const response = await axios.post('/OwnerManager/insert',this.data);
+            const response = await axios.post('/OwnerManager/insertmenu',this.data);
             console.log(response,this.data)
         }
         catch(error){
+            alert("Menu sudah ada")
             console.log(error)
         }
     }
@@ -107,6 +77,8 @@ methods:{
 
 
 };
+//Ayam goreng dengan tepung filma,crunchy 
+
 </script>
 
 <style>
@@ -144,57 +116,6 @@ methods:{
         margin-left: 88px;
         height: 30px;
     }
-
-    .material{
-        padding : 2rem;
-        text-align: center;
-    }
-    .isimaterial{
-        margin-left : 30px;
-        height : 30px
-
-    }
-
-    .unitrecipe{
-        padding : 2rem;
-        text-align : center;
-    }
-
-    .isiunitrecipe{
-        margin-left : 52px;
-        height : 30px
-    }
-
-    .quantityrecipe{
-        padding : 2rem;
-        text-align : center;
-    }
-
-    .isiquantityrecipe{
-        margin-left:25px;
-        height : 30px;
-    }
-
-    .quantitymaterial{
-        padding : 2rem;
-        text-align : center;
-    }
-
-    .isiquantitymaterial{
-        margin-left: 20px;
-        height: 30px;
-    }
-
-    .unitmaterial{
-        padding : 2rem;
-        text-align: center;
-    }
-
-    .isiunitmaterial{
-        margin-left: 49px;
-        height: 30px;
-    }
-
     .btn-insertmenu{
         margin-left: 40rem;
         width : 75px;

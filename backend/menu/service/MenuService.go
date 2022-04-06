@@ -40,6 +40,18 @@ func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error
 	return menu, err
 }
 
+//Get Availability Menu,utk cek apakah sudah ada / belum
+func (r *MenuRepo) GetAvailabilityMenuServiceDB(c *gin.Context)(row *sql.Rows, err error){
+	db := handler.Connect()
+	defer db.Close()
+
+	menuName := c.Param("name")
+	query := "SELECT * FROM menu WHERE name = '"+menuName+"'"
+
+	menu,err := db.Query(query)
+	return menu,err
+}
+
 func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
@@ -71,6 +83,7 @@ func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
 	name := c.PostForm("name")
 	price, _ := strconv.Atoi(c.PostForm("price"))
 	description := c.PostForm("description")
+
 	_, errQuery := db.Exec("INSERT INTO menu(name,price,idRecipeFK) VALUES (?,?,(SELECT id from recipe where recipe.description='"+description+"'));",
 		name,
 		price,

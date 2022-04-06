@@ -57,7 +57,7 @@ func main() {
 		OwnerManager.GET("/allmaterial", iv.ShowMaterial)//done
 		OwnerManager.GET("/allmenu", cf.ShowListMenu)//done
 		OwnerManager.GET("/:id", ow.ShowAllRecipe)//done
-		OwnerManager.POST("/insert", ow.AddNewMenu)
+		OwnerManager.POST("/insertmenu", ow.AddnewMenus)
 		OwnerManager.PUT("/:menu_id", ow.EditMenu)
 		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)//done
 	}

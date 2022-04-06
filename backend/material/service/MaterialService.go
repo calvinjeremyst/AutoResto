@@ -52,7 +52,7 @@ func (r *MaterialRepo) SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, 
 
 	materialName := c.Param("material_name")
 
-	query := "SELECT m.id, m.name, m.quantity, m.unit FROM material m WHERE m.name LIKE '" + materialName + "%'"
+	query := "SELECT m.id, m.name, m.quantity, m.unit,m.id_inventory FROM material m WHERE m.name LIKE '" + materialName + "%'"
 	material, err := db.Query(query)
 	return material, err
 
@@ -68,10 +68,11 @@ func(r *MaterialRepo)InsertMaterialHelperServiceDB(c *gin.Context) error {
 	quantityMaterial,_ := strconv.Atoi(c.PostForm("quantity_material"))
 	unitMaterial := c.PostForm("unit_material")
 
-	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)",
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit,id_inventory) VALUES(?,?,?,?)",
 		materialName,
 		quantityMaterial,
 		unitMaterial,
+		1,
 	)
 	return errQuery
 }
@@ -84,7 +85,8 @@ func (r *MaterialRepo)InsertMaterialServiceDB(c *gin.Context) error {
 	quantity, _ := strconv.Atoi(c.PostForm("quantity"))
 	unit := c.PostForm("unit")
 
-	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit) VALUES(?,?,?)", materialname, quantity, unit)
+
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit,id_inventory) VALUES(?,?,?,?)", materialname, quantity, unit,1)
 	return errQuery
 
 }

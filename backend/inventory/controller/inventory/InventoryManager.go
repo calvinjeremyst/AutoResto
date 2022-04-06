@@ -35,7 +35,7 @@ func ShowMaterialById(c *gin.Context){
 	var materials []model.Material
 
 	for rows.Next(){
-		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit);err != nil{
+		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit,&material.Inventory.Id);err != nil{
 			log.Fatal(err.Error())
 		}else{
 			materials = append(materials, material)
@@ -66,7 +66,7 @@ func ShowMaterial(c *gin.Context) {
 	var materials []model.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)

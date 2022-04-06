@@ -66,6 +66,19 @@ func (r *RecipeRepo) SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, e
 	return recipe, err
 }
 
+func (r *RecipeRepo) GetAvailabilityMenuDescription(c *gin.Context)(row *sql.Rows,err error){
+	db := handler.Connect()
+	defer db.Close()
+
+	description := c.Param("description")
+	menuName := c.Param("name")
+
+	query := "SELECT menu.id,menu.name,menu.price,recipe.description FROM menu JOIN recipe ON recipe.id = menu.idRecipeFK WHERE menu.name = '"+menuName+"' AND recipe.description = '"+description+"'"
+
+	recipe,err := db.Query(query)
+	return recipe,err
+}
+
 func(r *RecipeRepo) SelectAllRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()

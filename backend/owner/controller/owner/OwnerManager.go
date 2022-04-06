@@ -51,7 +51,7 @@ func SearchMaterial(c *gin.Context) {
 	var materials []modelMaterial.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)
@@ -102,10 +102,9 @@ func ShowAllRecipe(c *gin.Context) {
 func AddNewMenu(c *gin.Context) {
 	materialName := c.PostForm("material")
 	//materialArr := strings.Split(materialName, ",")
-
-	//insert recipe
 	errQuery := rcservice.NewRecipeRepository().InsertRecipeService(c)
-
+	//insert recipe
+	
 	//insert menu dengan select id dari description
 	errQuery = mnservice.NewMenuRepository().InsertMenuService(c)
 
@@ -119,7 +118,7 @@ func AddNewMenu(c *gin.Context) {
 	var materials []modelMaterial.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)
@@ -158,6 +157,58 @@ func AddNewMenu(c *gin.Context) {
 		response.Message = "Insert Menu Failed Error"
 		c.JSON(http.StatusBadRequest, response)
 	}
+}
+
+func AddnewMenus(c *gin.Context){
+
+	rows,err := rcservice.NewRecipeRepository().GetAvailabilityMenuDescription(c)
+	
+
+	menuName := c.PostForm("name")
+	description := c.PostForm("description")
+	
+	if err != nil{
+		log.Println(err)
+	}
+
+	
+	var recipe modelRecipe.Recipe
+	var recipes []modelRecipe.Recipe
+
+	for rows.Next(){
+		if err := rows.Scan(&recipe.Menu.Id,&recipe.Menu.Name,&recipe.Menu.Price,&recipe.Description);err != nil{
+			log.Fatal(err.Error())
+		}else{
+			recipes = append(recipes,recipe)
+		}
+
+	}
+
+	cek := true
+	for i := 0; i < len(recipes); i++{
+		if recipes[i].Description == description && recipes[i].Menu.Name == menuName{
+			cek = false
+		} 
+		
+	}
+	var response modelRecipe.RecipeResponse
+	if cek == true {
+		errQuery := rcservice.NewRecipeRepository().InsertRecipeService(c)
+		errQuery2 := mnservice.NewMenuRepository().InsertMenuService(c)
+
+		if errQuery == nil && errQuery2 == nil{
+			response.Message = "Insert Menu And Description Success"
+			c.JSON(http.StatusOK,response)
+		}else{
+			response.Message = "Insert Menu And Description Failed"
+			c.JSON(http.StatusBadRequest,response)
+		}
+	}else{
+		response.Message = "Menu Sudah Terdaftar"
+	}
+	
+
+	
 }
 
 //Update Menu

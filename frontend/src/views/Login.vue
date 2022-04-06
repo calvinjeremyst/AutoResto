@@ -59,17 +59,6 @@ name: "Sign-Up",
       .then((response) => {
         tipeUser = response.data.userType;
         this.loginService.addToUserType(tipeUser);
-        
-        /*if (tipeUser == 0){
-            this.$router.push({name : 'HomePageChef'})
-            location.replace("/home_chef");
-        }else if(tipeUser == 1){
-            this.$route.push({name : 'HomePageOwner'})
-            location.replace("/home_owner")
-        }else if(tipeUser == 2){
-            this.$route.push({name : 'HomePageInventory'})
-            location.replace("/home_inventory")
-        }*/
 
         this.$router.push({name : 'HomePage'})
         location.replace("/home");
