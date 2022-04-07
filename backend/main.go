@@ -48,6 +48,8 @@ func main() {
 	{
 		ChefManager.GET("/allmenu", cf.ShowListMenu)//done
 		ChefManager.GET("/:id", cf.ShowRecipeandMenu)//done
+		ChefManager.POST("/insertdetailrecipe",cf.AddRecipeForEachMaterial)
+		ChefManager.GET("/alldetailrecipe", cf.ShowAllRecipe)//done
 	}
 
 	OwnerManager := router.Group("/OwnerManager")
@@ -56,7 +58,7 @@ func main() {
 		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)//done
 		OwnerManager.GET("/allmaterial", iv.ShowMaterial)//done
 		OwnerManager.GET("/allmenu", cf.ShowListMenu)//done
-		OwnerManager.GET("/:id", ow.ShowAllRecipe)//done
+		
 		OwnerManager.POST("/insertmenu", ow.AddnewMenus)
 		OwnerManager.PUT("/:menu_id", ow.EditMenu)
 		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)//done

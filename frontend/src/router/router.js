@@ -23,10 +23,10 @@ import AddMenu from '../views/owner/AddMenu'
 import MenuListSearch from '../views/owner/MenuListSearch.vue'
 
 //Component Recipe
-import RecipeList from '../views/owner/RecipeList.vue'
+import RecipeList from '../views/chef/RecipeList.vue'
 import MenuRecipe from '../views/chef/MenuRecipe'
 import FormRecipe from '../views/chef/FormRecipe'
-
+import AddDetailRecipe from '../views/chef/AddDetailRecipe.vue'
 
 //Component Homepage
 import HomePageChef from '../views/chef/ChefHomePage.vue'
@@ -186,6 +186,14 @@ const routes = [
       component : HomePageOwner,
       meta : {
         title : "Home"
+      }
+    },
+    {
+      path : '/add_detail_recipe',
+      name : 'AddDetailRecipe',
+      component : AddDetailRecipe,
+      meta : {
+        title : "Add Detail Recipe"
       }
     }
 

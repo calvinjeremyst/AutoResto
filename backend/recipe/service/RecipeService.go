@@ -2,9 +2,10 @@ package service
 
 import (
 	"database/sql"
+	"strconv"
 	//"strings"
-	rcrepo "github.com/AutoResto/recipe/repository"
 	handler "github.com/AutoResto/handler"
+	rcrepo "github.com/AutoResto/recipe/repository"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,27 +34,25 @@ func(r *RecipeRepo)InsertRecipeDetailService(c *gin.Context) error {
 	db := handler.Connect()
 	defer db.Close()
 
-	
-	quantity := c.PostForm("quantity_recipe")
-
-	//id_material := c.Param("id_material")
+	quantity,_ := strconv.Atoi(c.PostForm("quantity_recipe"))	
 	materialName := c.PostForm("material")
-
-	//id_recipe := c.Param("id_recipe")
 	description := c.PostForm("description")
 	unit := c.PostForm("unit_recipe")
 
 	//materialArr := strings.Split(materialName, ",")
 	//quantityArr := strings.Split(quantity, ",")
 	//unitArr := strings.Split(unit, ",")
-
-	_, errQuery := db.Exec("INSERT INTO recipedetail(quantity,idMaterialFK,idRecipeFK,unit) VALUES(?,(SELECT id FROM material WHERE material.name= '"+materialName+"'),(SELECT id FROM recipe WHERE recipe.description= '"+description+"'),?)",
+	
+	
+	_, errQuery := db.Exec("INSERT INTO recipedetail(quantity,idMaterialFK,idRecipeFK,unit) VALUES(?,(SELECT id FROM material WHERE name= '"+materialName+"'),(SELECT id FROM recipe WHERE description= '"+description+"'),?)",
 		quantity,
 		unit,
 	)
 
 	return errQuery
 }
+
+
 
 func (r *RecipeRepo) SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
@@ -82,8 +81,7 @@ func (r *RecipeRepo) GetAvailabilityMenuDescription(c *gin.Context)(row *sql.Row
 func(r *RecipeRepo) SelectAllRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := handler.Connect()
 	defer db.Close()
-	id := c.Param("id")
-	query := "SELECT recipedetail.id,recipedetail.quantity,recipedetail.unit,recipe.id,recipe.description,material.name  FROM recipedetail JOIN recipe ON recipedetail.idRecipeFK = recipe.id JOIN material ON recipedetail.idMaterialFK = material.id WHERE recipedetail.id = '" + id + "'"
+	query := "SELECT recipedetail.id,recipedetail.quantity,recipedetail.unit,recipe.id,recipe.description,material.id,material.name  FROM recipedetail JOIN recipe ON recipedetail.idRecipeFK = recipe.id JOIN material ON recipedetail.idMaterialFK = material.id"
 	recipe, err := db.Query(query)
 	return recipe, err
 

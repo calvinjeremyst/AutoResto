@@ -12,7 +12,7 @@
                 </router-link>
             </div>
             <div class="grid-item">
-                <router-link to="/form_menu_recipe">
+                <router-link to="/form_recipe_menu">
                      <Card
                     v-for="(card, index) in card2"
                     :key="'card' + index"
@@ -30,6 +30,16 @@
                     :index="index"
                 />
                 </router-link>
+            </div>
+            <div class="grid-item">
+             <router-link to="/add_detail_recipe">
+                    <Card
+                    v-for="(card, index) in card4"
+                    :key="'card' + index"
+                    :item="card"
+                    :index="index"
+                />
+             </router-link>
             </div>
         </div>
     </div>
@@ -49,6 +59,9 @@ export default{
             ],
             card3:[
                 {img : "/recipeList.png",grid:"card-1-1"}
+            ],
+            card4: [
+              {img : "/add_detail_recipe.png",grid:"card-1-1"}
             ]
         }
     },

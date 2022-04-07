@@ -77,7 +77,6 @@ methods:{
 
 
 };
-//Ayam goreng dengan tepung filma,crunchy 
 
 </script>
 

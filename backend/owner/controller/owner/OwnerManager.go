@@ -69,34 +69,7 @@ func SearchMaterial(c *gin.Context) {
 	}
 }
 
-//Get All Recipe
-func ShowAllRecipe(c *gin.Context) {
-	rows, err := rcservice.NewRecipeRepository().SelectAllRecipeServiceDB(c)
-	if err != nil {
-		log.Println(err)
-	}
 
-	var recipe modelRecipe.RecipeDetail
-	var recipes []modelRecipe.RecipeDetail
-
-	for rows.Next() {
-		if err := rows.Scan(&recipe.Id, &recipe.Quantity, &recipe.Unit, &recipe.Recipe.Id, &recipe.Recipe.Description, &recipe.Material.Name); err != nil {
-			log.Fatal(err.Error())
-		} else {
-			recipes = append(recipes, recipe)
-		}
-	}
-
-	var response modelRecipe.RecipeDetailResponse
-	if err == nil {
-		response.Message = "Get Material Success"
-		response.Data = recipes
-		c.JSON(http.StatusOK, response)
-	} else {
-		response.Message = "Get Material Query Error"
-		c.JSON(http.StatusBadRequest, response)
-	}
-}
 
 // Insert Menu
 func AddNewMenu(c *gin.Context) {
@@ -203,10 +176,7 @@ func AddnewMenus(c *gin.Context){
 			response.Message = "Insert Menu And Description Failed"
 			c.JSON(http.StatusBadRequest,response)
 		}
-	}else{
-		response.Message = "Menu Sudah Terdaftar"
 	}
-	
 
 	
 }
