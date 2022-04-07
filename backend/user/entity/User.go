@@ -28,6 +28,10 @@ type LoginResponse struct {
 type LogoutResponse struct {
 	Message string `form:"message" json:"message"`
 }
+
+
+
+
 func Login(c *gin.Context) {
 	db := handler.Connect()
 	defer db.Close()
