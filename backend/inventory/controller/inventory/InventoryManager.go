@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	model "github.com/AutoResto/material/entity"
 	mtservice "github.com/AutoResto/material/service"
 	"github.com/gin-gonic/gin"
@@ -24,34 +25,34 @@ func AddNewMaterial(c *gin.Context) {
 	}
 
 }
-func ShowMaterialById(c *gin.Context){
-	rows,err := mtservice.NewMaterialRepository().GetMaterialServiceById(c)
+func ShowMaterialById(c *gin.Context) {
+	rows, err := mtservice.NewMaterialRepository().GetMaterialServiceById(c)
 
-	if err != nil{
+	if err != nil {
 		log.Println(err)
 	}
 
 	var material model.Material
 	var materials []model.Material
 
-	for rows.Next(){
-		if err := rows.Scan(&material.Id,&material.Name,&material.Quantity,&material.Unit,&material.Inventory.Id);err != nil{
+	for rows.Next() {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit, &material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
-		}else{
+		} else {
 			materials = append(materials, material)
 		}
 	}
 
 	var response model.MaterialResponse
 
-	if err == nil{
+	if err == nil {
 		response.Message = "Get Material Success"
 		response.Data = materials
-		c.JSON(http.StatusOK,response)
-	}else{
+		c.JSON(http.StatusOK, response)
+	} else {
 		response.Message = "Get Material Failed"
 		fmt.Println(err)
-		c.JSON(http.StatusBadRequest,response)
+		c.JSON(http.StatusBadRequest, response)
 	}
 }
 
@@ -66,7 +67,7 @@ func ShowMaterial(c *gin.Context) {
 	var materials []model.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit, &material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)

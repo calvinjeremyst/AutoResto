@@ -3,6 +3,7 @@ package chef
 import (
 	"log"
 	"net/http"
+
 	modelMenu "github.com/AutoResto/menu/entity"
 	mnservice "github.com/AutoResto/menu/service"
 	modelRecipe "github.com/AutoResto/recipe/entity"
@@ -47,7 +48,7 @@ func ShowAllRecipe(c *gin.Context) {
 	var recipes []modelRecipe.RecipeDetail
 
 	for rows.Next() {
-		if err := rows.Scan(&recipe.Id, &recipe.Quantity, &recipe.Unit, &recipe.Recipe.Id,&recipe.Recipe.Description,&recipe.Material.Id,&recipe.Material.Name); err != nil {
+		if err := rows.Scan(&recipe.Id, &recipe.Quantity, &recipe.Unit, &recipe.Recipe.Id, &recipe.Recipe.Description, &recipe.Material.Id, &recipe.Material.Name); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			recipes = append(recipes, recipe)
@@ -65,16 +66,16 @@ func ShowAllRecipe(c *gin.Context) {
 	}
 }
 
-func AddRecipeForEachMaterial(c *gin.Context){
+func AddRecipeForEachMaterial(c *gin.Context) {
 	var response modelRecipe.RecipeDetailResponse
 	errQuery := rcservice.NewRecipeRepository().InsertRecipeDetailService(c)
 
-	if errQuery == nil{
+	if errQuery == nil {
 		response.Message = "Insert Recipe dan Bahan bahan Sukses"
-		c.JSON(http.StatusOK,response)
-	}else{
+		c.JSON(http.StatusOK, response)
+	} else {
 		response.Message = "Insert Recipe dan Bahan bahan Failed"
-		c.JSON(http.StatusBadRequest,response)	
+		c.JSON(http.StatusBadRequest, response)
 	}
 }
 

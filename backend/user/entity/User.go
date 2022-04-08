@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	handler "github.com/AutoResto/handler"
-	controller "github.com/AutoResto/user/controller"
+	conn "github.com/AutoResto/dp/singleton"
+	usercon "github.com/AutoResto/user/controller"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,11 +29,8 @@ type LogoutResponse struct {
 	Message string `form:"message" json:"message"`
 }
 
-
-
-
 func Login(c *gin.Context) {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 
 	var userData User
@@ -43,7 +40,7 @@ func Login(c *gin.Context) {
 		log.Println(err)
 	}
 
-	query := "SELECT * FROM user WHERE email = '" + userData.Email +"'"
+	query := "SELECT * FROM user WHERE email = '" + userData.Email + "'"
 
 	rows, err := db.Query(query)
 	if err != nil {
@@ -51,15 +48,15 @@ func Login(c *gin.Context) {
 	}
 
 	var user User
-	
+
 	for rows.Next() {
-		if err := rows.Scan(&user.Id,&user.Email,&user.Password, &user.Name,&user.PhoneNumber,&user.Position,&user.Roles); err != nil {
+		if err := rows.Scan(&user.Id, &user.Email, &user.Password, &user.Name, &user.PhoneNumber, &user.Position, &user.Roles); err != nil {
 			log.Fatal(err.Error())
 		}
 	}
 	var response LoginResponse
-	if user.Password == userData.Password && err == nil{
-		controller.GenerateToken(c, user.Id, user.Name, user.Email)
+	if user.Password == userData.Password && err == nil {
+		usercon.GenerateToken(c, user.Id, user.Name, user.Email)
 		response.Message = "Login Success"
 		response.Type = user.Position
 		sendLoginSuccessResponse(c, response)
@@ -72,7 +69,7 @@ func Login(c *gin.Context) {
 
 func Logout(c *gin.Context) {
 
-	controller.ResetUserToken(c)
+	usercon.ResetUserToken(c)
 	var response LogoutResponse
 	response.Message = "Logout Success"
 	sendLogoutSuccessResponse(c, response)
@@ -87,10 +84,10 @@ func sendLoginErrorResponse(c *gin.Context, err LoginResponse) {
 
 }
 
-func sendLogoutSuccessResponse(c *gin.Context, err LogoutResponse){
-	c.JSON(http.StatusOK,err)
+func sendLogoutSuccessResponse(c *gin.Context, err LogoutResponse) {
+	c.JSON(http.StatusOK, err)
 }
 
-func sendLogoutErrorResponse(c *gin.Context,err LogoutResponse){
-	c.JSON(http.StatusBadRequest,err)
+func sendLogoutErrorResponse(c *gin.Context, err LogoutResponse) {
+	c.JSON(http.StatusBadRequest, err)
 }

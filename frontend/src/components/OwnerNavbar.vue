@@ -6,7 +6,7 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/welcome">
+      <b-navbar-item href="/">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem" v-on:click="logout"
@@ -40,7 +40,7 @@ export default {
     async logout() {
       console.log("test");
       this.loginService.removeUserType();
-      location.replace("/welcome");
+      location.replace("/");
     },
   },
 };

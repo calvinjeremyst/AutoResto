@@ -23,7 +23,6 @@
     import InventoryNavbar from "./components/InventoryNavbar";
     import ChefNavbar from "./components/ChefNavbar";
 
-
     import Login from "./services/Login";
     import Header from "./components/Header"
     import Footer from "./components/Footer";
@@ -44,7 +43,6 @@
           OwnerNavbar,
           InventoryNavbar,
           ChefNavbar,
-
           Footer,
           Header
         },

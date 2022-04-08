@@ -9,5 +9,3 @@ type Inventory struct {
 	Capacity int            `form:"capacity" json:"capacity"`
 	Location model.Location `form:"location" json:"location"`
 }
-
-

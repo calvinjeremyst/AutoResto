@@ -1,7 +1,6 @@
 package state
 
-type state interface{
-
+type state interface {
 	addItem()
 	requestItem()
 	dispenseItem()

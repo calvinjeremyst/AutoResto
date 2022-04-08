@@ -1,12 +1,12 @@
 <template>
   <b-navbar style="background-color: white; padding: 16px" shadow>
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+      <b-navbar-item tag="router-link" :to="{ path: '/home' }">
         <img src="@/assets/AutoResto.png" />
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="/welcome">
+      <b-navbar-item href="/">
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem" v-on:click="logout">
@@ -40,7 +40,7 @@ export default {
     async logout() {
       console.log("test");
       this.loginService.removeUserType();
-      location.replace("/welcome");
+      location.replace("/");
     },
   },
 };
