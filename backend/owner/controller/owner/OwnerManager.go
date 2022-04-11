@@ -3,6 +3,7 @@ package owner
 import (
 	"log"
 	"net/http"
+
 	modelMaterial "github.com/AutoResto/material/entity"
 	mtservice "github.com/AutoResto/material/service"
 	modelMenu "github.com/AutoResto/menu/entity"
@@ -51,7 +52,7 @@ func SearchMaterial(c *gin.Context) {
 	var materials []modelMaterial.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit, &material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)
@@ -69,15 +70,13 @@ func SearchMaterial(c *gin.Context) {
 	}
 }
 
-
-
 // Insert Menu
 func AddNewMenu(c *gin.Context) {
 	materialName := c.PostForm("material")
 	//materialArr := strings.Split(materialName, ",")
 	errQuery := rcservice.NewRecipeRepository().InsertRecipeService(c)
 	//insert recipe
-	
+
 	//insert menu dengan select id dari description
 	errQuery = mnservice.NewMenuRepository().InsertMenuService(c)
 
@@ -91,7 +90,7 @@ func AddNewMenu(c *gin.Context) {
 	var materials []modelMaterial.Material
 
 	for rows.Next() {
-		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit,&material.Inventory.Id); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Quantity, &material.Unit, &material.Inventory.Id); err != nil {
 			log.Fatal(err.Error())
 		} else {
 			materials = append(materials, material)
@@ -132,53 +131,48 @@ func AddNewMenu(c *gin.Context) {
 	}
 }
 
-func AddnewMenus(c *gin.Context){
+func AddnewMenus(c *gin.Context) {
 
-	rows,err := rcservice.NewRecipeRepository().GetAvailabilityMenuDescription(c)
-	
-
+	rows, err := rcservice.NewRecipeRepository().GetAvailabilityMenuDescription(c)
 	menuName := c.PostForm("name")
 	description := c.PostForm("description")
-	
-	if err != nil{
+
+	if err != nil {
 		log.Println(err)
 	}
 
-	
 	var recipe modelRecipe.Recipe
 	var recipes []modelRecipe.Recipe
 
-	for rows.Next(){
-		if err := rows.Scan(&recipe.Menu.Id,&recipe.Menu.Name,&recipe.Menu.Price,&recipe.Description);err != nil{
+	for rows.Next() {
+		if err := rows.Scan(&recipe.Menu.Id, &recipe.Menu.Name, &recipe.Menu.Price, &recipe.Description); err != nil {
 			log.Fatal(err.Error())
-		}else{
-			recipes = append(recipes,recipe)
+		} else {
+			recipes = append(recipes, recipe)
 		}
 
 	}
 
 	cek := true
-	for i := 0; i < len(recipes); i++{
-		if recipes[i].Description == description && recipes[i].Menu.Name == menuName{
+	for i := 0; i < len(recipes); i++ {
+		if recipes[i].Description == description && recipes[i].Menu.Name == menuName {
 			cek = false
-		} 
-		
+		}
+
 	}
 	var response modelRecipe.RecipeResponse
 	if cek == true {
 		errQuery := rcservice.NewRecipeRepository().InsertRecipeService(c)
 		errQuery2 := mnservice.NewMenuRepository().InsertMenuService(c)
 
-		if errQuery == nil && errQuery2 == nil{
+		if errQuery == nil && errQuery2 == nil {
 			response.Message = "Insert Menu And Description Success"
-			c.JSON(http.StatusOK,response)
-		}else{
+			c.JSON(http.StatusOK, response)
+		} else {
 			response.Message = "Insert Menu And Description Failed"
-			c.JSON(http.StatusBadRequest,response)
+			c.JSON(http.StatusBadRequest, response)
 		}
 	}
-
-	
 }
 
 //Update Menu

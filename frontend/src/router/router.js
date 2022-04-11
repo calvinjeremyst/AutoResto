@@ -7,13 +7,13 @@ Vue.use(VueRouter);
 import Login from '../views/Login.vue';
 import FirstPage from '../views/FirstPage.vue';
 import HomePage from '../views/HomePage.vue';
+
 //Component Material
 import AddMaterial from '../views/inventory/AddMaterial.vue'
-import MaterialList from '../views/MaterialList.vue'
+import MaterialList from '../views/inventory/MaterialList.vue'
 import MaterialListSearch from '../views/owner/MaterialListSearch.vue'
 import SearchMaterial from '../views/owner/SearchMaterial.vue'
-import EditMaterial from '../views/inventory/UpdateMaterial'
-
+import EditMaterial from '../views/inventory/UpdateMaterial.vue'
 
 //Component Menu
 import MenuListChef from '../views/chef/MenuListChef'
@@ -35,7 +35,7 @@ import HomePageOwner from '../views/owner/OwnerHomePage.vue'
 
 const routes = [
     {
-        path: '/welcome',
+        path: '/',
         name: 'FirstPage',
         component: FirstPage,
         meta: {

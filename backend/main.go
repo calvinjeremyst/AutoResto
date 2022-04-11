@@ -32,39 +32,38 @@ func main() {
 
 	router.POST("/login", entity.Login)
 
-
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.POST("/insert", iv.AddNewMaterial)//done
-		InventoryManager.GET("/allmaterial", iv.ShowMaterial)//done
-		InventoryManager.GET("/:id",iv.ShowMaterialById)//done
-		InventoryManager.PUT("/:id",iv.UpdateMaterial)
-		InventoryManager.DELETE("/:id", iv.RemoveMaterial)//done
+		InventoryManager.POST("/insert", iv.AddNewMaterial)   //done
+		InventoryManager.GET("/allmaterial", iv.ShowMaterial) //done
+		InventoryManager.GET("/:id", iv.ShowMaterialById)     //done
+		InventoryManager.POST("/:id", iv.UpdateMaterial)
+		InventoryManager.DELETE("/:id", iv.RemoveMaterial) //done
 	}
 
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
-		ChefManager.GET("/allmenu", cf.ShowListMenu)//done
-		ChefManager.GET("/:id", cf.ShowRecipeandMenu)//done
-		ChefManager.POST("/insertdetailrecipe",cf.AddRecipeForEachMaterial)
-		ChefManager.GET("/alldetailrecipe", cf.ShowAllRecipe)//done
+		ChefManager.GET("/allmenu", cf.ShowListMenu)  //done
+		ChefManager.GET("/:id", cf.ShowRecipeandMenu) //done
+		ChefManager.POST("/insertdetailrecipe", cf.AddRecipeForEachMaterial)
+		ChefManager.GET("/alldetailrecipe", cf.ShowAllRecipe) //done
 	}
 
 	OwnerManager := router.Group("/OwnerManager")
 	{
-		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)//done
-		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)//done
-		OwnerManager.GET("/allmaterial", iv.ShowMaterial)//done
-		OwnerManager.GET("/allmenu", cf.ShowListMenu)//done
-		
+		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)             //done
+		OwnerManager.GET("/material/:material_name", ow.SearchMaterial) //done
+		OwnerManager.GET("/allmaterial", iv.ShowMaterial)               //done
+		OwnerManager.GET("/allmenu", cf.ShowListMenu)                   //done
+
 		OwnerManager.POST("/insertmenu", ow.AddnewMenus)
 		OwnerManager.PUT("/:menu_id", ow.EditMenu)
-		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu)//done
+		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu) //done
 	}
-	router.GET("/logout",entity.Login)
-	
+	router.GET("/logout", entity.Login)
+
 	router.Run(":8080")
 	fmt.Println("Connected to port 8080")
 }

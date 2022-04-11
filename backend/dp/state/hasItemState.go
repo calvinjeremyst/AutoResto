@@ -4,43 +4,43 @@ import (
 	"log"
 	"net/http"
 
+	iv "github.com/AutoResto/inventory/controller/inventory"
 	modelMaterial "github.com/AutoResto/material/entity"
 	mtservice "github.com/AutoResto/material/service"
 	ow "github.com/AutoResto/owner/controller/owner"
-	iv "github.com/AutoResto/inventory/controller/inventory"
 	"github.com/gin-gonic/gin"
 )
 
-type hasItemState struct{
+type hasItemState struct {
 	checker *checker
 }
 
-func (h *hasItemState) requestItem(c *gin.Context){
+func (h *hasItemState) requestItem(c *gin.Context) {
 	ow.SearchMaterial(c)
 }
 
-func (h *hasItemState) addItem(c *gin.Context){
+func (h *hasItemState) addItem(c *gin.Context) {
 	materialName := c.PostForm("material")
 	//cek terlebih dahulu apakah sudah ada nama item yang tersedia di database
-	rows,err := mtservice.NewMaterialRepository().SearchMaterialServiceDB(c)
+	rows, err := mtservice.NewMaterialRepository().SearchMaterialServiceDB(c)
 	cek := true
 
-	if err != nil{
+	if err != nil {
 		log.Print(err)
 	}
 
 	var item modelMaterial.Material
 	var items []modelMaterial.Material
-	for rows.Next(){
-		if err := rows.Scan(&item.Id,&item.Name,&item.Quantity,&item.Unit);err != nil{
+	for rows.Next() {
+		if err := rows.Scan(&item.Id, &item.Name, &item.Quantity, &item.Unit); err != nil {
 			log.Fatal(err.Error())
-		}else{
+		} else {
 			items = append(items, item)
 		}
 	}
 
-	for i:= 0; i < len(items); i++{
-		if items[i].Name == materialName{//misal sudah ada,tidak di insert
+	for i := 0; i < len(items); i++ {
+		if items[i].Name == materialName { //misal sudah ada,tidak di insert
 			cek = false
 		}
 	}
@@ -53,18 +53,17 @@ func (h *hasItemState) addItem(c *gin.Context){
 		err = mtservice.NewMaterialRepository().UpdateMaterialServiceDB(c)
 	}
 	var response modelMaterial.MaterialResponse
-	if err == nil{
+	if err == nil {
 		response.Message = "Success"
-		c.JSON(http.StatusOK,response)
-	}else{
+		c.JSON(http.StatusOK, response)
+	} else {
 		response.Message = "Failed"
-		c.JSON(http.StatusBadRequest,response)
+		c.JSON(http.StatusBadRequest, response)
 
 	}
 
 }
 
-func (h *hasItemState) dispenseItem(c *gin.Context){
-	iv.RemoveMaterial(c)	
+func (h *hasItemState) dispenseItem(c *gin.Context) {
+	iv.RemoveMaterial(c)
 }
-

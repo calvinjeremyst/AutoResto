@@ -4,23 +4,23 @@ import (
 	"database/sql"
 	"strconv"
 
-	handler "github.com/AutoResto/handler"
+	conn "github.com/AutoResto/dp/singleton"
 	menu "github.com/AutoResto/menu/entity"
 	mnrepo "github.com/AutoResto/menu/repository"
 	"github.com/gin-gonic/gin"
 )
 
-type MenuRepo struct{
+type MenuRepo struct {
 	mnrepo.MenuRepository
 }
 
-func NewMenuRepository() *MenuRepo{
+func NewMenuRepository() *MenuRepo {
 	return &MenuRepo{}
 }
 
 //Select Menu Service
 func (r *MenuRepo) SelectMenuServiceDB() (row *sql.Rows, err error) {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 	query := "SELECT id,name,price FROM menu"
 	menu, err := db.Query(query)
@@ -29,7 +29,7 @@ func (r *MenuRepo) SelectMenuServiceDB() (row *sql.Rows, err error) {
 
 //Search Menu Service
 func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 
 	menuName := c.Param("menu_name")
@@ -41,19 +41,19 @@ func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error
 }
 
 //Get Availability Menu,utk cek apakah sudah ada / belum
-func (r *MenuRepo) GetAvailabilityMenuServiceDB(c *gin.Context)(row *sql.Rows, err error){
-	db := handler.Connect()
+func (r *MenuRepo) GetAvailabilityMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
+	db := conn.Connect()
 	defer db.Close()
 
 	menuName := c.Param("name")
-	query := "SELECT * FROM menu WHERE name = '"+menuName+"'"
+	query := "SELECT * FROM menu WHERE name = '" + menuName + "'"
 
-	menu,err := db.Query(query)
-	return menu,err
+	menu, err := db.Query(query)
+	return menu, err
 }
 
 func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 
 	menuId := c.Param("menu_id")
@@ -78,7 +78,7 @@ func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
 }
 
 func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 	name := c.PostForm("name")
 	price, _ := strconv.Atoi(c.PostForm("price"))
@@ -93,7 +93,7 @@ func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
 }
 
 func (r *MenuRepo) DeleteMenuServiceDB(c *gin.Context) error {
-	db := handler.Connect()
+	db := conn.Connect()
 	defer db.Close()
 	menuId := c.Param("menu_id")
 

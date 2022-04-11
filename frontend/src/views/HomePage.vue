@@ -14,13 +14,10 @@
 </template>
 <script>
 
-
 import HomePageChef from './chef/ChefHomePage.vue'
 import HomePageInventory from './inventory/InventoryHomePage.vue'
 import HomePageOwner from './owner/OwnerHomePage.vue'
 import Login from "../services/Login";
-
-
 
  export default {
         mounted() {
@@ -43,7 +40,7 @@ import Login from "../services/Login";
         methods: {
             async fetchData() {
                 this.userType = this.loginService.getCurrentUserType();
-                owner = this.owner
+                //owner = this.owner
 
             },
             async getUserType() {

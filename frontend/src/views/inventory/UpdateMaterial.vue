@@ -5,28 +5,28 @@
             <div class="headcard" style="padding :1rem">
                 <h2 class = "title">Update Material</h2>
             </div>
-            <div class="cardbody" v-for="log in data" :key="log.Id">
                 <div class = "namemtdiv" style = "padding : 2rem">
                     <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
-                    <input type = "name" v-model ="log.Name" class = "isiname" id = "name"><br>
+                    <input type = "name" v-model ="material.Name" class = "isiname" id = "name"><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
                     <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
-                    <input type = "text" v-model ="log.Quantity" class = "isiquty" id = "quantity"><br>
+                    <input type = "text" v-model ="material.Quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model ="log.Unit" class = "isiunit" id = "unit"><br>
+                    <input type = "text" v-model ="material.Unit" class = "isiunit" id = "unit"><br>
                 </div>
+          
                 <div class="buttons"> 
                     <button name = "insertmaterial" class = "btninsert">Edit</button>
                 </div>
-            </div>
         </form>
     </div>
 </div>
 </template>
 <script>
+
 function buildFormData(formData, data, parentKey) {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
@@ -50,13 +50,11 @@ export default{
     name : 'UpdateMaterial',
     data(){
         return {
-            data :[],
-             'material' : {
-                'name' : '',
-                'quantity' : '',
-                'unit' : ''
-            }
-            
+            'material':{
+                'Name' : '',
+                'Quantity': '',
+                'Unit' : '',
+            }  
         }
     },
     mounted(){
@@ -66,7 +64,7 @@ export default{
         async fetchById(){
             try{
                 const res = await axios.get('InventoryManager/'+this.$route.params.id);
-                this.data = res.data.data,
+                this.data = res.data.data
                 console.log(res)
                 
             }catch(error){
@@ -74,13 +72,16 @@ export default{
             }
         },
         async UpdateMaterial(){
-              
+           
+            this.material = jsonToFormData(this.material) 
             try{
-                const response = await axios.put('InventoryManager/' + this.$route.params.id,this.material);
+                const response = await axios.post('InventoryManager/' + this.$route.params.id,this.material);
                 console.log(response)
+                alert("Update Success")
             }
             catch(error){
                 console.log(error)
+                alert("Update Gagal")
             }
         }
     }
