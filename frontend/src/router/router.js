@@ -6,8 +6,8 @@ Vue.use(VueRouter);
 //Component
 import Login from '../views/Login.vue';
 import FirstPage from '../views/FirstPage.vue';
-import HomePage from '../views/HomePage.vue';
-
+import HomePage from  '../views/HomePage.vue';
+ 
 //Component Material
 import AddMaterial from '../views/inventory/AddMaterial.vue'
 import MaterialList from '../views/inventory/MaterialList.vue'
@@ -35,7 +35,7 @@ import HomePageOwner from '../views/owner/OwnerHomePage.vue'
 
 const routes = [
     {
-        path: '/',
+        path:  '/',
         name: 'FirstPage',
         component: FirstPage,
         meta: {

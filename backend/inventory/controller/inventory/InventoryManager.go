@@ -28,7 +28,7 @@ func AddNewMaterial(c *gin.Context) {
 func ShowMaterialById(c *gin.Context) {
 	rows, err := mtservice.NewMaterialRepository().GetMaterialServiceById(c)
 
-	if err != nil {
+	if err != nil { 
 		log.Println(err)
 	}
 
