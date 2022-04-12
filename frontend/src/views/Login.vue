@@ -53,13 +53,14 @@ name: "Sign-Up",
     let tipeUser;
     axios
       .post("/login", {
+    
       email: this.person.email,
       password: this.person.password,
       })
       .then((response) => {
         tipeUser = response.data.userType;
         this.loginService.addToUserType(tipeUser);
-
+        alert("Login Success,Hello " + this.person.email)
         this.$router.push({name : 'HomePage'})
         location.replace("/home");
       })

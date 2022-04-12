@@ -77,11 +77,11 @@ export default{
             try{
                 const response = await axios.post('InventoryManager/' + this.$route.params.id,this.material);
                 console.log(response)
-                alert("Update Success")
+                alert("Update Material Success")
             }
             catch(error){
                 console.log(error)
-                alert("Update Gagal")
+                alert("Update Material Gagal")
             }
         }
     }

@@ -7,7 +7,7 @@
             <form>
                 <div class="keyword">
                     <h3><b><label for="keywords" class="labelkeyword">Kata Kunci</label></b></h3><br>
-                    <input type="text" class="searchkeyword" v-model="materialname">
+                    <input type="text" class="searchkeyword" v-model="materialname" required>
                 </div>
                 <div class="buttonsearch">
                 <router-link :to="{name:'MaterialListSearch',params:{'name':materialname}}">

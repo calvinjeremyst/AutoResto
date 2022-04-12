@@ -9,17 +9,17 @@
                     
                     <div class="desc">
                         <b><label for="description">Description</label></b>
-                        <input type="text" v-model="data.description" class="isidescription"><br>
+                        <input type="text" v-model="data.description" class="isidescription" required><br>
                     </div>
 
                     <div class="menuname">
                         <b><label for="menu" class="labelmenu">Menu Name</label></b>
-                        <input type="text" v-model="data.name" class="isimenuname"><br>
+                        <input type="text" v-model="data.name" class="isimenuname" required><br>
                     </div>
 
                     <div class="price">
                         <b><label for="price">Price</label></b>
-                        <input type="text" required v-model="data.price" class="isiprice"><br>
+                        <input type="text" v-model="data.price" class="isiprice" required><br>
                     </div>
                     <div class="buttons">
                         <button name="insertmenu" class="btn-insertmenu">Insert</button>
@@ -67,6 +67,7 @@ methods:{
         try{
             const response = await axios.post('/OwnerManager/insertmenu',this.data);
             console.log(response,this.data)
+            alert("Add Menu Berhasil")
         }
         catch(error){
             alert("Menu sudah ada")

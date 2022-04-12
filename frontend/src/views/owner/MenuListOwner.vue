@@ -39,8 +39,14 @@ methods:{
     async fetchData(){
         try{
             const res = await axios.get('OwnerManager/allmenu');
-            this.data = res.data.data
-            console.log(res,this.data)
+            if(res.data.data == null){
+                alert("Menu Empty")
+            }else{
+                alert("Showing list menu")
+                this.data = res.data.data
+                console.log(res,this.data)
+            }
+            
         }
         catch(error){
             console.log(error)

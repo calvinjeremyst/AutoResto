@@ -34,8 +34,14 @@ mounted(){
         async fetchByName(){
             try{
                 const res = await axios.get('OwnerManager/menu/' + this.$route.params.name)
-                this.data = res.data.data
-                console.log(res,this.data)
+                if(res.data.data == null){
+                    alert("Menu Tidak Ditemukan")
+                }else{
+                    alert("Menu Ditemukan")
+                    this.data = res.data.data
+                    console.log(res,this.data)
+                }
+               
             }
             catch(error){
                 console.log(error)

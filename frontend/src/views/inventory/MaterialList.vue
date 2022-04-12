@@ -42,8 +42,15 @@ export default{
       async fetchData(){
       try{
         const res = await axios.get("InventoryManager/allmaterial");
-        this.data = res.data.data;
-        console.log(res,this.data)
+        if(res.data.data == null){
+            alert("Inventory Kosong")
+        }else{
+            alert("Showing material list")
+            this.data = res.data.data;
+            console.log(res,this.data)
+        }
+       
+       
       } 
       catch(error){
           console.log(error)
@@ -52,6 +59,7 @@ export default{
     async deleteMaterial(Id){
       try{
           await axios.delete(`InventoryManager/${Id}`);
+          alert("Delete material success")
           this.fetchData()
       }
       catch(error){

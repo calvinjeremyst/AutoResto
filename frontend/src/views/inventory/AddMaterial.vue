@@ -8,15 +8,15 @@
             <div class="cardbody">
                 <div class = "namemtdiv" style = "padding : 2rem">
                     <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
-                    <input type = "name" v-model = "material.name" class = "isiname" id = "name"><br>
+                    <input type = "name" v-model = "material.name" class = "isiname" id = "name" required><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
                     <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
-                    <input type = "text" v-model = "material.quantity" class = "isiquty" id = "quantity"><br>
+                    <input type = "text" v-model = "material.quantity" class = "isiquty" id = "quantity" required><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model = "material.unit" class = "isiunit" id = "unit"><br>
+                    <input type = "text" v-model = "material.unit" class = "isiunit" id = "unit" required><br>
                 </div>
                 <div class="buttons"> 
                     <button name = "insertmaterial" class = "btninsert">Insert</button>
@@ -64,9 +64,11 @@
                 try{
                     const response = await axios.post('/InventoryManager/insert',this.material);
                     console.log(response,this.material)
+                    alert("Add Material Berhasil")
                 }
                 catch(error){
                     console.log(error)
+                    alert("Add Material Gagal")
                 }
             }
         }
@@ -93,13 +95,17 @@
     }
 
     .isiquty{
-        margin-left: 8px;
+        margin-left: 50px;
         width: 150px;
         height: 30px;
     }
 
+    .materialquantity{
+        margin-left: 10px;
+    }
+
     .isiunit{
-        margin-left: 38px;
+        margin-left: 48px;
         width: 150px;
         height: 30px;
     }
@@ -110,6 +116,7 @@
 
     .qtymtdiv{
         text-align: center;
+
     }
 
     .unitdiv{

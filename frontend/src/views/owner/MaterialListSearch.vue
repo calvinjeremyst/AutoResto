@@ -35,7 +35,14 @@ export default{
         async fetchByName(){
             try{
                 const res = await axios.get('OwnerManager/material/' + this.$route.params.name)
-                this.data = res.data.data
+                if (res.data.data == null){
+                    alert("Material tidak ditemukan")
+                }else{
+                    alert("Material get sukses")
+                      this.data = res.data.data
+                }
+               
+
                 console.log(res,this.data)
             }
             catch(error){
