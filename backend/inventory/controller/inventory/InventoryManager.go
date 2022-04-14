@@ -52,8 +52,12 @@ func UpdateMaterialBackup(c *gin.Context){
 	var material model.Material
 
 	err := c.BindJSON(&material)
+	log.Println("cek")
+	log.Println(c,err)
+
 	if err == nil{
 		errQuery := mtservice.UpdateMaterialServiceJSON(material,c)
+
 		if errQuery == nil{
 			response.Message = "Update Material Success"
 			c.JSON(http.StatusOK,response)

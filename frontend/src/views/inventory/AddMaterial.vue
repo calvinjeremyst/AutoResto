@@ -52,18 +52,18 @@
         data(){
             return {
                 name: '',
-                quantity : 1000,
+                quantity : 0,
                 unit: '',        
             };
         },
         
         methods:{
             async InsertMaterial(){ 
-                //this.quantity = toString(this.quantity)
+                console.log(this.name,this.quantity,this.unit)
                 try{
                    
                     const response = await axios.post('InventoryManager/insert',
-                    {name : this.name,quantity : this.quantity,unit : this.unit});
+                    {name : this.name, quantity : parseInt(this.quantity), unit : this.unit});
                     console.log(response,this.material)
                     alert("Add Material Berhasil")
                 }

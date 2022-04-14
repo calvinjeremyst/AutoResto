@@ -7,11 +7,11 @@
             </div>
                 <div class = "namemtdiv" style = "padding : 2rem">
                     <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
-                    <input type = "name" v-model ="Name" class = "isiname" id = "name"><br>
+                       <input type = "name" v-model ="Name" class = "isiname" id = "name"><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
                     <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
-                    <input type = "text" v-model ="Quantity" class = "isiquty" id = "quantity"><br>
+                    <input type = "number" v-model ="Quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
@@ -51,7 +51,7 @@ export default{
     data(){
         return {
             Name : '',
-            Quantity : 2000,
+            Quantity : '',
             Unit : '',
         }
     },
@@ -62,9 +62,9 @@ export default{
         async fetchById(){
             try{
                 const res = await axios.get('InventoryManager/'+this.$route.params.id);
-                this.Name = res.data
-                this.Quantity = res.data
-                this.Unit = res.data
+                this.Name = res.data.data[0].Name
+                this.Quantity = res.data.data[0].Quantity
+                this.Unit = res.data.data[0].Unit
                 console.log(res)
                 
             }catch(error){
@@ -72,11 +72,9 @@ export default{
             }
         },
         async UpdateMaterial(){
-           
-            //this.material = jsonToFormData(this.material) 
             try{
                 const response = await axios.post('InventoryManager/' + this.$route.params.id,
-                {Name : this.Name,Unit : this.Unit});
+                {Name : this.Name, Quantity : parseInt(this.Quantity) ,Unit : this.Unit});
                 console.log(response)
                 alert("Update Material Success")
             }
