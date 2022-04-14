@@ -1,22 +1,22 @@
 <template>
 <div class="bg-addmaterial">
     <div class="container">
-        <form @submit.prevent = "InsertMaterial"> 
+        <form @submit.prevent="InsertMaterial"> 
             <div class="headcard" style="padding :1rem">
                 <h2 class = "title">Insert Material</h2>
             </div>
             <div class="cardbody">
                 <div class = "namemtdiv" style = "padding : 2rem">
                     <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
-                    <input type = "name" v-model = "material.name" class = "isiname" id = "name" required><br>
+                    <input type = "name" v-model ="name" class = "isiname" id = "name" required><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
                     <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
-                    <input type = "text" v-model = "material.quantity" class = "isiquty" id = "quantity" required><br>
+                    <input type = "number" required v-model ="quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model = "material.unit" class = "isiunit" id = "unit" required><br>
+                    <input type = "text" v-model = "unit" class = "isiunit" id = "unit" required><br>
                 </div>
                 <div class="buttons"> 
                     <button name = "insertmaterial" class = "btninsert">Insert</button>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    function buildFormData(formData, data, parentKey) {
+    /*function buildFormData(formData, data, parentKey) {
         if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
             Object.keys(data).forEach(key => {
             buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -44,25 +44,26 @@
         const formData = new FormData();
         buildFormData(formData,data);
         return formData
-    }
+    }*/
 
     import axios from "axios";
     export default{
         name : 'AddMaterial',
         data(){
             return {
-                'material': {
-                    'name': '',
-                    'unit':'',
-                }
+                name: '',
+                quantity : 1000,
+                unit: '',        
             };
         },
         
         methods:{
             async InsertMaterial(){ 
-                this.material = jsonToFormData(this.material)
+                //this.quantity = toString(this.quantity)
                 try{
-                    const response = await axios.post('/InventoryManager/insert',this.material);
+                   
+                    const response = await axios.post('InventoryManager/insert',
+                    {name : this.name,quantity : this.quantity,unit : this.unit});
                     console.log(response,this.material)
                     alert("Add Material Berhasil")
                 }
@@ -72,7 +73,7 @@
                 }
             }
         }
-    }
+    };
 </script>
 
 <style>

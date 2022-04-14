@@ -35,10 +35,10 @@ func main() {
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.POST("/insert", iv.AddNewMaterial)   //done
+		InventoryManager.POST("/insert", iv.AddNewMaterialBackup)   //done
 		InventoryManager.GET("/allmaterial", iv.ShowMaterial) //done
 		InventoryManager.GET("/:id", iv.ShowMaterialById)     //done
-		InventoryManager.POST("/:id", iv.UpdateMaterial)
+		InventoryManager.POST("/:id", iv.UpdateMaterialBackup)
 		InventoryManager.DELETE("/:id", iv.RemoveMaterial) //done
 	}
 

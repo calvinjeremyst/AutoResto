@@ -7,17 +7,17 @@
             </div>
                 <div class = "namemtdiv" style = "padding : 2rem">
                     <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
-                    <input type = "name" v-model ="material.Name" class = "isiname" id = "name"><br>
+                    <input type = "name" v-model ="Name" class = "isiname" id = "name"><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
                     <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
-                    <input type = "text" v-model ="material.Quantity" class = "isiquty" id = "quantity"><br>
+                    <input type = "text" v-model ="Quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model ="material.Unit" class = "isiunit" id = "unit"><br>
+                    <input type = "text" v-model ="Unit" class = "isiunit" id = "unit"><br>
                 </div>
-          
+           
                 <div class="buttons"> 
                     <button name = "insertmaterial" class = "btninsert">Edit</button>
                 </div>
@@ -27,7 +27,7 @@
 </template>
 <script>
 
-function buildFormData(formData, data, parentKey) {
+/*function buildFormData(formData, data, parentKey) {
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
         Object.keys(data).forEach(key => {
         buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
@@ -42,7 +42,7 @@ function jsonToFormData(data){
     const formData = new FormData();
     buildFormData(formData,data);
     return formData
-}
+}*/
 
 import axios from "axios"
 export default{
@@ -50,11 +50,9 @@ export default{
     name : 'UpdateMaterial',
     data(){
         return {
-            'material':{
-                'Name' : '',
-                'Quantity': '',
-                'Unit' : '',
-            }  
+            Name : '',
+            Quantity : 2000,
+            Unit : '',
         }
     },
     mounted(){
@@ -64,7 +62,9 @@ export default{
         async fetchById(){
             try{
                 const res = await axios.get('InventoryManager/'+this.$route.params.id);
-                this.data = res.data.data
+                this.Name = res.data
+                this.Quantity = res.data
+                this.Unit = res.data
                 console.log(res)
                 
             }catch(error){
@@ -73,9 +73,10 @@ export default{
         },
         async UpdateMaterial(){
            
-            this.material = jsonToFormData(this.material) 
+            //this.material = jsonToFormData(this.material) 
             try{
-                const response = await axios.post('InventoryManager/' + this.$route.params.id,this.material);
+                const response = await axios.post('InventoryManager/' + this.$route.params.id,
+                {Name : this.Name,Unit : this.Unit});
                 console.log(response)
                 alert("Update Material Success")
             }

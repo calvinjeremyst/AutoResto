@@ -89,6 +89,32 @@ func (r *MaterialRepo) InsertMaterialServiceDB(c *gin.Context) error {
 
 }
 
+func InsertMaterialServiceJSON(material material.Material)error{
+	db := conn.Connect()
+	defer db.Close()
+	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit,id_inventory)VALUES(?,?,?,?)",
+				material.Name,material.Quantity,material.Unit,1)
+	
+	return errQuery
+}
+
+func UpdateMaterialServiceJSON(material material.Material,c *gin.Context) error{
+
+	db := conn.Connect()
+	defer db.Close()
+	idMaterial := c.Param("id")
+
+	_, errQuery := db.Exec("UPDATE material SET name = ?,quantity = ?,unit = ? WHERE id = ?",
+		material.Name,
+		material.Quantity,
+		material.Unit,
+		idMaterial,
+	)
+
+	return errQuery
+
+}
+
 func (r *MaterialRepo) UpdateMaterialServiceDB(c *gin.Context) error {
 	db := conn.Connect()
 	defer db.Close()
@@ -98,7 +124,7 @@ func (r *MaterialRepo) UpdateMaterialServiceDB(c *gin.Context) error {
 	materialQuantity, _ := strconv.Atoi(c.PostForm("Quantity"))
 	materialUnit := c.PostForm("Unit")
 
-	rows, _ := db.Query("SELECT id,name,quantity,unit fROM material WHERE id = '" + idMaterial + "'")
+	rows, _ := db.Query("SELECT id,name,quantity,unit FROM material WHERE id = '" + idMaterial + "'")
 
 	var material material.Material
 	for rows.Next() {

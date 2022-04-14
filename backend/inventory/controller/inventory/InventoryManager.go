@@ -12,7 +12,7 @@ import (
 
 //Insert Material
 func AddNewMaterial(c *gin.Context) {
-	c.Header("Content-Type", "Application/JSON")
+	
 	var response model.MaterialResponse
 	errQuery := mtservice.NewMaterialRepository().InsertMaterialServiceDB(c)
 
@@ -25,6 +25,48 @@ func AddNewMaterial(c *gin.Context) {
 	}
 
 }
+
+//Insert Material dengan cara JSON
+func AddNewMaterialBackup(c *gin.Context){
+	var response model.MaterialResponse
+	var material model.Material
+
+	err := c.BindJSON(&material)
+	if err == nil{
+		errQuery := mtservice.InsertMaterialServiceJSON(material)
+		if errQuery == nil{
+			response.Message = "Insert Material Success"
+			c.JSON(http.StatusOK,response)
+		}else{
+			response.Message = "Insert Material Failed"
+			c.JSON(http.StatusBadRequest,response)
+		}
+	}else{
+		response.Message = "Failed Bind JSON"
+		c.JSON(http.StatusBadRequest,response)
+	}
+}
+
+func UpdateMaterialBackup(c *gin.Context){
+	var response model.MaterialResponse
+	var material model.Material
+
+	err := c.BindJSON(&material)
+	if err == nil{
+		errQuery := mtservice.UpdateMaterialServiceJSON(material,c)
+		if errQuery == nil{
+			response.Message = "Update Material Success"
+			c.JSON(http.StatusOK,response)
+		}else{
+			response.Message = "Update Material Failed"
+			c.JSON(http.StatusBadRequest,response)
+		}
+	}else{
+		response.Message = "Failed Bind JSON"
+		c.JSON(http.StatusBadRequest,response)
+	}
+}
+
 func ShowMaterialById(c *gin.Context) {
 	rows, err := mtservice.NewMaterialRepository().GetMaterialServiceById(c)
 
