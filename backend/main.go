@@ -35,9 +35,9 @@ func main() {
 	// Inventory Manager
 	InventoryManager := router.Group("/InventoryManager")
 	{
-		InventoryManager.POST("/insert", iv.AddNewMaterialBackup)   //done
+		InventoryManager.POST("/insert", iv.AddNewMaterialBackup)//done
 		InventoryManager.GET("/allmaterial", iv.ShowMaterial) //done
-		InventoryManager.GET("/:id", iv.ShowMaterialById)     //done
+		InventoryManager.GET("/:id", iv.ShowMaterialById) //done
 		InventoryManager.POST("/:id", iv.UpdateMaterialBackup)
 		InventoryManager.DELETE("/:id", iv.RemoveMaterial) //done
 	}
@@ -45,21 +45,21 @@ func main() {
 	//Chef Manager
 	ChefManager := router.Group("/ChefManager")
 	{
-		ChefManager.GET("/allmenu", cf.ShowListMenu)  //done
+		ChefManager.GET("/allmenuchef", cf.ShowListMenuChef)  //done
 		ChefManager.GET("/:id", cf.ShowRecipeandMenu) //done
-		ChefManager.POST("/insertdetailrecipe", cf.AddRecipeForEachMaterial)
+		ChefManager.POST("/insertdetailrecipe", cf.AddRecipeForEachMaterial)//done
 		ChefManager.GET("/alldetailrecipe", cf.ShowAllRecipe) //done
 	}
 
 	OwnerManager := router.Group("/OwnerManager")
 	{
-		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)             //done
-		OwnerManager.GET("/material/:material_name", ow.SearchMaterial) //done
-		OwnerManager.GET("/allmaterial", iv.ShowMaterial)               //done
-		OwnerManager.GET("/allmenu", cf.ShowListMenu)                   //done
-
-		OwnerManager.POST("/insertmenu", ow.AddnewMenus)
-		OwnerManager.PUT("/:menu_id", ow.EditMenu)
+		OwnerManager.GET("/menu/:menu_name", ow.SearchMenu)//done
+		OwnerManager.GET("/material/:material_name", ow.SearchMaterial)//done
+		OwnerManager.GET("/allmaterial", iv.ShowMaterial)//done
+		OwnerManager.GET("/allmenuowner", ow.ShowListMenuOwner)//done
+		OwnerManager.GET("/showmenu_id/:id",ow.ShowMenuDetailID)//done
+		OwnerManager.POST("/insertmenu", ow.AddnewMenus)//done
+		OwnerManager.POST("/updatemenu/:id", ow.EditDetailMenu)//done
 		OwnerManager.DELETE("/:menu_id", ow.DeleteMenu) //done
 	}
 	router.GET("/logout", entity.Login)

@@ -42,6 +42,59 @@ func SearchMenu(c *gin.Context) {
 	}
 }
 
+//Get List Menu Owner
+func ShowListMenuOwner(c *gin.Context) {
+	rows, err := mnservice.NewMenuRepository().SelectMenuOwnerServiceDB()
+	if err != nil {
+		log.Println(err)
+	}
+	var detailmenu modelRecipe.Recipe
+	var detailmenus []modelRecipe.Recipe
+	for rows.Next() {
+		if err := rows.Scan(&detailmenu.Menu.Id, &detailmenu.Menu.Name, &detailmenu.Menu.Price,&detailmenu.Id,&detailmenu.Description); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			detailmenus = append(detailmenus, detailmenu)
+		}
+	}
+	var response modelRecipe.RecipeResponse
+	if err == nil {
+		response.Message = "Get Menu Success"
+		response.Data = detailmenus
+		c.JSON(http.StatusOK, response)
+	} else {
+		response.Message = "Get Menu Query Error"
+		c.JSON(http.StatusBadRequest, response)
+	}
+}
+
+func ShowMenuDetailID(c *gin.Context){
+	rows,err := mnservice.NewMenuRepository().GetMenuDetailByIdService(c)
+	if err != nil{
+		log.Println(err)
+	}
+	var detailmenu modelRecipe.Recipe
+	var detailmenus []modelRecipe.Recipe
+
+	for rows.Next(){
+		if err := rows.Scan(&detailmenu.Menu.Name,&detailmenu.Menu.Price,&detailmenu.Description);err != nil {
+			log.Fatal(err.Error())
+		}else{
+			detailmenus = append(detailmenus, detailmenu)
+		}
+	}
+
+	var response modelRecipe.RecipeResponse
+	if err == nil {
+		response.Message = "Get Detail Menu By Id Success"
+		response.Data = detailmenus
+		c.JSON(http.StatusOK,response)
+	}else{
+		response.Message = "Get Detail Menu Failed"
+		c.JSON(http.StatusBadRequest,response)
+	}
+}
+
 // Search Material
 func SearchMaterial(c *gin.Context) {
 	rows, err := mtservice.NewMaterialRepository().SearchMaterialServiceDB(c)
@@ -188,10 +241,31 @@ func EditMenu(c *gin.Context) {
 	}
 }
 
+
+func EditDetailMenu(c *gin.Context){
+	var response modelRecipe.RecipeResponse
+	var detailmenu modelRecipe.Recipe
+
+	err := c.BindJSON(&detailmenu)
+	if err == nil{
+		errQuery := mnservice.NewMenuRepository().UpdateDetailMenuService(detailmenu,c)
+		if errQuery == nil{
+			response.Message = "Update menu success"
+			c.JSON(http.StatusOK,response)
+		}else{
+			response.Message = "Update menu failed"
+			c.JSON(http.StatusBadRequest,response)
+		}
+	}else{
+		response.Message = "Failed Bind JSON"
+		c.JSON(http.StatusBadRequest,response)
+	}
+}
+
 // Delete Menu
 func DeleteMenu(c *gin.Context) {
 	errQuery := mnservice.NewMenuRepository().DeleteMenuServiceDB(c)
-	var response modelMenu.MenuResponse
+	var response modelRecipe.RecipeResponse
 	if errQuery == nil {
 		response.Message = "Delete Menu Success"
 		c.JSON(http.StatusOK, response)

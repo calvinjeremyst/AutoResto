@@ -50,11 +50,7 @@ func AddNewMaterialBackup(c *gin.Context){
 func UpdateMaterialBackup(c *gin.Context){
 	var response model.MaterialResponse
 	var material model.Material
-
 	err := c.BindJSON(&material)
-	log.Println("cek")
-	log.Println(c,err)
-
 	if err == nil{
 		errQuery := mtservice.UpdateMaterialServiceJSON(material,c)
 

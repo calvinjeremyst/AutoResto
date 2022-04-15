@@ -115,6 +115,8 @@ func UpdateMaterialServiceJSON(material material.Material,c *gin.Context) error{
 
 }
 
+
+
 func (r *MaterialRepo) UpdateMaterialServiceDB(c *gin.Context) error {
 	db := conn.Connect()
 	defer db.Close()

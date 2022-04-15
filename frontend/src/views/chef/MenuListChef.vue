@@ -4,14 +4,14 @@
     <center>
       <table>
         <tr>
-          <th>ID</th>
+          <th>ID Menu</th>
           <th>Nama Menu</th>
-          <th>Harga</th>
+          <th>Description</th>
         </tr>
         <tr v-for="log in data" :key="log.id">
-          <td>{{ log.id }}</td>
-          <td>{{ log.name }}</td>
-          <td>{{ log.price }}</td>
+          <td>{{ log.Menu.id }}</td>
+          <td>{{ log.Menu.name }}</td>
+          <td>{{ log.description }}</td>
         </tr>
       </table>
     </center>
@@ -32,7 +32,7 @@ mounted() {
 methods: {
   async fetchData() {
     try{
-      const res = await axios.get("/ChefManager/allmenu");
+      const res = await axios.get("/ChefManager/allmenuchef");
       this.data = res.data.data;
    }
     catch(error){

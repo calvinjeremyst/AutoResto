@@ -21,6 +21,7 @@ import MenuListOwner from '../views/owner/MenuListOwner'
 import SearchMenu from '../views/owner/SearchMenu.vue'
 import AddMenu from '../views/owner/AddMenu'
 import MenuListSearch from '../views/owner/MenuListSearch.vue'
+import EditMenu from '../views/owner/UpdateMenu.vue'
 
 //Component Recipe
 import RecipeList from '../views/chef/RecipeList.vue'
@@ -154,6 +155,14 @@ const routes = [
       component : EditMaterial,
       meta: {
         title : "Update Material"
+      }
+    },
+    {
+      path : '/update_menu/:id',
+      name : 'UpdateMenu',
+      component : EditMenu,
+      meta : {
+        title : "Update Menu"
       }
     },
     {

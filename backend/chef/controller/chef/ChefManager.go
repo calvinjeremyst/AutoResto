@@ -4,38 +4,14 @@ import (
 	"log"
 	"net/http"
 
-	modelMenu "github.com/AutoResto/menu/entity"
+	//modelMenu "github.com/AutoResto/menu/entity"
 	mnservice "github.com/AutoResto/menu/service"
 	modelRecipe "github.com/AutoResto/recipe/entity"
 	rcservice "github.com/AutoResto/recipe/service"
 	"github.com/gin-gonic/gin"
 )
 
-//Get List Menu
-func ShowListMenu(c *gin.Context) {
-	rows, err := mnservice.NewMenuRepository().SelectMenuServiceDB()
-	if err != nil {
-		log.Println(err)
-	}
-	var menu modelMenu.Menu
-	var menus []modelMenu.Menu
-	for rows.Next() {
-		if err := rows.Scan(&menu.Id, &menu.Name, &menu.Price); err != nil {
-			log.Fatal(err.Error())
-		} else {
-			menus = append(menus, menu)
-		}
-	}
-	var response modelMenu.MenuResponse
-	if err == nil {
-		response.Message = "Get Menu Success"
-		response.Data = menus
-		c.JSON(http.StatusOK, response)
-	} else {
-		response.Message = "Get Menu Query Error"
-		c.JSON(http.StatusBadRequest, response)
-	}
-}
+
 
 //Get All Recipe
 func ShowAllRecipe(c *gin.Context) {
@@ -75,6 +51,33 @@ func AddRecipeForEachMaterial(c *gin.Context) {
 		c.JSON(http.StatusOK, response)
 	} else {
 		response.Message = "Insert Recipe dan Bahan bahan Failed"
+		c.JSON(http.StatusBadRequest, response)
+	}
+}
+
+
+//Get List Menu Owner
+func ShowListMenuChef(c *gin.Context) {
+	rows, err := mnservice.NewMenuRepository().SelectMenuChefServiceDB()
+	if err != nil {
+		log.Println(err)
+	}
+	var detailmenu modelRecipe.Recipe
+	var detailmenus []modelRecipe.Recipe
+	for rows.Next() {
+		if err := rows.Scan(&detailmenu.Menu.Id, &detailmenu.Menu.Name,&detailmenu.Description); err != nil {
+			log.Fatal(err.Error())
+		} else {
+			detailmenus = append(detailmenus, detailmenu)
+		}
+	}
+	var response modelRecipe.RecipeResponse
+	if err == nil {
+		response.Message = "Get Menu Success"
+		response.Data = detailmenus
+		c.JSON(http.StatusOK, response)
+	} else {
+		response.Message = "Get Menu Query Error"
 		c.JSON(http.StatusBadRequest, response)
 	}
 }

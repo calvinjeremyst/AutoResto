@@ -5,17 +5,21 @@
             <table>
                 <tr>
                     <th>ID</th>
+                    <th>Description</th>
                     <th>Menu Name</th>
                     <th>Menu Price</th>
                     <th>Data Option</th>
                 </tr>
                 <tr v-for="log in data" :key="log.id">
                     <td>{{log.id}}</td>
-                    <td>{{log.name}}</td>
-                    <td>{{log.price}}</td>
+                    <td>{{log.description}}</td>
+                    <td>{{log.Menu.name}}</td>
+                    <td>{{log.Menu.price}}</td>
                     <td>
-                        <button name="edit" class="btnUpdate">Update</button>
-                        <button name="delete" class="btnDelete" @click="deleteMenu(log.id)">Delete</button>
+                        <router-link :to="{name : 'UpdateMenu',params:{'id':log.id}}">
+                            <button name="edit" class="btnUpdate">Update</button>
+                        </router-link>
+                            <button name="delete" class="btnDelete" @click="deleteMenu(log.id)">Delete</button>
                     </td>
                 </tr>     
             </table>
@@ -38,7 +42,7 @@ mounted(){
 methods:{
     async fetchData(){
         try{
-            const res = await axios.get('OwnerManager/allmenu');
+            const res = await axios.get('OwnerManager/allmenuowner');
             if(res.data.data == null){
                 alert("Menu Empty")
             }else{
