@@ -30,18 +30,22 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  position: relative;
-  width: 100%;
-}
+  #app {
+    position: relative;
+    width: 100%;
+  }
 
-.slide-in-enter {
-  opacity: 0;
-  transform: scale(0.5);
-}
+  .grid-wrapper{
+    margin-left: 0%;
+  }
 
-.slide-in-enter-active {
-  transition: all 0.4s ease;
-  transition-delay: calc(0.1s * var(--i));
-}
+  .slide-in-enter {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  .slide-in-enter-active {
+    transition: all 0.4s ease;
+    transition-delay: calc(0.1s * var(--i));
+  }
 </style>

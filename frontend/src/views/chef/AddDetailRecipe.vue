@@ -9,7 +9,7 @@
                     <div class="description">
                         <b><label for="desc" class="labeldesc">Menu Food</label></b>
                         <select v-model= "recipe" class="isidescription">
-                            <option v-for="recipe in data" :key="recipe.id" v-bind:value ="recipe.id">{{recipe.description}}</option>
+                            <option v-for="recipe in data2" :key="recipe.id" v-bind:value ="recipe.id">{{recipe.description}}</option>
                         </select>
                     </div>
                     <div class="materialname">
@@ -20,48 +20,31 @@
                     </div>
                     <div class="qty">
                         <b><label for="Quantity">Quantity Material</label></b>
-                        <input type = "number" v-model = "quantity" class = "isiquantity" min="10" max="100"><br>
+                        <input type = "number" v-model = "quantity" class = "isiquantity" min="1" max="1000"><br>
                     </div>
                     <div class="unt">
                         <b><label for="unit" class="labelunit">Unit</label></b>
-                        <input type="text" required v-model="unit" class="isiunit"><br>
+                        <select v-model = "unit" class="isiunit">
+                            <option v-for="unit in items" :key="unit.unit_name" v-bind:value ="unit.unit_name">{{unit.unit_name}}</option>
+                        </select>
                     </div>
                     <div class="buttons">
                         <button name="insertrecipedetail" class="btn-insertrecipedetail">Insert</button>
                     </div>
                 </div>
             </form>
-             
         </div>
     </div>
 </template>
 
 <script>
-/*function buildFormData(formData, data, parentKey) {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-        Object.keys(data).forEach(key => {
-        buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-        });
-    } 
-    else {
-        const value = data == null ? '' : data;
-        formData.append(parentKey, value);
-    }
-}
-
-function jsonToFormData(data){
-    const formData = new FormData();
-    buildFormData(formData,data);
-    return formData
-}*/
-
-
 import axios from 'axios'
 export default{
     name : 'AddDetailRecipe',
     data(){
         return{
             data : [],
+            data2 : [],
             quantity : '',
             material : {
                 Name : ''
@@ -70,6 +53,13 @@ export default{
                 description : ''
             },
             unit : '',
+            items: [
+                { unit_name: 'Kg' },
+                { unit_name: 'Gr' },
+                { unit_name: 'Lembar' },
+                { unit_name: 'ML' },
+                { unit_name: 'Ons' },
+            ]
         };
     },
 

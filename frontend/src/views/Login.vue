@@ -24,7 +24,6 @@
               class="is-success"
               v-on:click="submitForm"
               >Login</b-button>
-         
           </center>
         </div>
       </div>
@@ -60,12 +59,12 @@ name: "Sign-Up",
       .then((response) => {
         tipeUser = response.data.userType;
         this.loginService.addToUserType(tipeUser);
-        alert("Login Success,Hello " + this.person.email)
+        alert("Login Success, Hello " + this.person.email)
         this.$router.push({name : 'HomePage'})
         location.replace("/home");
       })
       .catch((error) => {
-          alert("Login Failed")
+          alert("Login Failed!")
           console.log(error);
       });
     },
@@ -77,23 +76,23 @@ name: "Sign-Up",
 </script>
 
 <style>
-.container {
-  width: 450px;
-  height: 100px;
-  margin: 9% auto;
-  background-color: rgba(250, 250, 250, 0.295);
-}
+  .container {
+    width: 450px;
+    height: 100px;
+    margin: 9% auto;
+    background-color: rgba(250, 250, 250, 0.295);
+  }
 
-.bgLogin {
-  background-image: url("../assets/bgLogin.jpg");
-  background-repeat: no-repeat;
-  overflow: hidden;
-  background-size: cover;
-}
+  .bgLogin {
+    background-image: url("../assets/bgLogin.jpg");
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: cover;
+  }
 
-.box1 {
-  background-color: white;
-  margin: 5%;
-  margin-top: 10px;
-}
+  .box1 {
+    background-color: white;
+    margin: 5%;
+    margin-top: 10px;
+  }
 </style>

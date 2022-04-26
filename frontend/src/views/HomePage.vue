@@ -19,33 +19,34 @@ import HomePageInventory from './inventory/InventoryHomePage.vue'
 import HomePageOwner from './owner/OwnerHomePage.vue'
 import Login from "../services/Login";
 
- export default {
-        mounted() {
-            this.fetchData();
-        },
-        data: () => {
-            const data = [];
-            return {
-                userType: null,
-                loginService: new Login(),
-                data,
-            };
-        },
-       
-        components: {
-            HomePageChef,
-            HomePageInventory,
-            HomePageOwner,
-        },
-        methods: {
-            async fetchData() {
-                this.userType = this.loginService.getCurrentUserType();
-                //owner = this.owner
-
-            },
-            async getUserType() {
-                return this.userType;
-            },
-        },
+export default {
+  mounted() {
+    this.fetchData();
+  },
+        
+  data: () => {
+    const data = [];
+    return {
+      userType: null,
+      loginService: new Login(),
+      data,
     };
+  },
+       
+  components: {
+    HomePageChef,
+    HomePageInventory,
+    HomePageOwner,
+  },
+
+  methods: {
+    async fetchData() {
+      this.userType = this.loginService.getCurrentUserType();
+      //owner = this.owner
+    },
+    async getUserType() {
+      return this.userType;
+    },
+  },
+};
 </script>
