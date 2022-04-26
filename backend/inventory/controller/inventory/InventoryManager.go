@@ -15,6 +15,9 @@ func AddNewMaterial(c *gin.Context) {
 	
 	var response model.MaterialResponse
 	errQuery := mtservice.NewMaterialRepository().InsertMaterialServiceDB(c)
+	//model.Material := ExtractMaterialFrom(c)
+	
+	//err := mtservice.CreateMaterial(model.Material)		//mtservice.CreateMaterial(nama, deskripsi, unit)
 
 	if errQuery == nil {
 		response.Message = "Insert Material Success"

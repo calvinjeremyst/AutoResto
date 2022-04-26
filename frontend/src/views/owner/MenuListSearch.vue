@@ -4,12 +4,10 @@
         <center>
         <table>
             <tr>
-                <th>ID</th>
                 <th>Menu Name</th>
                 <th>Price</th>
             </tr>
             <tr v-for="log in data" :key="log.name">
-                <td>{{ log.id }}</td>
                 <td>{{ log.name }}</td>
                 <td>{{ log.price}}</td>
             </tr>

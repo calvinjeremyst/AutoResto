@@ -6,8 +6,8 @@ import (
 
 type RecipeDetail struct {
 	Id       int            `form:"id" json:"id"`
-	Material model.Material `form:"idMaterial" json:"idMaterial"`
-	Recipe   Recipe         `form:"idRecipe" json:"idRecipe"`
-	Quantity int            `form:"quality" json:"quality"`
+	Material model.Material `form:"material" json:"material"`
+	Recipe   Recipe         `form:"recipe" json:"recipe"`
+	Quantity int            `form:"quantity" json:"quantity"`
 	Unit     string         `form:"unit" json:"unit"`
 }

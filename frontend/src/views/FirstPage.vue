@@ -30,38 +30,9 @@ export default {
 </script>
 
 <style scoped>
-.column {
-  padding: 0;
-}
-
-@media screen and (max-width: 667px) {
-  .font {
-    font-size: 25px !important;
-  }
-
-  .hero-body {
-    padding-left: 24px !important;
-  }
-}
-
-@media screen and (min-width: 668px) and (max-width: 1023px) {
-  .font {
-    font-size: 35px !important;
-  }
-
-  .hero-body {
-    padding-left: 36px !important;
-  }
-}
-
 #app {
   position: relative;
   width: 100%;
-}
-.grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
 }
 
 .slide-in-enter {

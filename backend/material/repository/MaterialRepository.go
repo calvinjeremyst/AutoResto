@@ -8,6 +8,7 @@ import (
 
 type MaterialRepository interface {
 	GetMaterialServiceDB() (*sql.Rows, error)
+	GetNameMaterialService()(*sql.Rows,error)
 	SearchMaterialServiceDB() (*sql.Rows, error)
 	InsertMaterialServiceDB(c *gin.Context) error
 	InsertMaterialHelperServiceDB(c *gin.Context) error

@@ -4,6 +4,7 @@ import router from './router/router';
 import Buefy from 'buefy';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
+import Vuetify from 'vuetify'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -14,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(fas, fab);
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 Vue.config.productionTip = false;
+
+Vue.use(Vuetify);
 
 Vue.use(Buefy, {
   defaultIconComponent: 'vue-fontawesome',

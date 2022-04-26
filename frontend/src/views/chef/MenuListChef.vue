@@ -4,12 +4,10 @@
     <center>
       <table>
         <tr>
-          <th>ID Menu</th>
           <th>Nama Menu</th>
           <th>Description</th>
         </tr>
         <tr v-for="log in data" :key="log.id">
-          <td>{{ log.Menu.id }}</td>
           <td>{{ log.Menu.name }}</td>
           <td>{{ log.description }}</td>
         </tr>
@@ -21,29 +19,23 @@
 <script>
 import axios from "axios";
 export default {
-data() {
-    return {
-      data: [],
+  data() {
+      return {
+        data: [],
+      }
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try{
+        const res = await axios.get("/ChefManager/allmenuchef");
+        this.data = res.data.data;
+      }catch(error){
+        console.log(error)
+      }
     }
-},
-mounted() {
-  this.fetchData();
-},
-methods: {
-  async fetchData() {
-    try{
-      const res = await axios.get("/ChefManager/allmenuchef");
-      this.data = res.data.data;
-   }
-    catch(error){
-      console.log(error)
-    }
-
-  }
-},
+  },
 };
 </script>
-
-<style>
-
-</style>

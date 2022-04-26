@@ -4,14 +4,12 @@
     <center>
       <table>
         <tr>
-          <th>ID</th>
           <th>Nama Bahan Baku</th>
           <th>Jumlah</th>
           <th>Satuan</th>
           <th>Data Option</th>
         </tr>
         <tr v-for="log in data" :key="log.Id">
-          <td>{{ log.Id }}</td>
           <td>{{ log.Name }}</td>
           <td>{{ log.Quantity }}</td>
           <td>{{ log.Unit }}</td>

@@ -44,6 +44,15 @@ func (r *MaterialRepo) GetMaterialServiceById(c *gin.Context) (rows *sql.Rows, e
 
 }
 
+func (r *MaterialRepo) GetNameMaterialService() (rows *sql.Rows, err error) {
+	db := conn.Connect()
+	defer db.Close()
+	query := "SELECT id,name FROM material"
+
+	material, err := db.Query(query)
+	return material, err
+}
+
 func (r *MaterialRepo) SearchMaterialServiceDB(c *gin.Context) (rows *sql.Rows, err error) {
 	c.Header("Content-Type", "Application/JSON")
 	db := conn.Connect()
@@ -89,16 +98,16 @@ func (r *MaterialRepo) InsertMaterialServiceDB(c *gin.Context) error {
 
 }
 
-func InsertMaterialServiceJSON(material material.Material)error{
+func InsertMaterialServiceJSON(material material.Material) error {
 	db := conn.Connect()
 	defer db.Close()
 	_, errQuery := db.Exec("INSERT INTO material(name,quantity,unit,id_inventory)VALUES(?,?,?,?)",
-				material.Name,material.Quantity,material.Unit,1)
-	
+		material.Name, material.Quantity, material.Unit, 1)
+
 	return errQuery
 }
 
-func UpdateMaterialServiceJSON(material material.Material,c *gin.Context) error{
+func UpdateMaterialServiceJSON(material material.Material, c *gin.Context) error {
 
 	db := conn.Connect()
 	defer db.Close()
@@ -114,8 +123,6 @@ func UpdateMaterialServiceJSON(material material.Material,c *gin.Context) error{
 	return errQuery
 
 }
-
-
 
 func (r *MaterialRepo) UpdateMaterialServiceDB(c *gin.Context) error {
 	db := conn.Connect()

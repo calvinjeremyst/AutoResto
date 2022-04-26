@@ -6,6 +6,7 @@ import (
 
 	//"strings"
 	conn "github.com/AutoResto/dp/singleton"
+	rcmodel "github.com/AutoResto/recipe/entity"
 	rcrepo "github.com/AutoResto/recipe/repository"
 	"github.com/gin-gonic/gin"
 )
@@ -52,6 +53,18 @@ func (r *RecipeRepo) InsertRecipeDetailService(c *gin.Context) error {
 	return errQuery
 }
 
+func InsertDetailRecipeJSON(recipedt rcmodel.RecipeDetail,c *gin.Context) error{
+	db := conn.Connect()
+	defer db.Close()
+	
+	_,errQuery := db.Exec("INSERT INTO recipedetail(quantity,idMaterialFK,idRecipeFK,unit)VALUES(?,(SELECT id FROM material WHERE name = '"+recipedt.Material.Name+"'),(SELECT id FROM recipe WHERE description = '"+recipedt.Recipe.Description+"'),?)",
+		recipedt.Quantity,
+		recipedt.Unit,
+	)
+
+	return errQuery
+}
+
 func (r *RecipeRepo) SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {
 	db := conn.Connect()
 	defer db.Close()
@@ -61,6 +74,16 @@ func (r *RecipeRepo) SelectMenuRecipeServiceDB(c *gin.Context) (row *sql.Rows, e
 
 	recipe, err := db.Query(query)
 	return recipe, err
+}
+
+func SelectDescAndMaterialNameService(c *gin.Context)(row *sql.Rows,err error){
+	db := conn.Connect()
+	defer db.Close()
+
+	query := "SELECT recipedetail.id,recipe.id,recipe.description,material.id,material.name FROM recipedetail JOIN recipe ON recipe.id = recipedetail.idRecipeFK JOIN material ON material.id = recipedetail.idMaterialFK"
+	recipe,err := db.Query(query)
+
+	return recipe,err
 }
 
 func (r *RecipeRepo) GetAvailabilityMenuDescription(c *gin.Context) (row *sql.Rows, err error) {
@@ -74,6 +97,15 @@ func (r *RecipeRepo) GetAvailabilityMenuDescription(c *gin.Context) (row *sql.Ro
 
 	recipe, err := db.Query(query)
 	return recipe, err
+}
+
+func GetDescriptionService(c *gin.Context)(row *sql.Rows,err error){
+	db := conn.Connect()
+	defer db.Close()
+	query := "SELECT id,description FROM recipe"
+
+	recipe,err := db.Query(query)
+	return recipe,err
 }
 
 func (r *RecipeRepo) SelectAllRecipeServiceDB(c *gin.Context) (row *sql.Rows, err error) {

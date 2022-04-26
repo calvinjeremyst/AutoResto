@@ -1,0 +1,601 @@
+{
+	"info": {
+		"_postman_id": "9d4aa102-a7e4-409f-9b7c-f9ec8527cc6d",
+		"name": "AutoResto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "InventoryManager",
+			"item": [
+				{
+					"name": "Get All Material",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/InventoryManager/allmaterial",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"InventoryManager",
+								"allmaterial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Material",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Daging kambing updated\",\r\n    \"quantity\" : 1000,\r\n    \"unit\" : \"Gr\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/InventoryManager/104",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"InventoryManager",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Material",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n         \"name\": \"Daging xyp\",\r\n          \"quantity\": 10000,\r\n           \"unit\": \"Gr\"\r\n    \r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/InventoryManager/insert",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"InventoryManager",
+								"insert"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "lada",
+									"disabled": true
+								},
+								{
+									"key": "quantity",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "unit",
+									"value": "Gr",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Material",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/InventoryManager/12",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"InventoryManager",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Material By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/InventoryManager/99",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"InventoryManager",
+								"99"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ChefManager",
+			"item": [
+				{
+					"name": "Get Menu Recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/allmenuchef",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"allmenuchef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Detail Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "quantity_recipe",
+									"value": "800",
+									"type": "text"
+								},
+								{
+									"key": "material",
+									"value": "Ayam",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Ayam kecap dengan perasan jeruk nipis",
+									"type": "text"
+								},
+								{
+									"key": "unit_recipe",
+									"value": "Gr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/ChefManager/insertdetailrecipe",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"insertdetailrecipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/alldetailrecipe",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"alldetailrecipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/showmaterialnamedesc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"showmaterialnamedesc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Material Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/showmaterialname",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"showmaterialname"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ChefManager/showdesc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ChefManager",
+								"showdesc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OwnerManager",
+			"item": [
+				{
+					"name": "Get All Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Menu",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/menu/Nasi",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"menu",
+								"Nasi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Material",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/allmaterial",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"allmaterial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Menu ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/allmenuowner",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"allmenuowner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Material",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/material/Ayam",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"material",
+								"Ayam"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Menu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "Ayam kecap dengan per",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Ayam Kecap Spesial padang",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "45000",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/OwnerManager/insertmenu",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"insertmenu"
+							],
+							"query": [
+								{
+									"key": "material_name",
+									"value": "Ketumbar",
+									"disabled": true
+								},
+								{
+									"key": "price",
+									"value": "15000",
+									"disabled": true
+								},
+								{
+									"key": "idRecipeFK",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Menu By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/OwnerManager/showmenu_id/29",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"showmenu_id",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Menu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Menu spesial ABC\",\r\n    \"menu\":{\r\n         \"name\" : \"Menu ABC\",\r\n          \"price\" : 20000\r\n    }\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/OwnerManager/updatemenu/44",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"OwnerManager",
+								"updatemenu",
+								"44"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "email",
+						"value": "calvin@gmail.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "calvin",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"calvin@gmail.com\",\r\n    \"password\":\"calvin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

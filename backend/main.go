@@ -47,8 +47,10 @@ func main() {
 	{
 		ChefManager.GET("/allmenuchef", cf.ShowListMenuChef)  //done
 		ChefManager.GET("/:id", cf.ShowRecipeandMenu) //done
-		ChefManager.POST("/insertdetailrecipe", cf.AddRecipeForEachMaterial)//done
+		ChefManager.POST("/insertdetailrecipe", cf.AddRecipeandMaterial)//done
 		ChefManager.GET("/alldetailrecipe", cf.ShowAllRecipe) //done
+		ChefManager.GET("/showmaterialname",cf.ShowMaterialName)
+		ChefManager.GET("/showdesc",cf.ShowDescription)
 	}
 
 	OwnerManager := router.Group("/OwnerManager")

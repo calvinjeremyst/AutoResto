@@ -6,8 +6,8 @@ import (
 
 	conn "github.com/AutoResto/dp/singleton"
 	menu "github.com/AutoResto/menu/entity"
-	recipe "github.com/AutoResto/recipe/entity"
 	mnrepo "github.com/AutoResto/menu/repository"
+	recipe "github.com/AutoResto/recipe/entity"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,16 +28,15 @@ func (r *MenuRepo) SelectMenuOwnerServiceDB() (row *sql.Rows, err error) {
 	return menu, err
 }
 
-func(r *MenuRepo) SelectMenuChefServiceDB()(row *sql.Rows, err error){
+func (r *MenuRepo) SelectMenuChefServiceDB() (row *sql.Rows, err error) {
 
 	db := conn.Connect()
 	defer db.Close()
 
-	query := "SELECT menu.id,menu.price,recipe.description FROM menu JOIN recipe ON recipe.id = menu.idRecipeFK"
-	menu,err := db.Query(query)
-	return menu,err
+	query := "SELECT menu.id,menu.name,recipe.description FROM menu JOIN recipe ON recipe.id = menu.idRecipeFK"
+	menu, err := db.Query(query)
+	return menu, err
 }
-
 
 //Search Menu Service
 func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error) {
@@ -52,14 +51,14 @@ func (r *MenuRepo) SearchMenuServiceDB(c *gin.Context) (row *sql.Rows, err error
 	return menu, err
 }
 
-func (r *MenuRepo) GetMenuDetailByIdService(c *gin.Context)(row *sql.Rows, err error){
+func (r *MenuRepo) GetMenuDetailByIdService(c *gin.Context) (row *sql.Rows, err error) {
 	db := conn.Connect()
 	defer db.Close()
 
 	id := c.Param("id")
-	query := "SELECT menu.name,menu.price,recipe.description FROM menu JOIN recipe ON recipe.id = menu.idRecipeFK WHERE recipe.id = '"+id+"'"
-	menu,err := db.Query(query)
-	return menu,err
+	query := "SELECT menu.name,menu.price,recipe.description FROM menu JOIN recipe ON recipe.id = menu.idRecipeFK WHERE recipe.id = '" + id + "'"
+	menu, err := db.Query(query)
+	return menu, err
 }
 
 //Get Availability Menu,utk cek apakah sudah ada / belum
@@ -81,7 +80,9 @@ func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
 	menuId := c.Param("menu_id")
 	name := c.PostForm("name")
 	price, _ := strconv.ParseFloat(c.PostForm("price"), 32)
+
 	var menu menu.Menu
+
 	// Jika kosong dimasukkan nilai lama
 	if name == "" {
 		name = menu.Name
@@ -99,13 +100,13 @@ func (r *MenuRepo) UpdateMenuServiceDB(c *gin.Context) error {
 	return errQuery
 }
 
-func (r *MenuRepo)UpdateDetailMenuService(detailmenu recipe.Recipe,c *gin.Context) error{
+func (r *MenuRepo) UpdateDetailMenuService(detailmenu recipe.Recipe, c *gin.Context) error {
 	db := conn.Connect()
 	defer db.Close()
 
 	id := c.Param("id")
 
-	_,query := db.Exec("UPDATE menu JOIN recipe ON recipe.id = menu.idRecipeFK SET menu.name = ?, menu.price = ?,recipe.description = ? WHERE recipe.id = ?",
+	_, query := db.Exec("UPDATE menu JOIN recipe ON recipe.id = menu.idRecipeFK SET menu.name = ?, menu.price = ?,recipe.description = ? WHERE recipe.id = ?",
 		detailmenu.Menu.Name,
 		detailmenu.Menu.Price,
 		detailmenu.Description,
@@ -118,6 +119,7 @@ func (r *MenuRepo)UpdateDetailMenuService(detailmenu recipe.Recipe,c *gin.Contex
 func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
 	db := conn.Connect()
 	defer db.Close()
+
 	name := c.PostForm("name")
 	price, _ := strconv.Atoi(c.PostForm("price"))
 	description := c.PostForm("description")
@@ -133,10 +135,12 @@ func (r *MenuRepo) InsertMenuService(c *gin.Context) error {
 func (r *MenuRepo) DeleteMenuServiceDB(c *gin.Context) error {
 	db := conn.Connect()
 	defer db.Close()
+
 	menuId := c.Param("menu_id")
 
 	_, errQuery := db.Exec("DELETE FROM recipe WHERE id=?",
 		menuId,
 	)
+
 	return errQuery
 }

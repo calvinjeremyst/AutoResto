@@ -4,7 +4,7 @@
         <center>
         <table>
             <tr>
-                <th>ID</th>
+                <th>Number</th>
                 <th>Nama Bahan Baku</th>
                 <th>Jumlah</th>
                 <th>Satuan</th>
