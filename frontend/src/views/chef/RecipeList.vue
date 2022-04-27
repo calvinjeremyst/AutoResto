@@ -4,13 +4,15 @@
     <center>
       <table>
         <tr>
+          <th> No</th>
           <th>Description</th>
           <th>ID Material</th>
           <th>Material Name</th>
           <th>Quantity</th>
           <th>Unit</th>
         </tr>
-        <tr v-for="log in data" :key="log.id">
+        <tr v-for="(log, index) in data" :key="log.id">
+          <td>{{ index + 1}}</td>
           <td>{{ log.recipe.description }}</td>
           <td>{{log.material.Id}}</td>
           <td>{{ log.material.Name }}</td>

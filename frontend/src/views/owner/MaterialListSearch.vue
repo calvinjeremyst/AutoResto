@@ -4,12 +4,13 @@
         <center>
         <table>
             <tr>
-                <th>Number</th>
+                <th>Nomor</th>
                 <th>Nama Bahan Baku</th>
                 <th>Jumlah</th>
                 <th>Satuan</th>
             </tr>
-            <tr v-for="log in data" :key="log.Name">
+            <tr v-for="(log, index) in data" :key="log.Name">
+                <td>{{ index + 1}}</td>
                 <td>{{ log.Id }}</td>
                 <td>{{ log.Name }}</td>
                 <td>{{ log.Quantity }}</td>

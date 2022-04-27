@@ -16,7 +16,10 @@
                 </div>
                 <div class="unitdiv">
                     <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model = "unit" class = "isiunit" id = "unit" required><br>
+                    <!-- <input type = "text" v-model = "unit" class = "isiunit" id = "unit" required><br> -->
+                    <select v-model = "unit" class="isiunit" id = "unit">
+                        <option v-for="unit in items" :key="unit.unit_name" v-bind:value ="unit.unit_name">{{unit.unit_name}}</option>
+                    </select>
                 </div>
             </div>
             <button name = "insertmaterial" class = "btninsert">Insert</button>
@@ -33,7 +36,15 @@
             return {
                 name: '',
                 quantity : 0,
-                unit: '',        
+                unit: '',   
+            items: [
+                { unit_name: 'Kg' },
+                { unit_name: 'Gr' },
+                { unit_name: 'Lembar' },
+                { unit_name: 'ML' },
+                { unit_name: 'Ons' },
+                { unit_name: 'Biji' },
+            ]     
             };
         },
         methods:{

@@ -10,8 +10,7 @@
         <b-icon pack="fas" icon="user" size="is-small" type="is-primary">
         </b-icon>
         <span style="margin-left: 0.5rem" v-on:click="logout"
-          ><button class="btn">Logout</button></span
-        >
+          ><button class="btn">Logout</button></span>
       </b-navbar-item>
     </template>
   </b-navbar>

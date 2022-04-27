@@ -5,22 +5,26 @@
             <div class="headcard" style="padding :1rem">
                 <h2 class = "title">Update Material</h2>
             </div>
+            <div class="cardbody">
                 <div class = "namemtdiv" style = "padding : 2rem">
-                    <b><label for = "name" class = "materialname" style = "text-size:25px">Name:</label></b>
+                    <b><label for = "name" class = "materialname" style = "text-size:25px">Name</label></b>
                        <input type = "name" v-model ="Name" class = "isiname" id = "name"><br>
                 </div>
                 <div class="qtymtdiv" style = "padding : 2rem">
-                    <b><label for = "quantity" class = "materialquantity">Quantity:</label></b>
+                    <b><label for = "quantity" class = "materialquantity" style = "padding-right : 4rem">Quantity</label></b>
                     <input type = "number" v-model ="Quantity" class = "isiquty" id = "quantity"><br>
                 </div>
                 <div class="unitdiv" style="padding : 2rem">
-                    <b><label for = "unit" class = "materialunit">Unit:</label></b>
-                    <input type = "text" v-model ="Unit" class = "isiunit" id = "unit"><br>
+                    <b><label for = "unit" class = "materialunit">Unit</label></b>
+                    <select v-model = "Unit" class="isiunit" id = "unit">
+                        <option v-for="Unit in items" :key="Unit.unit_name" v-bind:value ="Unit.unit_name">{{Unit.unit_name}}</option>
+                    </select>
                 </div>
            
                 <div class="buttons"> 
                     <button name = "insertmaterial" class = "btninsert">Edit</button>
                 </div>
+            </div>
         </form>
     </div>
 </div>
@@ -36,6 +40,14 @@ export default{
             Name : '',
             Quantity : '',
             Unit : '',
+            items: [
+                { unit_name: 'Kg' },
+                { unit_name: 'Gr' },
+                { unit_name: 'Lembar' },
+                { unit_name: 'ML' },
+                { unit_name: 'Ons' },
+                { unit_name: 'Biji' },
+            ]
         }
     },
     mounted(){

@@ -59,6 +59,7 @@ export default{
                 { unit_name: 'Lembar' },
                 { unit_name: 'ML' },
                 { unit_name: 'Ons' },
+                { unit_name: 'Biji' },
             ]
         };
     },

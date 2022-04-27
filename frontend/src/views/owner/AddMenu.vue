@@ -16,7 +16,7 @@
                     </div>
                     <div class="price">
                         <b><label for="price" class="label_price">Price</label></b>
-                        <input type="text" v-model="data.price" class="isiprice" required><br>
+                        <input type="number" v-model="data.price" class="isiprice" required><br>
                     </div>
                     <button name="insertmenu" class="btn-insertmenu">Insert</button>
                 </div>
@@ -71,6 +71,7 @@ export default{
         }
     }
 };
+
 
 </script>
 

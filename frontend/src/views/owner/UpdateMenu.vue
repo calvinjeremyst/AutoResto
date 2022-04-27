@@ -19,7 +19,7 @@
 
                     <div class="price">
                         <b><label for="price">Price</label></b>
-                        <input type="text" v-model="menu.price" class="isiprice" required><br>
+                        <input type="number" v-model="menu.price" class="isiprice" required><br>
                     </div>
                     <div class="buttons">
                         <button name="insertmenu" class="btn-insertmenu">Insert</button>
